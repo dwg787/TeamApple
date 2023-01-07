@@ -1,3 +1,9 @@
+import { View, Text } from "react-native";
+
 export default function Login() {
-  return <div>Login</div>;
+  return (
+    <View>
+      <Text>Login</Text>
+    </View>
+  );
 }
