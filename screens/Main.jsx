@@ -1,3 +1,9 @@
+import { View, Text } from "react-native";
+
 export default function Main() {
-  return <div>Main</div>;
+  return (
+    <View>
+      <Text>Main</Text>
+    </View>
+  );
 }

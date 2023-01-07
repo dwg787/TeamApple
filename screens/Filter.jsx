@@ -1,3 +1,9 @@
+import { View, Text } from "react-native";
+
 export default function Filter() {
-  return <div>Filter</div>;
+  return (
+    <View>
+      <Text>Filter</Text>
+    </View>
+  );
 }

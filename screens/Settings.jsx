@@ -1,3 +1,9 @@
+import { View, Text } from "react-native";
+
 export default function Settings() {
-  return <div>Settings</div>;
+  return (
+    <View>
+      <Text>Settings</Text>
+    </View>
+  );
 }

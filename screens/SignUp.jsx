@@ -1,3 +1,7 @@
 export default function SignUp() {
-  return <div>SignUp</div>;
+  return (
+    <View>
+      <Text>SignUp</Text>
+    </View>
+  );
 }

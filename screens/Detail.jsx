@@ -1,3 +1,9 @@
+import { View, Text } from "react-native";
+
 export default function Detail() {
-  return <div>Detail</div>;
+  return (
+    <View>
+      <Text>Detail</Text>
+    </View>
+  );
 }
