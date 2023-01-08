@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
 
-export default function Login() {
+export default function Login({navigation}) {
   return (
     <View>
-      <Text>Login</Text>
+      <Text onPress ={()=> navigation.navigate('Login')}>Login</Text>
     </View>
   );
 }

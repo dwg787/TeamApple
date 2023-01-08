@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
 
-export default function Settings() {
+export default function Settings({navigation}) {
   return (
     <View>
-      <Text>Settings</Text>
+      <Text onPress ={()=> navigation.navigate('Settings')}>Settings</Text>
     </View>
   );
 }

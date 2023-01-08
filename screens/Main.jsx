@@ -1,9 +1,14 @@
 import { View, Text } from "react-native";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function Main() {
+// const Stack = createNativeStackNavigator();
+
+export default function Main({navigation}) {
   return (
-    <View>
-      <Text>Main</Text>
+    
+    <View>  
+      {/* <Stack.Screen name="Stacks" component={Main} /> */}
+    
     </View>
   );
 }
