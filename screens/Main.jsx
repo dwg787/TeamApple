@@ -1,4 +1,3 @@
-
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useQuery } from "react-query";
@@ -11,37 +10,36 @@ export default function Main() {
 
   if (!isLoading) {
     const detailData = data.response.body.items.item;
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Detail", {
+              params: { data: detailData },
+            })
+          }
+        >
+          <Text>Main</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Detail", {
+              params: { data: detailData },
+            })
+          }
+        >
+          <Text>Main</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Detail", {
+              params: { data: detailData },
+            })
+          }
+        >
+          <Text>Main</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
-
-  return (
-    <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigate("Detail", {
-            params: { data: detailData },
-          })
-        }
-      >
-        <Text>Main</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigate("Detail", {
-            params: { data: detailData },
-          })
-        }
-      >
-        <Text>Main</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigate("Detail", {
-            params: { data: detailData },
-          })
-        }
-      >
-        <Text>Main</Text>
-      </TouchableOpacity>
-    </View>
-  );
 }

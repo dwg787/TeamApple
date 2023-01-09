@@ -5,7 +5,6 @@ import Login from "../screens/Login";
 import Detail from "../screens/Detail";
 import Main from "../screens/Main";
 import { AntDesign } from "@expo/vector-icons";
-import Detail from "../screens/Detail";
 import { ORANGE_COLOR, BLUE_COLOR } from "../colors";
 
 const Stack = createNativeStackNavigator();

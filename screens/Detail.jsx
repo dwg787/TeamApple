@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView, useColorScheme } from "react-
 import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { useState } from "react";
+import Details from "../components/Han/Details";
 import Review from "./Review";
 
 export default function Detail() {
@@ -30,30 +31,33 @@ export default function Detail() {
   //4. 그 다음 flatlist로 만들기
   //5. swiper deledte 버튼 만들기
   return (
-    <Container>
-      <TitleWrapper style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}>
-        <SectionTitle>문의</SectionTitle>
-      </TitleWrapper>
-      <ReviewContainer>
-        <AddReview onPress={handleAdding}>
-          <TempText>문의 사항 입력하기</TempText>
-        </AddReview>
-        <ScrollView>
-          {reviews.map((review) => (
-            <TouchableOpacity key={review.id}>
-              <ReviewWrapper>
-                <ReviewId>{review.id}</ReviewId>
-                <ReviewContent>{review.contents}</ReviewContent>
-              </ReviewWrapper>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </ReviewContainer>
-      <Review isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setReviews={setReviews} />
-    </Container>
+    <>
+      <Container>
+        <Details />
+        <TitleWrapper style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}>
+          <SectionTitle>문의</SectionTitle>
+        </TitleWrapper>
+        <ReviewContainer>
+          <AddReview onPress={handleAdding}>
+            <TempText>문의 사항 입력하기</TempText>
+          </AddReview>
+          <ScrollView>
+            {reviews.map((review) => (
+              <TouchableOpacity key={review.id}>
+                <ReviewWrapper>
+                  <ReviewId>{review.id}</ReviewId>
+                  <ReviewContent>{review.contents}</ReviewContent>
+                </ReviewWrapper>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </ReviewContainer>
+        <Review isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setReviews={setReviews} />
+      </Container>
+    </>
   );
 }
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
 `;
 const TitleWrapper = styled.View`

@@ -126,7 +126,7 @@ export default function Details() {
   );
 }
 
-const ScrollWrap = styled.ScrollView`
+const ScrollWrap = styled.View`
   padding: 5%;
 `;
 
@@ -137,11 +137,12 @@ const DetailImage = styled.Image`
   margin-bottom: 5%;
 `;
 
-const DetailMainWrap = styled.ScrollView`
+const DetailMainWrap = styled.View`
   padding: 5% 7%;
   background-color: white;
   border-radius: 10%;
-  height: ${SCREEN_HEIGHT / 2.5 + "px"};
+  height: ${SCREEN_HEIGHT / 2 + "px"};
+  margin-bottom: 20px;
 `;
 
 const DetailTextWrap = styled.View`
