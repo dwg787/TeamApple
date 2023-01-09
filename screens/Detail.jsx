@@ -9,16 +9,7 @@ export default function Detail() {
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  // const newReview = {
-  //   id: Date.now(),
-  //   contents: modalContent,
-  // };
-
-  // const addReview = () => {
-  //   setReviews((prev) => [...prev, newReview]);
-  //   setModalContent("");
-  //   setIsOpenModal(false);
-  // };
+  console.log(reviews);
 
   const handleAdding = () => {
     setIsOpenModal(true);
@@ -91,7 +82,7 @@ const TempText = styled.Text`
   color: ${(props) => props.theme.text};
 `;
 const ReviewWrapper = styled.View`
-  flex: 1;
+  /* flex: 1; */
   flex-direction: row;
   align-items: center;
   padding: 20px;

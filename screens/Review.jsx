@@ -3,7 +3,6 @@ import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { BLUE_COLOR } from "../colors";
 import { View } from "react-native";
-import Detail from "./Detail";
 
 export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
   const [modalContent, setModalContent] = useState("");
@@ -20,7 +19,7 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
   };
 
   return (
-    <Modal visible={isOpenModal} onBackdropPress={() => setIsOpenModal(false)} onRequestClose={() => setIsOpenModal(false)} transparent={true} animationType='slide' swipeDirection='down'>
+    <Modal visible={isOpenModal} onRequestClose={() => setIsOpenModal(false)} transparent={true} animationType='slide' swipeDirection='down'>
       <Backdrop>
         <Dialog>
           <InputWrapper>
@@ -70,12 +69,12 @@ const BtnWrapper2 = styled.View`
 const ModalBtn = styled.Button`
   background-color: white;
 `;
-const InputWrapper = styled.View``;
+const InputWrapper = styled.KeyboardAvoidingView``;
 
 const Backdrop = styled.View`
   flex: 1;
-  justify-content: flex-start;
-  /* justify-content: center; */
+  /* justify-content: flex-start; */
+  justify-content: center;
   align-items: center;
 `;
 const Dialog = styled.KeyboardAvoidingView`

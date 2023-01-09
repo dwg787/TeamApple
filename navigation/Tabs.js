@@ -18,8 +18,6 @@ export default function Tabs({ navigation: { goBack } }) {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          borderTopWidth: "1px",
-          borderTopColor: "E9E9E9",
           backgroundColor: "#F19936",
         },
         tabBarActiveTintColor: "#ffffff",
