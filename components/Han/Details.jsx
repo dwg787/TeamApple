@@ -1,5 +1,4 @@
 import styled from "@emotion/native";
-import { ScrollView } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 

@@ -26,7 +26,13 @@ export default function Stacks({ navigation: { goBack } }) {
         name="Main"
         component={Main}
       />
-      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen
+        options={{
+          title: "정보",
+        }}
+        name="Detail"
+        component={Detail}
+      />
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
