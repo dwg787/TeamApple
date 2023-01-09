@@ -1,4 +1,5 @@
 import React from "react";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text, TouchableOpacity } from "react-native";
 import Stacks from "./Stacks";
@@ -13,7 +14,7 @@ export default function Root() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name='Tabs' component={Tabs} />
     </Stack.Navigator>
   );
 }

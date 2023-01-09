@@ -91,12 +91,12 @@ const BtnWrapper2 = styled.View`
 const ModalBtn = styled.Button`
   background-color: white;
 `;
-const InputWrapper = styled.View``;
+const InputWrapper = styled.KeyboardAvoidingView``;
 
 const Backdrop = styled.View`
   flex: 1;
-  justify-content: flex-start;
-  /* justify-content: center; */
+  /* justify-content: flex-start; */
+  justify-content: center;
   align-items: center;
 `;
 const Dialog = styled.KeyboardAvoidingView`
