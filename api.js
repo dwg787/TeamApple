@@ -15,6 +15,6 @@ const API_KEY =
 
 export const getDetail = () => {
   return fetch(
-    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=100&serviceKey=${API_KEY}&_type=json`
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=10&serviceKey=${API_KEY}&_type=json`
   ).then((res) => res.json());
 };
