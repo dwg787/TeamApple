@@ -1,4 +1,12 @@
-// 다크모드, 라이트모드 설정 파일
+import { ORANGE_COLOR, BLUE_COLOR } from "./colors";
 
-export const lightTheme = {};
-export const darkTheme = {};
+export const lightTheme = {
+  headercolor: BLUE_COLOR,
+  text: "black",
+  buttonText: "white",
+};
+export const darkTheme = {
+  headercolor: ORANGE_COLOR,
+  text: "white",
+  buttonText: "white",
+};

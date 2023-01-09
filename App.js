@@ -1,12 +1,7 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-} from "@react-navigation/native";
+import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 import { ThemeProvider } from "@emotion/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-
 import Root from "./navigation/Root";
 import { darkTheme, lightTheme } from "./theme";
 
