@@ -24,7 +24,6 @@ const SelectKindBtn = styled.TouchableOpacity`
   padding: 10px 15px;
   border-radius: 5px;
   align-items: center;
-  /* border-color: ${(props) => props.theme.color.title}; */
 `;
 
 const KindText = styled.Text`

@@ -1,24 +1,22 @@
-import { View, Text, TouchableOpacity, ScrollView, useColorScheme } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useColorScheme,
+} from "react-native";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
 
-export default function Detail() {
+export default function Detail({ route: { params } }) {
+  console.log(params);
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  // const newReview = {
-  //   id: Date.now(),
-  //   contents: modalContent,
-  // };
-
-  // const addReview = () => {
-  //   setReviews((prev) => [...prev, newReview]);
-  //   setModalContent("");
-  //   setIsOpenModal(false);
-  // };
+  console.log(reviews);
 
   const handleAdding = () => {
     setIsOpenModal(true);
@@ -34,7 +32,9 @@ export default function Detail() {
     <>
       <Container>
         <Details />
-        <TitleWrapper style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}>
+        <TitleWrapper
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+        >
           <SectionTitle>문의</SectionTitle>
         </TitleWrapper>
         <ReviewContainer>
@@ -52,7 +52,11 @@ export default function Detail() {
             ))}
           </ScrollView>
         </ReviewContainer>
-        <Review isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setReviews={setReviews} />
+        <Review
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          setReviews={setReviews}
+        />
       </Container>
     </>
   );
@@ -91,7 +95,7 @@ const TempText = styled.Text`
   color: ${(props) => props.theme.text};
 `;
 const ReviewWrapper = styled.View`
-  flex: 1;
+  /* flex: 1; */
   flex-direction: row;
   align-items: center;
   padding: 20px;

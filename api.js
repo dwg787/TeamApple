@@ -19,3 +19,12 @@ export const fetchData = async ({ pageParam = 1 }) => {
     `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
   );
 };
+// desertionNo
+
+// 디테일 json이 없으므로 params or props로 데이터를 넘겨줘야 한다.
+
+export const getDetail = () => {
+  return fetch(
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=10&serviceKey=${API_KEY}&_type=json`
+  ).then((res) => res.json());
+};
