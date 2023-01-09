@@ -19,11 +19,11 @@ import { useEffect } from 'react';
 export default function Filter({ navigation }) {
   const { navigate } = useNavigation();
 
-  useEffect(() => {
-    navigation.getParent().setOptions({
-      tabBarStyle: { display: 'none' },
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigation.getParent().setOptions({
+  //     tabBarStyle: { display: 'none' },
+  //   });
+  // }, []);
 
   const {
     data: rawData,
