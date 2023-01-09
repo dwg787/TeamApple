@@ -12,33 +12,18 @@ export default function Main() {
     const detailData = data.response.body.items.item;
     return (
       <View>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Detail", {
-              params: { data: detailData },
-            })
-          }
-        >
-          <Text>Main</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Detail", {
-              params: { data: detailData },
-            })
-          }
-        >
-          <Text>Main</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Detail", {
-              params: { data: detailData },
-            })
-          }
-        >
-          <Text>Main</Text>
-        </TouchableOpacity>
+        {detailData.map((item) => (
+          <TouchableOpacity
+            key={item.desertionNo}
+            onPress={() =>
+              navigate("Detail", {
+                params: { data: item },
+              })
+            }
+          >
+            <Text>{item.desertionNo}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }

@@ -19,20 +19,42 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
   };
 
   return (
-    <Modal visible={isOpenModal} onRequestClose={() => setIsOpenModal(false)} transparent={true} animationType='slide' swipeDirection='down'>
+    <Modal
+      visible={isOpenModal}
+      onBackdropPress={() => setIsOpenModal(false)}
+      onRequestClose={() => setIsOpenModal(false)}
+      transparent={true}
+      animationType="slide"
+      swipeDirection="down"
+    >
       <Backdrop>
         <Dialog>
           <InputWrapper>
             <ModalTitle>애플펫에 무엇이든 물어보세요!</ModalTitle>
             <ModalTitle>내용</ModalTitle>
-            <ContentInput textAlignVertical='top' value={modalContent} onChangeText={setModalContent} multiline maxLength={300} />
+            <ContentInput
+              textAlignVertical="top"
+              value={modalContent}
+              onChangeText={setModalContent}
+              multiline
+              maxLength={300}
+            />
           </InputWrapper>
           <Row style={{ justifyContent: "space-between" }}>
             <BtnWrapper>
-              <ModalBtn onPress={() => setIsOpenModal(false)} title='취소' color='#f19936' />
+              <ModalBtn
+                onPress={() => setIsOpenModal(false)}
+                title="취소"
+                color="#f19936"
+              />
             </BtnWrapper>
             <BtnWrapper2>
-              <ModalBtn disabled={!modalContent} onPress={addReview} title='완료' color='white' />
+              <ModalBtn
+                disabled={!modalContent}
+                onPress={addReview}
+                title="완료"
+                color="white"
+              />
             </BtnWrapper2>
           </Row>
         </Dialog>
