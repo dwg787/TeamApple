@@ -1,3 +1,4 @@
+
 import styled from "@emotion/native";
 import { View, Text } from "react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils";
