@@ -1,23 +1,68 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Main from "../screens/Main";
+import Stacks from "./Stacks";
+import Favorites from "../screens/Favorites";
+import Settings from "../screens/Settings";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs() {
+export default function Tabs({ navigation: { goBack } }) {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelPosition: "beside-icon",
+        tabBarStyle: {
+          borderTopWidth: "1px",
+          borderTopColor: "E9E9E9",
+          backgroundColor: "#F19936",
+        },
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "#222222",
+        headerTitleAlign: "center",
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              color="black"
+              style={{ marginLeft: 16 }}
+            />
+          </TouchableOpacity>
+        ),
       }}
-      sceneContainerStyle={{ backgroundColor: "white" }}
     >
       <Tab.Screen
         options={{
-          title: "Main",
-          tabBarLabel: "Main",
+          headerShown: false,
+          tabBarIcon: ({ size }) => <Entypo name="github" size={size} />,
         }}
-        name="Main"
-        component={Main}
+        name="Stacks"
+        component={Stacks}
+      />
+      <Tab.Screen
+        options={{
+          title: "관심동물",
+          tabBarLabel: "관심동물",
+          tabBarIcon: ({ size }) => (
+            <Ionicons name="heart-outline" size={size} />
+          ),
+        }}
+        name="Favorites"
+        component={Favorites}
+      />
+      <Tab.Screen
+        options={{
+          title: "설정",
+          tabBarLabel: "설정",
+          tabBarIcon: ({ size }) => (
+            <SimpleLineIcons name="settings" size={size} />
+          ),
+        }}
+        name="Settings"
+        component={Settings}
       />
     </Tab.Navigator>
   );

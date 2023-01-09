@@ -13,7 +13,6 @@ export default function Root() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Stacks" component={Stacks} />
       <Stack.Screen name="Tabs" component={Tabs} />
     </Stack.Navigator>
   );
