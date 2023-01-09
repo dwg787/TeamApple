@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -11,15 +11,22 @@ import {
 import styled from '@emotion/native';
 
 export default function LocationList({ loc }) {
+  const [isClicked, setIsClicked] = useState(false);
   const { navigate } = useNavigation();
+
+  console.log(isClicked);
+
+  const handleIsClicked = () => {
+    setIsClicked(!isClicked);
+  };
+
   console.log('loc??', loc);
 
   return (
     <View>
       <SelectLocationBtn
-      // onPress={() =>
-
-      // }
+        onPress={handleIsClicked}
+        style={{ backgroundColor: isClicked ? '#f19936' : 'white' }}
       >
         <View>
           <LocationText>{loc}</LocationText>
@@ -31,7 +38,6 @@ export default function LocationList({ loc }) {
   );
 }
 
-// 0C68F2
 const SelectLocationBtn = styled.TouchableOpacity`
   /* width: 100; */
   background-color: #f19936;
@@ -43,5 +49,5 @@ const SelectLocationBtn = styled.TouchableOpacity`
 const LocationText = styled.Text`
   font-size: 20px;
   color: ${(props) => props.theme.upcomingText};
-  color: white;
+  color: black;
 `;

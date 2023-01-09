@@ -31,7 +31,14 @@ export default function Stacks({ navigation: { goBack } }) {
       }}
       sceneContainerStyle={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}
     >
-      <Stack.Screen name='Filter' component={Filter} />
+      <Stack.Screen
+        options={{
+          title: 'Filter',
+          headerShown: false,
+        }}
+        name='Filter'
+        component={Filter}
+      />
       <Stack.Screen
         options={{
           title: '유기동물',

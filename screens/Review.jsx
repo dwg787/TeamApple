@@ -1,11 +1,11 @@
-import { useState } from "react";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { BLUE_COLOR } from "../colors";
-import { View } from "react-native";
+import { useState } from 'react';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
+import { BLUE_COLOR } from '../colors';
+import { View } from 'react-native';
 
-export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
-  const [modalContent, setModalContent] = useState("");
+export default function Review({ isOpenModal, setIsOpenModal }) {
+  const [modalContent, setModalContent] = useState('');
 
   const newReview = {
     id: Date.now(),
@@ -14,7 +14,7 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
 
   const addReview = () => {
     setReviews((prev) => [...prev, newReview]);
-    setModalContent("");
+    setModalContent('');
     setIsOpenModal(false);
   };
 
@@ -24,8 +24,8 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
       onBackdropPress={() => setIsOpenModal(false)}
       onRequestClose={() => setIsOpenModal(false)}
       transparent={true}
-      animationType="slide"
-      swipeDirection="down"
+      animationType='slide'
+      swipeDirection='down'
     >
       <Backdrop>
         <Dialog>
@@ -33,27 +33,27 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
             <ModalTitle>애플펫에 무엇이든 물어보세요!</ModalTitle>
             <ModalTitle>내용</ModalTitle>
             <ContentInput
-              textAlignVertical="top"
+              textAlignVertical='top'
               value={modalContent}
               onChangeText={setModalContent}
               multiline
               maxLength={300}
             />
           </InputWrapper>
-          <Row style={{ justifyContent: "space-between" }}>
+          <Row style={{ justifyContent: 'space-between' }}>
             <BtnWrapper>
               <ModalBtn
                 onPress={() => setIsOpenModal(false)}
-                title="취소"
-                color="#f19936"
+                title='취소'
+                color='#f19936'
               />
             </BtnWrapper>
             <BtnWrapper2>
               <ModalBtn
                 disabled={!modalContent}
                 onPress={addReview}
-                title="완료"
-                color="white"
+                title='완료'
+                color='white'
               />
             </BtnWrapper2>
           </Row>

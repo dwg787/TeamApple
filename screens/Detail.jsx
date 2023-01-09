@@ -4,19 +4,29 @@ import {
   TouchableOpacity,
   ScrollView,
   useColorScheme,
-} from "react-native";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { useState } from "react";
-import Details from "../components/Han/Details";
-import Review from "./Review";
+} from 'react-native';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
+import { useState } from 'react';
+import Details from '../components/Han/Details';
+import Review from './Review';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Detail({ route: { params } }) {
   console.log(params);
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  console.log(reviews);
+  // const newReview = {
+  //   id: Date.now(),
+  //   contents: modalContent,
+  // };
+
+  // const addReview = () => {
+  //   setReviews((prev) => [...prev, newReview]);
+  //   setModalContent('');
+  //   setIsOpenModal(false);
+  // };
 
   const handleAdding = () => {
     setIsOpenModal(true);
@@ -33,7 +43,7 @@ export default function Detail({ route: { params } }) {
       <Container>
         <Details />
         <TitleWrapper
-          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+          style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
         >
           <SectionTitle>문의</SectionTitle>
         </TitleWrapper>
