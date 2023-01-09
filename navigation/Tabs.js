@@ -4,16 +4,16 @@ import Favorites from "../screens/Favorites";
 import Settings from "../screens/Settings";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useColorScheme } from "react-native";
-import { DARK_COLOR } from "../colors";
+import { BLUE_COLOR, DARK_COLOR, ORANGE_COLOR } from "../colors";
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs({ navigation: { goBack } }) {
   const isDark = useColorScheme() === "dark";
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -23,38 +23,53 @@ export default function Tabs({ navigation: { goBack } }) {
         tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "#222222",
         headerTitleAlign: "center",
+        headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
-            <AntDesign name='left' size={24} color='black' style={{ marginLeft: 16 }} />
+            <AntDesign
+              name="left"
+              size={24}
+              style={{
+                marginLeft: 16,
+                color: isDark ? ORANGE_COLOR : BLUE_COLOR,
+              }}
+            />
           </TouchableOpacity>
         ),
       }}
-      sceneContainerStyle={{ backgroundColor: DARK_COLOR }}
+      sceneContainerStyle={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
     >
       <Tab.Screen
         options={{
+          tabBarLabel: "유기동물",
           headerShown: false,
-          tabBarIcon: ({ size }) => <Entypo name='github' size={size} />,
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="paw-sharp" size={24} color={color} />
+          ),
         }}
-        name='Stacks'
+        name="Stacks"
         component={Stacks}
       />
       <Tab.Screen
         options={{
           title: "관심동물",
           tabBarLabel: "관심동물",
-          tabBarIcon: ({ size }) => <Ionicons name='heart-outline' size={size} />,
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="heart-outline" size={size} color={color} />
+          ),
         }}
-        name='Favorites'
+        name="Favorites"
         component={Favorites}
       />
       <Tab.Screen
         options={{
           title: "설정",
           tabBarLabel: "설정",
-          tabBarIcon: ({ size }) => <SimpleLineIcons name='settings' size={size} />,
+          tabBarIcon: ({ size, color }) => (
+            <SimpleLineIcons name="settings" size={size} color={color} />
+          ),
         }}
-        name='Settings'
+        name="Settings"
         component={Settings}
       />
     </Tab.Navigator>
