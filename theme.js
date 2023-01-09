@@ -1,4 +1,27 @@
-// 다크모드, 라이트모드 설정 파일
+import { GREEN_COLOR, YELLOW_COLOR } from './colors';
 
-export const lightTheme = {};
-export const darkTheme = {};
+export const lightTheme = {
+  upcomingText: 'black',
+  color: {
+    titleOnImg: 'white',
+    overviewOnImg: '#d2dae2',
+    listTitle: GREEN_COLOR,
+    title: 'black',
+    overview: '#1e272e',
+    modalBg: '#d2dae2',
+    inputText: 'white',
+  },
+};
+
+export const darkTheme = {
+  upcomingText: 'white',
+  color: {
+    titleOnImg: 'white',
+    overviewOnImg: '#d2dae2',
+    listTitle: YELLOW_COLOR,
+    title: 'white',
+    overview: '#d2dae2',
+    modalBg: '#d2dae2',
+    inputText: 'black',
+  },
+};
