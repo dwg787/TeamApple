@@ -8,3 +8,13 @@ const API_KEY =
 
 // 필터 페이지에서 쓸 json 데이터
 // `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?numOfRows=3&serviceKey=${API_KEY}&_type=json`
+
+// desertionNo
+
+// 디테일 json이 없으므로 params or props로 데이터를 넘겨줘야 한다.
+
+export const getDetail = () => {
+  return fetch(
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=100&serviceKey=${API_KEY}&_type=json`
+  ).then((res) => res.json());
+};
