@@ -19,7 +19,7 @@ export default function Review({ isOpenModal, setIsOpenModal, setReviews }) {
   };
 
   return (
-    <Modal visible={isOpenModal} onBackdropPress={() => setIsOpenModal(false)} onRequestClose={() => setIsOpenModal(false)} transparent={true} animationType='slide' swipeDirection='down'>
+    <Modal visible={isOpenModal} transparent={true} animationType='slide'>
       <Backdrop>
         <Dialog>
           <InputWrapper>
