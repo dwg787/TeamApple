@@ -23,7 +23,7 @@ export default function MainCard({ item }) {
     >
       <SingleCard>
         <AnimalCardPicture>
-          <Image source={{ uri: item.popfile }} />
+          <AnimalPic source={{ url: `${item.popfile}` }} />
         </AnimalCardPicture>
         <AnimalCardType>
           <TextC>성별</TextC>
@@ -43,6 +43,12 @@ export default function MainCard({ item }) {
     </TouchableOpacity>
   );
 }
+
+const AnimalPic = styled.Image`
+  width: 120px;
+  height: 120px;
+  border-radius: 70%;
+`;
 
 const TextC = styled.Text`
   font-size: 15px;
@@ -66,7 +72,7 @@ const AnimalCardPicture = styled.View`
   width: 120px;
   height: 120px;
   border-radius: 70%;
-  background-color: black;
+  background-color: #b3b3b3;
 `;
 
 const AnimalCardType = styled.View`

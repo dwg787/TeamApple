@@ -11,16 +11,13 @@ import {
 import styled from '@emotion/native';
 
 export default function LocationList({ loc, onPress, isSelectedLocation }) {
-  // const [isClicked, setIsClicked] = useState(false);
   const { navigate } = useNavigation();
 
-  // console.log(isClicked);
-
+  // 중복 선택을 위한 코드
+  // const [isClicked, setIsClicked] = useState(false);
   // const handleIsClicked = () => {
   //   setIsClicked(!isClicked);
   // };
-
-  // console.log('loc??', loc);
 
   return (
     <View>
@@ -34,8 +31,6 @@ export default function LocationList({ loc, onPress, isSelectedLocation }) {
           <LocationText>{loc}</LocationText>
         </View>
       </TouchableOpacity>
-      {/* <ScrollView horizontal={true}>
-      </ScrollView> */}
     </View>
   );
 }

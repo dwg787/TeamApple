@@ -3,10 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import styled from '@emotion/native';
 
 export const KindList = ({ kind, onPress, isSelectedKind }) => {
+  // 중복 선택을 위한 코드
   // const [isClicked, setIsClicked] = useState(false);
-
-  // console.log(isClicked);
-
   // const handleIsClicked = () => {
   //   setIsClicked(!isClicked);
   // };
