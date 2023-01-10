@@ -24,14 +24,8 @@ export default function Main() {
   const totalPosting = 0;
 
   const animalList = [
-    {
-      card_kind: "토끼",
-      card_gender: "수컷",
-      card_age: "2022",
-      card_location: "서울특별시 마포구 마포동",
-      card_date: "2021-10-10",
-      card_picture: { iconSRC },
-    },
+    { card_kind: "토끼", card_gender: "수컷", card_age: "2022", card_location: "서울특별시 마포구 마포동", card_date: "2021-10-10", card_picture: { iconSRC } },
+
     {
       card_kind: "래브라도 리트리버",
       card_gender: "암컷",
