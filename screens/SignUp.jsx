@@ -74,6 +74,7 @@ export default class Signup extends Component {
           style={styles.inputStyle}
           placeholder="Name"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.displayName}
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
         />      
@@ -81,6 +82,7 @@ export default class Signup extends Component {
           style={styles.inputStyle}
           placeholder="Email"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, 'email')}
         />
@@ -88,6 +90,7 @@ export default class Signup extends Component {
           style={styles.inputStyle}
           placeholder="Password"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.password}
           onChangeText={(val) => this.updateInputVal(val, 'password')}
           maxLength={15}

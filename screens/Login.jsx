@@ -37,7 +37,7 @@ export default class Login extends Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('Main');
+          this.props.navigation.navigate('NotTabs', { screen: 'Filter' })
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
     }
@@ -70,12 +70,14 @@ export default class Login extends Component {
             placeholder='Email'
             value={this.state.email}
             placeholderTextColor='#fff'
+            color = '#fff'
             onChangeText={(val) => this.updateInputVal(val, 'email')}
           />
           <TextInput
             style={styles.inputStyle}
             placeholder='Password'
             placeholderTextColor='#fff'
+            color = '#fff'
             value={this.state.password}
             onChangeText={(val) => this.updateInputVal(val, 'password')}
             maxLength={15}
