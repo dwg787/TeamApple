@@ -16,7 +16,8 @@ const numOfRows = 10;
 
 export const fetchData = async ({ pageParam = 1 }) => {
   return await axios.get(
-    `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
+    // `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&_type=json`
   );
 };
 // desertionNo

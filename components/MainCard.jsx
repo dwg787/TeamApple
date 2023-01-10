@@ -1,15 +1,29 @@
-export default function MainCard() {
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from '@emotion/native';
+
+export default function MainCard({ item }) {
+  const { navigate } = useNavigation();
+  //   console.log('props.item', item);
   return (
+    // <></>
     <TouchableOpacity
       onPress={() =>
         navigate('Detail', {
-          params: { data: detailData },
+          params: { data: item },
         })
       }
     >
       <SingleCard>
         <AnimalCardPicture>
-          <Image source={animalList[0].card_picture} />
+          <Image source={{ uri: item.popfile }} />
         </AnimalCardPicture>
         <AnimalCardType>
           <TextC>성별</TextC>
@@ -19,11 +33,11 @@ export default function MainCard() {
           <TextC>등록일</TextC>
         </AnimalCardType>
         <AnimalCardDescription>
-          <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-          <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-          <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-          <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-          <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
+          <AnimalCardGender>{item.sexCd}</AnimalCardGender>
+          <AnimalCardKind>{item.kindCd}</AnimalCardKind>
+          <AnimalCardAge>{item.age}</AnimalCardAge>
+          <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
+          <AnimalCardDate>{item.happenDt}</AnimalCardDate>
         </AnimalCardDescription>
       </SingleCard>
     </TouchableOpacity>

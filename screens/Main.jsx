@@ -1,54 +1,59 @@
-import { useNavigation } from '@react-navigation/native';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ListTitle,
-  Image,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+import { View, FlatList, SafeAreaView } from 'react-native';
 import { useQuery } from 'react-query';
-import { getDetail } from '../api';
+// import { getDetail } from '../api';
 import styled from '@emotion/native';
 import iconSRC from '../assets/icon.png';
 import { fetchData } from '../api';
+import MainCard from '../components/MainCard';
 
 export default function Main() {
-  const { navigate } = useNavigation();
+  // const { navigate } = useNavigation();
 
-  // const {
-  //   data: rawData,
-  //   isLoading: isLoadingFilteredData,
-  //   // isError,
-  //   // error,
-  // } = useQuery('animal_list', fetchData);
+  // const testList = [
+  //   {
+  //     card_kind: '토끼',
+  //     card_gender: '수컷',
+  //     card_age: '2022',
+  //     card_location: '서울특별시 마포구 마포동',
+  //     card_date: '2021-10-10',
+  //     card_picture: { iconSRC },
+  //   },
+  //   {
+  //     card_kind: '래브라도 리트리버',
+  //     card_gender: '암컷',
+  //     card_age: '2020',
+  //     card_location: '서울특별시 송파구 송파동',
+  //     card_date: '2021-1-13',
+  //     card_picture: { iconSRC },
+  //   },
+  // ];
 
-  const { isLoading, data, error } = useQuery(['animal'], getDetail);
+  const {
+    data: rawData,
+    isLoading,
+    // isError,
+    // error,
+  } = useQuery('animal_list', fetchData);
 
-  const animalList = [
-    {
-      card_kind: '토끼',
-      card_gender: '수컷',
-      card_age: '2022',
-      card_location: '서울특별시 마포구 마포동',
-      card_date: '2021-10-10',
-      card_picture: { iconSRC },
-    },
-    // {
-    //   card_kind: '래브라도 리트리버',
-    //   card_gender: '암컷',
-    //   card_age: '2020',
-    //   card_location: '서울특별시 송파구 송파동',
-    //   card_date: '2021-1-13',
-    //   card_picture: { iconSRC },
-    // },
-  ];
+  // const { data: rawData, isLoading } = useInfiniteQuery(
+  //   ['animal_list'],
+  //   fetchData
+  // );
 
-  const totalPosting = animalList.length;
+  // const { isLoading, data, error } = useQuery(['animal'], getDetail);
+
+  // const loadMoreData = async () => {
+  //   if (hasNextData) {
+  //     await fetchNextPage();
+  //   }
+  // };
 
   if (!isLoading) {
-    const detailData = data.response.body.items.item;
+    const animalList = rawData?.data?.response?.body?.items?.item;
+    const totalPosting = animalList.length;
+    // console.log('LocationData:', animalList);
+    // const detailData = data.response.body.items.item;
     return (
       <SafeAreaView>
         <StyleTopHeaderPostingCounter>
@@ -58,38 +63,14 @@ export default function Main() {
         </StyleTopHeaderPostingCounter>
 
         <AnimalCardContainer>
-          <ScrollView>
-            {/* 카드 1 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate('Detail', {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_gender}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_kind}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>
-                    {animalList[0].card_location}
-                  </AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
-          </ScrollView>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            // onEndReached={loadMoreData}
+            data={animalList}
+            renderItem={({ item }) => <MainCard item={item} />}
+            keyExtractor={(item) => item.desertionNo}
+            ItemSeparatorComponent={<View style={{ width: 10 }} />}
+          />
         </AnimalCardContainer>
       </SafeAreaView>
     );

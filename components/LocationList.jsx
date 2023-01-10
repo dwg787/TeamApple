@@ -20,7 +20,7 @@ export default function LocationList({ loc, onPress, isSelectedLocation }) {
   //   setIsClicked(!isClicked);
   // };
 
-  console.log('loc??', loc);
+  // console.log('loc??', loc);
 
   return (
     <View>
