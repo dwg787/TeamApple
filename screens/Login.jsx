@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from 'react';
-import { StyleSheet, Text, View,Image, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import styled from "@emotion/native";
 
 export default class Login extends Component {
