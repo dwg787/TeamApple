@@ -14,6 +14,7 @@ import { getDetail } from "../api";
 import styled from "@emotion/native";
 import iconSRC from "../assets/icon.png";
 import { DARK_COLOR } from "../colors";
+import DropShadow from "react-native-drop-shadow";
 
 export default function Main() {
   const isDark = useColorScheme() === "dark";

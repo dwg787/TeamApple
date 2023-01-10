@@ -3,13 +3,17 @@ import { Text, TouchableOpacity, useColorScheme } from "react-native";
 import Login from "../screens/Login";
 import Detail from "../screens/Detail";
 import Main from "../screens/Main";
+import SignUp from "../screens/SignUp";
 import { AntDesign } from "@expo/vector-icons";
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
 export default function Stacks({ navigation: { goBack } }) {
   const isDark = useColorScheme() === "dark";
+  const { navigate } = useNavigation();
+
 
   return (
     <Stack.Navigator
@@ -20,6 +24,15 @@ export default function Stacks({ navigation: { goBack } }) {
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
               name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigate("Login")}>
+            <AntDesign
+              name="login"
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -65,7 +78,22 @@ export function NotTabs() {
         ),
       }}
     >
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen 
+        name="Login" 
+        component={Login} 
+        options={{
+          title:'Login',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="SignUp"
+        component={SignUp} 
+        options={{
+          title:'SignUp',
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
