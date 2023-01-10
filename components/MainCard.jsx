@@ -11,13 +11,13 @@ import styled from '@emotion/native';
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
-  //   console.log('props.item', item);
+  // console.log('item???', item);
   return (
     // <></>
     <TouchableOpacity
       onPress={() =>
         navigate('Detail', {
-          params: { data: item },
+          data: item,
         })
       }
     >
