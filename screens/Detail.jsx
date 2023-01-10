@@ -15,6 +15,8 @@ import ReviewCard from "../components/ReviewCard";
 import { Alert } from "react-native";
 
 export default function Detail({ route: { params } }) {
+  const isDark = useColorScheme() === "dark";
+
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -44,48 +46,58 @@ export default function Detail({ route: { params } }) {
   };
 
   return (
-    <>
-      <Container>
-        <Details />
-        <TitleWrapper
-          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
-        >
-          <SectionTitle>문의</SectionTitle>
-        </TitleWrapper>
-        <ReviewContainer>
-          <AddReview onPress={handleAdding}>
-            <TempText>문의 사항 입력하기</TempText>
-          </AddReview>
-        </ReviewContainer>
-        <FlatList
-          data={reviews}
-          renderItem={({ item }) => (
-            <ReviewCard
-              isOpenModal={isOpenModal}
-              setIsOpenModal={setIsOpenModal}
-              review={item}
-              deleteReview={deleteReview}
-              isEdit={isEdit}
-              setIsEdit={setIsEdit}
-              reviews={reviews}
-              setReviews={setReviews}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-        />
+    <FlatList
+      style={{ paddingBottom: 30 }}
+      data={reviews}
+      renderItem={({ item }) => {
+        <ReviewCard review={item} />;
+      }}
+      keyExtractor={(item) => item.id}
+      ListFooterComponent={
+        <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
+          <Details data={params.data} />
+          <TitleWrapper
+            style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+          >
+            <SectionTitle>문의</SectionTitle>
+          </TitleWrapper>
+          <ReviewContainer>
+            <AddReview onPress={handleAdding}>
+              <TempText>문의 사항 입력하기</TempText>
+            </AddReview>
+          </ReviewContainer>
+          <FlatList
+            style={{ marginBottom: 50 }}
+            data={reviews}
+            renderItem={({ item }) => (
+              <ReviewCard
+                isOpenModal={isOpenModal}
+                setIsOpenModal={setIsOpenModal}
+                review={item}
+                deleteReview={deleteReview}
+                isEdit={isEdit}
+                setIsEdit={setIsEdit}
+                reviews={reviews}
+                setReviews={setReviews}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
 
-        {/*등록버튼 */}
-        <Review
-          isOpenModal={isOpenModal}
-          isEdit={isEdit}
-          setIsOpenModal={setIsOpenModal}
-          setReviews={setReviews}
-          reviews={reviews}
-        />
-      </Container>
-    </>
+          {/*등록버튼 */}
+          <Review
+            isOpenModal={isOpenModal}
+            isEdit={isEdit}
+            setIsOpenModal={setIsOpenModal}
+            setReviews={setReviews}
+            reviews={reviews}
+          />
+        </Container>
+      }
+    />
   );
 }
+
 const Container = styled.ScrollView`
   flex: 1;
 `;
@@ -98,8 +110,8 @@ const SectionTitle = styled.Text`
   align-items: center;
   font-weight: 700;
   font-size: 25px;
-  margin: 20px;
-  margin-bottom: 20px;
+  margin: 10px;
+  margin-bottom: 10px;
 `;
 const ReviewContainer = styled.View`
   padding: 20px;

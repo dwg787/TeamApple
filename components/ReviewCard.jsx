@@ -38,7 +38,9 @@ export default function ReviewCard({
         onPress={() => deleteReview(review.id)}
         activeOpacity={0.6}
       >
-        <DeletBox>
+        <DeletBox
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+        >
           <Animated.Text
             style={{ color: "white", transform: [{ scale: scale }] }}
           >

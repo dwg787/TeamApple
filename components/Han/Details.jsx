@@ -1,10 +1,10 @@
-import styled from '@emotion/native';
-import DropShadow from 'react-native-drop-shadow';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils';
-import Item from './Item';
+import styled from "@emotion/native";
+import DropShadow from "react-native-drop-shadow";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
+import Item from "./Item";
 
 export default function Details({ data }) {
-  console.log('params', data);
+  console.log("params", data);
   return (
     <>
       <ScrollWrap>
@@ -17,7 +17,7 @@ export default function Details({ data }) {
         </DetailPictureBox>
         <DropShadow
           style={{
-            shadowColor: '#000',
+            shadowColor: "#000",
             shadowOffset: {
               width: 0,
               height: 5,
@@ -38,14 +38,14 @@ const ScrollWrap = styled.View`
 `;
 
 const DetailImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3 + 'px'};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
   width: ${SCREEN_WIDTH};
   border-radius: 10%;
 `;
 
 const DetailPictureBox = styled.View`
   width: ${SCREEN_WIDTH};
-  height: ${SCREEN_HEIGHT / 3 + 'px'};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
   border-radius: 10%;
   margin-bottom: 5%;
   background-color: #b3b3b3;
