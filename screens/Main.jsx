@@ -1,11 +1,16 @@
 // import { useNavigation } from '@react-navigation/native';
-import { View, FlatList, SafeAreaView } from 'react-native';
+import { View, FlatList, SafeAreaView, useColorScheme } from 'react-native';
 import { useState } from 'react';
 import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
 import styled from '@emotion/native';
 import { fetchData } from '../api';
 import MainCard from '../components/MainCard';
 import Loader from '../components/Loader';
+import DropShadow from 'react-native-drop-shadow';
+import iconSRC from '../assets/icon.png';
+import { DARK_COLOR } from '../colors';
+const isDark = useColorScheme() === 'dark';
+
 // import { getDetail } from '../api';
 // import iconSRC from '../assets/icon.png';
 
@@ -75,13 +80,26 @@ export default function Main() {
     console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
         <StyleTopHeaderPostingCounter>
           <TextA>
             총 <TextB>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
-
+        <View>
+          {detailData.map((item) => (
+            <TouchableOpacity
+              key={item.desertionNo}
+              onPress={() =>
+                navigate('Detail', {
+                  data: item,
+                })
+              }
+            >
+              <Text>{item.desertionNo}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
         <AnimalCardContainer>
           <FlatList
             refreshing={isRefreshing}

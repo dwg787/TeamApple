@@ -3,15 +3,17 @@ import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import Item from "./Item";
 
-export default function Details() {
+export default function Details({ data }) {
   return (
     <>
       <ScrollWrap>
-        <DetailImage
-          source={{
-            url: "https://ichef.bbci.co.uk/news/640/cpsprodpb/E172/production/_126241775_getty_cats.png",
-          }}
-        />
+        <DetailPictureBox>
+          <DetailImage
+            source={{
+              url: `${data.popfile}`,
+            }}
+          />
+        </DetailPictureBox>
         <DropShadow
           style={{
             shadowColor: "#000",
@@ -23,7 +25,7 @@ export default function Details() {
             shadowRadius: 4.65,
           }}
         >
-          <Item />
+          <Item data={data} />
         </DropShadow>
       </ScrollWrap>
     </>
@@ -38,5 +40,12 @@ const DetailImage = styled.Image`
   height: ${SCREEN_HEIGHT / 3 + "px"};
   width: ${SCREEN_WIDTH};
   border-radius: 10%;
+`;
+
+const DetailPictureBox = styled.View`
+  width: ${SCREEN_WIDTH};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
+  border-radius: 10%;
   margin-bottom: 5%;
+  background-color: #b3b3b3;
 `;
