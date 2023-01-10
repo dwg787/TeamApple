@@ -1,5 +1,11 @@
 // import { useNavigation } from '@react-navigation/native';
-import { View, FlatList, SafeAreaView, useColorScheme } from 'react-native';
+import {
+  View,
+  FlatList,
+  SafeAreaView,
+  useColorScheme,
+  TouchableOpacity,
+} from 'react-native';
 import { useState } from 'react';
 import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
 import styled from '@emotion/native';
@@ -7,11 +13,7 @@ import { fetchData } from '../api';
 import MainCard from '../components/MainCard';
 import Loader from '../components/Loader';
 import DropShadow from 'react-native-drop-shadow';
-import iconSRC from '../assets/icon.png';
 import { DARK_COLOR } from '../colors';
-
-// import { getDetail } from '../api';
-// import iconSRC from '../assets/icon.png';
 
 export default function Main() {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -30,21 +32,26 @@ export default function Main() {
     isLoading,
     isFetching,
     isFetchingNextPage,
-    isError,
-    error,
+    // isError,
+    // error,
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
     ['animal_list'],
     ({ pageParam = 1 }) => fetchData(pageParam),
     {
-      getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.total_pages) {
-          return lastPage.page + 1;
-        }
+      getNextPageParam: (lastPage, pages) => {
+        // console.log('lastPage', lastPage);
+        // console.log('pages', pages[0].pageNo);
+        return lastPage?.pageNo ===
+          Math.ceil(lastPage?.totalCount / lastPage?.numOfRows)
+          ? undefined
+          : lastPage?.pageNo + 1;
       },
     }
   );
+
+  // console.log('rawData:', rawData);
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -61,23 +68,27 @@ export default function Main() {
     }
   };
 
-  if (isError) {
-    console.log('error 내용:', error.message);
-    return (
-      <View>
-        <Text>오류가 발생하였습니다!</Text>
-      </View>
-    );
-  }
+  // if (isError) {
+  //   console.log('error 내용:', error.message);
+  //   return (
+  //     <View>
+  //       <Text>오류가 발생하였습니다!</Text>
+  //     </View>
+  //   );
+  // }
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (!isLoading) {
-    const animalList = rawData?.data?.response?.body?.items?.item;
+    const animalList = rawData?.pages.map((page) => page.items.item).flat();
     const totalPosting = animalList?.length || 0;
-    console.log('useInfiniteQuery 적용 api 호출', animalList);
+    // console.log(
+    //   'animalList:',
+    //   rawData.pages.map((page) => page.items.item).flat()
+    // );
+    // console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
       <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
@@ -87,17 +98,25 @@ export default function Main() {
           </TextA>
         </StyleTopHeaderPostingCounter>
         <AnimalCardContainer>
-          <FlatList
-            refreshing={isRefreshing}
-            onRefresh={onRefresh}
-            showsHorizontalScrollIndicator={false}
-            onEndReachedThreshold={0.5}
-            onEndReached={loadMoreData}
-            data={animalList}
-            renderItem={({ item }) => <MainCard item={item} />}
-            keyExtractor={(item) => item.desertionNo}
-            ItemSeparatorComponent={<View style={{ width: 10 }} />}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigate('Detail', {
+                params: { data: animalList },
+              })
+            }
+          >
+            <FlatList
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+              showsHorizontalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              onEndReached={loadMoreData}
+              data={animalList}
+              renderItem={({ item }) => <MainCard item={item} />}
+              keyExtractor={(item) => item.desertionNo}
+              ItemSeparatorComponent={<View style={{ width: 10 }} />}
+            />
+          </TouchableOpacity>
         </AnimalCardContainer>
       </SafeAreaView>
     );

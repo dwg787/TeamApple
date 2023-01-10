@@ -12,33 +12,15 @@ const numOfRows = 10;
 // `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&pageNo=1&numOfRows=10&serviceKey=${API_KEY}&_type=json`
 
 // 필터 페이지에서 쓸 json 데이터
-// `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?numOfRows=3&serviceKey=${API_KEY}&_type=json`
+// `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
 
 //주로 사용하는 fetcher
-// export const fetchData = async ({ pageParam = 1 }) => {
-// return await axios.get(
-// `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
-// `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&pageNo=${pageParam}&_type=json`
-// );
-// .then((res) => console.log(res));
-// };
-// desertionNo
-
-export const fetchData = async ({ pageParam = 1 }) => {
-  const res = await fetch(
-    // `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
+export const fetchData = async (pageParam) => {
+  const res = await axios.get(
     `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&pageNo=${pageParam}&_type=json`
   );
-  return res.json();
+  return res.data.response.body;
 };
-
-// 디테일 json이 없으므로 params or props로 데이터를 넘겨줘야 한다.
-
-// export const getDetail = () => {
-//   return fetch(
-//     `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=10&serviceKey=${API_KEY}&_type=json`
-//   ).then((res) => res.json());
-// };
 
 export const fetchFilteredData = async ({ upr_cd, upkind }) => {
   return await axios.get(
