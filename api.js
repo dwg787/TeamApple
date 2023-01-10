@@ -24,12 +24,13 @@ const numOfRows = 10;
 // };
 // desertionNo
 
-export const fetchData = async ({ pageParam = 1 }) => {
-  const res = await fetch(
+export const fetchData = async (pageParam) => {
+  const res = await axios.get(
     // `http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=${API_KEY}&pageNo=${pageParam}&numOfRows=17&_type=json`
     `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&pageNo=${pageParam}&_type=json`
   );
-  return res.json();
+  // console.log('res', res.data?.response?.body);
+  return res.data?.response?.body;
 };
 
 // 디테일 json이 없으므로 params or props로 데이터를 넘겨줘야 한다.
