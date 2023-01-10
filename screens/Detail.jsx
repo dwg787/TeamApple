@@ -1,26 +1,55 @@
-import { View, Text, TouchableOpacity, ScrollView, useColorScheme, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useColorScheme,
+  FlatList,
+} from "react-native";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
 import ReviewCard from "../components/ReviewCard";
+import { Alert } from "react-native";
 
 export default function Detail({ route: { params } }) {
-  console.log(params);
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
+  // 2. 문의 삭제 (delete)
+  const deleteReview = (id) => {
+    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "삭제",
+        style: "destructive",
+        onPress: () => {
+          const newReviews = reviews.filter((review) => review.id !== id);
+          setReviews(newReviews);
+        },
+      },
+    ]);
+  };
+
+  // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = () => {
     setIsOpenModal(true);
   };
-  // const isDark = useColorScheme() === "dark";
 
   return (
     <>
       <Container>
         <Details />
-        <TitleWrapper style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}>
+        <TitleWrapper
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+        >
           <SectionTitle>문의</SectionTitle>
         </TitleWrapper>
         <ReviewContainer>
@@ -28,8 +57,31 @@ export default function Detail({ route: { params } }) {
             <TempText>문의 사항 입력하기</TempText>
           </AddReview>
         </ReviewContainer>
-        <FlatList data={reviews} renderItem={({ item }) => <ReviewCard review={item} />} keyExtractor={(item) => item.id} />
-        <Review isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setReviews={setReviews} />
+        <FlatList
+          data={reviews}
+          renderItem={({ item }) => (
+            <ReviewCard
+              isOpenModal={isOpenModal}
+              setIsOpenModal={setIsOpenModal}
+              review={item}
+              deleteReview={deleteReview}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              reviews={reviews}
+              setReviews={setReviews}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+
+        {/*등록버튼 */}
+        <Review
+          isOpenModal={isOpenModal}
+          isEdit={isEdit}
+          setIsOpenModal={setIsOpenModal}
+          setReviews={setReviews}
+          reviews={reviews}
+        />
       </Container>
     </>
   );
