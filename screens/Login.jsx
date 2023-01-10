@@ -78,6 +78,7 @@ export default class Login extends Component {
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1 }}
+          keyboardVerticalOffset={ -90 }
           enabled>
         <LoginContainer>
 
