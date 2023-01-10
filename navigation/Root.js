@@ -8,6 +8,10 @@ import Tabs from "./Tabs";
 const Stack = createNativeStackNavigator();
 
 export default function Root() {
+
+
+
+
   return (
     <Stack.Navigator
       screenOptions={{

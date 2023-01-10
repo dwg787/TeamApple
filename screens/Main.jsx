@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { getDetail } from "../api";
 import styled from "@emotion/native";
 import iconSRC from "../assets/icon.png";
+import DropShadow from "react-native-drop-shadow";
 
 export default function Main() {
   const { navigate } = useNavigation();
@@ -44,7 +45,15 @@ export default function Main() {
                 })
               }
             >
-              <SingleCard>
+              <SingleCard style={{
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.29,
+            shadowRadius: 4.65,
+          }}>
                 <AnimalCardPicture>
                   <Image source={animalList[0].card_picture} />
                 </AnimalCardPicture>
@@ -65,92 +74,7 @@ export default function Main() {
               </SingleCard>
             </TouchableOpacity>
 
-            {/* 카드 2 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
 
-            {/* 카드 4 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
-
-            {/* 카드 3 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
           </ScrollView>
         </AnimalCardContainer>
       </SafeAreaView>
