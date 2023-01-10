@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import styled from "@emotion/native";
 
+import firebase from '../firebase';
+
 export default class Login extends Component {
   constructor() {
     super();

@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import styled from "@emotion/native";
 import { TouchableOpacity } from 'react-native';
-// import firebase from '../firebaseConfig';
+
+import firebase from '../firebase';
 
 export default class Signup extends Component {
+
+
   
   constructor() {
     super();
