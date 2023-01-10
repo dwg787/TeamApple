@@ -1,38 +1,38 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, useColorScheme } from "react-native";
-import Login from "../screens/Login";
-import Detail from "../screens/Detail";
-import Main from "../screens/Main";
-import SignUp from "../screens/SignUp";
-import { AntDesign } from "@expo/vector-icons";
-import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
-import { useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, TouchableOpacity, useColorScheme } from 'react-native';
+import Login from '../screens/Login';
+import Detail from '../screens/Detail';
+import Main from '../screens/Main';
+import SignUp from '../screens/SignUp';
+import Filter from '../screens/Filter';
+import { AntDesign } from '@expo/vector-icons';
+import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
 export default function Stacks({ navigation: { goBack } }) {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const { navigate } = useNavigation();
-
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigate("Login")}>
+          <TouchableOpacity onPress={() => navigate('Login')}>
             <AntDesign
-              name="login"
+              name='login'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -42,17 +42,17 @@ export default function Stacks({ navigation: { goBack } }) {
     >
       <Stack.Screen
         options={{
-          title: "유기동물",
+          title: '유기동물',
         }}
-        name="Main"
+        name='Main'
         component={Main}
-        style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
+        style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}
       />
       <Stack.Screen
         options={{
-          title: "정보",
+          title: '정보',
         }}
-        name="Detail"
+        name='Detail'
         component={Detail}
       />
     </Stack.Navigator>
@@ -60,17 +60,17 @@ export default function Stacks({ navigation: { goBack } }) {
 }
 
 export function NotTabs() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -78,19 +78,27 @@ export function NotTabs() {
         ),
       }}
     >
-      <Stack.Screen 
-        name="Login" 
-        component={Login} 
+      <Stack.Screen
+        name='Login'
+        component={Login}
         options={{
-          title:'Login',
+          title: 'Login',
           headerShown: false,
         }}
       />
-      <Stack.Screen 
-        name="SignUp"
-        component={SignUp} 
+      <Stack.Screen
+        name='SignUp'
+        component={SignUp}
         options={{
-          title:'SignUp',
+          title: 'SignUp',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='Filter'
+        component={Filter}
+        options={{
+          title: 'Filter',
           headerShown: false,
         }}
       />

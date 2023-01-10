@@ -1,30 +1,35 @@
-import { View, Text, TouchableOpacity, ScrollView, useColorScheme, FlatList } from "react-native";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { useState } from "react";
-import Details from "../components/Han/Details";
-import Review from "./Review";
-import { DARK_COLOR } from "../colors";
-import ReviewCard from "../components/ReviewCard";
-
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useColorScheme,
+  FlatList,
+} from 'react-native';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
+import { useState } from 'react';
+import Details from '../components/Han/Details';
+import Review from './Review';
+import { DARK_COLOR } from '../colors';
+import ReviewCard from '../components/ReviewCard';
 
 export default function Detail({ route: { params } }) {
   console.log(params.data);
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleAdding = () => {
     setIsOpenModal(true);
   };
-  // const isDark = useColorScheme() === "dark";
 
   return (
     <>
-      <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
+      <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
         <Details data={params.data} />
         <TitleWrapper
-          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+          style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
         >
           <SectionTitle>문의</SectionTitle>
         </TitleWrapper>
@@ -33,8 +38,16 @@ export default function Detail({ route: { params } }) {
             <TempText>문의 사항 입력하기</TempText>
           </AddReview>
         </ReviewContainer>
-        <FlatList data={reviews} renderItem={({ item }) => <ReviewCard review={item} />} keyExtractor={(item) => item.id} />
-        <Review isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setReviews={setReviews} />
+        <FlatList
+          data={reviews}
+          renderItem={({ item }) => <ReviewCard review={item} />}
+          keyExtractor={(item) => item.id}
+        />
+        <Review
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          setReviews={setReviews}
+        />
       </Container>
     </>
   );
