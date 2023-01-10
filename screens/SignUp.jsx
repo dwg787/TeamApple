@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, k } from 'react-native';
 import styled from "@emotion/native";
 import { TouchableOpacity } from 'react-native';
 
@@ -59,15 +59,25 @@ export default class Signup extends Component {
       )
     }    
     return (
+
+<KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={ -90 }
+          enabled>
+          <TouchableWithoutFeedback
+        accessible={false}
+        onPress={() => Keyboard.dismiss()}
+      >
       <SignUpContainer>
         <HeaderContainer>
-        <HeaderImg>
-            <HeaderPic source ={require('../assets/adaptive-icon.png')} alt="" />
+          <HeaderImg>
+              <HeaderPic source ={require('../assets/adaptive-icon.png')} alt="" />
           </HeaderImg>
-          <HeaderText><Text>동물들의</Text></HeaderText>
-          <HeaderText><Text>행복한 시작을 함께 해주세요</Text></HeaderText>
-          <HeaderText><Text></Text></HeaderText>
-          <HeaderText><Text>회원가입</Text></HeaderText>
+            <HeaderText><Text>동물들의</Text></HeaderText>
+            <HeaderText><Text>행복한 시작을 함께 해주세요</Text></HeaderText>
+            <HeaderText><Text></Text></HeaderText>
+            <HeaderText><Text>회원가입</Text></HeaderText>
         </HeaderContainer>  
 
         <TextInput
@@ -115,6 +125,9 @@ export default class Signup extends Component {
           로그인 페이지로 돌아갈래요
         </ToLoginText>                          
       </SignUpContainer>
+      </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+
     );
   }
 }
