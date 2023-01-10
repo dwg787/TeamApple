@@ -5,18 +5,18 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styled from '@emotion/native';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import styled from "@emotion/native";
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
-  // console.log('item???', item);
+  console.log("item???", item);
   return (
     // <></>
     <TouchableOpacity
       onPress={() =>
-        navigate('Detail', {
+        navigate("Detail", {
           data: item,
         })
       }

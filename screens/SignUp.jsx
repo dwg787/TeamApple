@@ -1,11 +1,15 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, k } from 'react-native';
 import styled from "@emotion/native";
 import { TouchableOpacity } from 'react-native';
-// import firebase from '../firebaseConfig';
+import { useNavigation } from '@react-navigation/native';
+
+import firebase from '../firebase';
 
 export default class Signup extends Component {
+
+
   
   constructor() {
     super();
@@ -35,14 +39,14 @@ export default class Signup extends Component {
         res.user.updateProfile({
           displayName: this.state.displayName
         })
-        console.log('로그인 성공')
+        console.log('회원가입 성공')
         this.setState({
           isLoading: false,
           displayName: '',
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('NotTabs', { screen: 'SignUpSuccess' })
       })
       .catch(error => this.setState({ errorMessage: error.message }))      
     }
@@ -56,21 +60,32 @@ export default class Signup extends Component {
       )
     }    
     return (
+
+<KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={ -90 }
+          enabled>
+          <TouchableWithoutFeedback
+        accessible={false}
+        onPress={() => Keyboard.dismiss()}
+      >
       <SignUpContainer>
         <HeaderContainer>
-        <HeaderImg>
-            <HeaderPic source ={require('../assets/adaptive-icon.png')} alt="" />
+          <HeaderImg>
+              <HeaderPic source ={require('../assets/adaptive-icon.png')} alt="" />
           </HeaderImg>
-          <HeaderText><Text>동물들의</Text></HeaderText>
-          <HeaderText><Text>행복한 시작을 함께 해주세요</Text></HeaderText>
-          <HeaderText><Text></Text></HeaderText>
-          <HeaderText><Text>회원가입</Text></HeaderText>
+            <HeaderText><Text>동물들의</Text></HeaderText>
+            <HeaderText><Text>행복한 시작을 함께 해주세요</Text></HeaderText>
+            <HeaderText><Text></Text></HeaderText>
+            <HeaderText><Text>회원가입</Text></HeaderText>
         </HeaderContainer>  
 
         <TextInput
           style={styles.inputStyle}
           placeholder="Name"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.displayName}
           onChangeText={(val) => this.updateInputVal(val, 'displayName')}
         />      
@@ -78,6 +93,7 @@ export default class Signup extends Component {
           style={styles.inputStyle}
           placeholder="Email"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.email}
           onChangeText={(val) => this.updateInputVal(val, 'email')}
         />
@@ -85,6 +101,7 @@ export default class Signup extends Component {
           style={styles.inputStyle}
           placeholder="Password"
           placeholderTextColor="#fff"
+          color = '#fff'
           value={this.state.password}
           onChangeText={(val) => this.updateInputVal(val, 'password')}
           maxLength={15}
@@ -109,6 +126,9 @@ export default class Signup extends Component {
           로그인 페이지로 돌아갈래요
         </ToLoginText>                          
       </SignUpContainer>
+      </TouchableWithoutFeedback>
+</KeyboardAvoidingView>
+
     );
   }
 }
@@ -154,12 +174,6 @@ const ToLoginText = styled.Text`
   margin-top: 25px;
   text-align: center;
 `;
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   inputStyle: {

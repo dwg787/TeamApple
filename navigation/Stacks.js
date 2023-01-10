@@ -1,24 +1,26 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, TouchableOpacity, useColorScheme } from 'react-native';
-import Login from '../screens/Login';
-import Detail from '../screens/Detail';
-import Main from '../screens/Main';
-import SignUp from '../screens/SignUp';
-import Filter from '../screens/Filter';
-import { AntDesign } from '@expo/vector-icons';
-import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
-import { useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Text, TouchableOpacity, useColorScheme } from "react-native";
+import Login from "../screens/Login";
+import Detail from "../screens/Detail";
+import Main from "../screens/Main";
+import SignUp from "../screens/SignUp";
+import Filter from "../screens/Filter";
+import LoginSuccess from "../screens/LoginSuccess";
+import SignUpSuccess from "../screens/SignUpSuccess";
+import { AntDesign } from "@expo/vector-icons";
+import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
 export default function Stacks({ navigation: { goBack } }) {
-  const isDark = useColorScheme() === 'dark';
+  const isDark = useColorScheme() === "dark";
   const { navigate } = useNavigation();
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: 'center',
+        headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
@@ -30,7 +32,7 @@ export default function Stacks({ navigation: { goBack } }) {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity onPress={() => navigate('Login')}>
+          <TouchableOpacity onPress={() => navigate("Login")}>
             <AntDesign
               name='login'
               size={24}
@@ -42,15 +44,15 @@ export default function Stacks({ navigation: { goBack } }) {
     >
       <Stack.Screen
         options={{
-          title: '유기동물',
+          title: "유기동물",
         }}
         name='Main'
         component={Main}
-        style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}
+        style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
       />
       <Stack.Screen
         options={{
-          title: '정보',
+          title: "정보",
         }}
         name='Detail'
         component={Detail}
@@ -60,12 +62,12 @@ export default function Stacks({ navigation: { goBack } }) {
 }
 
 export function NotTabs() {
-  const isDark = useColorScheme() === 'dark';
+  const isDark = useColorScheme() === "dark";
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: 'center',
+        headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
@@ -82,7 +84,7 @@ export function NotTabs() {
         name='Login'
         component={Login}
         options={{
-          title: 'Login',
+          title: "Login",
           headerShown: false,
         }}
       />
@@ -90,7 +92,7 @@ export function NotTabs() {
         name='SignUp'
         component={SignUp}
         options={{
-          title: 'SignUp',
+          title: "SignUp",
           headerShown: false,
         }}
       />
@@ -98,7 +100,23 @@ export function NotTabs() {
         name='Filter'
         component={Filter}
         options={{
-          title: 'Filter',
+          title: "Filter",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='LoginSuccess'
+        component={LoginSuccess}
+        options={{
+          title: "LoginSuccess",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='SignUpSuccess'
+        component={SignUpSuccess}
+        options={{
+          title: "SignUpSuccess",
           headerShown: false,
         }}
       />

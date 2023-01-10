@@ -1,19 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  Alert,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
-import styled from '@emotion/native';
+import { StyleSheet, Text, View, Image, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, Pressable, Keyboard, TouchableWithoutFeedback ,Platform  } from 'react-native';
+import styled from "@emotion/native";
+import firebase from '../firebase';
+import LoginSuccess from './LoginSuccess';
+
+
+
 
 export default class Login extends Component {
+  
   constructor() {
     super();
     this.state = {
@@ -45,7 +41,7 @@ export default class Login extends Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('Main');
+          this.props.navigation.navigate('NotTabs', { screen: 'LoginSuccess' })
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
     }
@@ -58,9 +54,18 @@ export default class Login extends Component {
         </View>
       );
     }
+
+
+
     return (
+      <TouchableWithoutFeedback
+        accessible={false}
+        onPress={() => Keyboard.dismiss()}
+      >
       <SignInContainer>
+
         <HeaderContainer>
+        
           <HeaderText>
             <Text>동물들의</Text>
           </HeaderText>
@@ -71,24 +76,33 @@ export default class Login extends Component {
             <HeaderPic source={require('../assets/mainimg.png')} alt='' />
           </HeaderImg>
         </HeaderContainer>
-
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={ -90 }
+          enabled>
         <LoginContainer>
+
+
           <TextInput
             style={styles.inputStyle}
             placeholder='Email'
             value={this.state.email}
             placeholderTextColor='#fff'
+            color = '#fff'
             onChangeText={(val) => this.updateInputVal(val, 'email')}
           />
           <TextInput
             style={styles.inputStyle}
             placeholder='Password'
             placeholderTextColor='#fff'
+            color = '#fff'
             value={this.state.password}
             onChangeText={(val) => this.updateInputVal(val, 'password')}
             maxLength={15}
             secureTextEntry={true}
           />
+          
           <NextTimeText
             onPress={() =>
               this.props.navigation.navigate('NotTabs', { screen: 'Filter' })
@@ -118,7 +132,12 @@ export default class Login extends Component {
             <Text>회원가입 하러 갈래요</Text>
           </ToSignUpText>
         </LoginContainer>
+        </KeyboardAvoidingView>
+        
       </SignInContainer>
+</TouchableWithoutFeedback>
+      
+      
     );
   }
 }
@@ -169,13 +188,13 @@ const LoginContainer = styled.View`
 const NextTimeText = styled.Text`
   color: #fff;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 
 const ToSignUpText = styled.Text`
   color: #fff;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const styles = StyleSheet.create({
@@ -186,6 +205,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderColor: '#ccc',
     borderBottomWidth: 1,
+  },
+  avoidingView: {
+    flex: 1,
   },
   preloader: {
     left: 0,
