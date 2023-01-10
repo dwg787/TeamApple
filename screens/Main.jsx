@@ -1,5 +1,11 @@
 // import { useNavigation } from '@react-navigation/native';
-import { View, FlatList, SafeAreaView, useColorScheme } from 'react-native';
+import {
+  View,
+  FlatList,
+  SafeAreaView,
+  useColorScheme,
+  TouchableOpacity,
+} from 'react-native';
 import { useState } from 'react';
 import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
 import styled from '@emotion/native';
@@ -87,25 +93,30 @@ export default function Main() {
     return (
       <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
         <StyleTopHeaderPostingCounter>
-          {/* <View>
-            <StyledBtn onPress={() => fetchNextPage()}></StyledBtn>
-          </View> */}
           <TextA>
             총 <TextB>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
         <AnimalCardContainer>
-          <FlatList
-            refreshing={isRefreshing}
-            onRefresh={onRefresh}
-            showsHorizontalScrollIndicator={false}
-            onEndReachedThreshold={0.5}
-            onEndReached={loadMoreData}
-            data={animalList}
-            renderItem={({ item }) => <MainCard item={item} />}
-            keyExtractor={(item) => item.desertionNo}
-            ItemSeparatorComponent={<View style={{ width: 10 }} />}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigate('Detail', {
+                params: { data: animalList },
+              })
+            }
+          >
+            <FlatList
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+              showsHorizontalScrollIndicator={false}
+              onEndReachedThreshold={0.5}
+              onEndReached={loadMoreData}
+              data={animalList}
+              renderItem={({ item }) => <MainCard item={item} />}
+              keyExtractor={(item) => item.desertionNo}
+              ItemSeparatorComponent={<View style={{ width: 10 }} />}
+            />
+          </TouchableOpacity>
         </AnimalCardContainer>
       </SafeAreaView>
     );
