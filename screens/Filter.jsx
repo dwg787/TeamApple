@@ -14,16 +14,12 @@ import { KindList } from '../components/KindList';
 import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Filter({ navigation }) {
   const { navigate } = useNavigation();
-
-  // useEffect(() => {
-  //   navigation.getParent().setOptions({
-  //     tabBarStyle: { display: 'none' },
-  //   });
-  // }, []);
+  const [selectedLocation, setSelectedLocation] = useState();
+  const [selectedKind, setSelectedKind] = useState();
 
   const {
     data: rawData,
@@ -31,11 +27,90 @@ export default function Filter({ navigation }) {
     isError,
     error,
   } = useQuery('animal_list', fetchData);
-  const KindData = [
-    { id: 1, kind: '강아지' },
-    { id: 2, kind: '고양이' },
-    { id: 3, kind: '기타' },
+
+  const LocationData = [
+    {
+      orgCd: '6110000',
+      orgdownNm: '서울',
+    },
+    {
+      orgCd: '6260000',
+      orgdownNm: '부산',
+    },
+    {
+      orgCd: '6270000',
+      orgdownNm: '대구',
+    },
+    {
+      orgCd: '6280000',
+      orgdownNm: '인천',
+    },
+    {
+      orgCd: '6290000',
+      orgdownNm: '광주',
+    },
+    {
+      orgCd: '5690000',
+      orgdownNm: '세종',
+    },
+    {
+      orgCd: '6300000',
+      orgdownNm: '대전',
+    },
+    {
+      orgCd: '6310000',
+      orgdownNm: '울산',
+    },
+    {
+      orgCd: '6410000',
+      orgdownNm: '경기',
+    },
+    {
+      orgCd: '6420000',
+      orgdownNm: '강원',
+    },
+    {
+      orgCd: '6430000',
+      orgdownNm: '충북',
+    },
+    {
+      orgCd: '6440000',
+      orgdownNm: '충남',
+    },
+    {
+      orgCd: '6450000',
+      orgdownNm: '전북',
+    },
+    {
+      orgCd: '6460000',
+      orgdownNm: '전남',
+    },
+    {
+      orgCd: '6470000',
+      orgdownNm: '경북',
+    },
+    {
+      orgCd: '6480000',
+      orgdownNm: '경남',
+    },
+    {
+      orgCd: '6500000',
+      orgdownNm: '제주',
+    },
   ];
+
+  const KindData = [
+    { id: 417000, kind: '개' },
+    { id: 422400, kind: '고양이' },
+    { id: 429900, kind: '기타' },
+  ];
+
+  // useEffect(() => {
+  //   navigation.getParent().setOptions({
+  //     tabBarStyle: { display: 'none' },
+  //   });
+  // }, []);
+
   // const { data: rawData, isLoading } = useInfiniteQuery(
   //   ['animal_list'],
   //   fetchData
@@ -67,7 +142,7 @@ export default function Filter({ navigation }) {
     // const LocationData = rawData?.pages[0]?.data?.response?.body?.items?.item;
     // const LocationData = JSON.parse(fromAPI?.data.request._response).response
     //   .body.items.item;
-    const LocationData = rawData?.data?.response?.body?.items?.item;
+    // const LocationData = rawData?.data?.response?.body?.items?.item;
     return (
       // <></>
       <FilterPageBackGround>
@@ -80,7 +155,18 @@ export default function Filter({ navigation }) {
           showsHorizontalScrollIndicator={false}
           // onEndReached={loadMoreData}
           data={LocationData}
-          renderItem={({ item }) => <LocationList loc={item?.orgdownNm} />}
+          extraData={selectedLocation}
+          renderItem={({ item }) => {
+            const isSelectedLocation =
+              item.orgCd === selectedLocation ? true : false;
+            return (
+              <LocationList
+                loc={item.orgdownNm}
+                onPress={() => setSelectedLocation(item.orgCd)}
+                isSelectedLocation={isSelectedLocation}
+              />
+            );
+          }}
           keyExtractor={(item) => item?.orgCd}
           ItemSeparatorComponent={<View style={{ width: 10 }} />}
         />
@@ -91,7 +177,17 @@ export default function Filter({ navigation }) {
           contentContainerStyle={styles.kindFlatList}
           horizontal
           data={KindData}
-          renderItem={({ item }) => <KindList kind={item.kind} />}
+          extraData={selectedKind}
+          renderItem={({ item }) => {
+            const isSelectedKind = item.id === selectedKind ? true : false;
+            return (
+              <KindList
+                kind={item.kind}
+                onPress={() => setSelectedKind(item.id)}
+                isSelectedKind={isSelectedKind}
+              />
+            );
+          }}
           keyExtractor={(item) => item.id}
           // contentContainerStyle={{ paddingHorizontal: 20 }}
           ItemSeparatorComponent={<View style={{ width: 10 }} />}

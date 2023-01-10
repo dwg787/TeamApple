@@ -28,3 +28,9 @@ export const getDetail = () => {
     `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?bgnde=20211201&endde=20211231&numOfRows=10&serviceKey=${API_KEY}&_type=json`
   ).then((res) => res.json());
 };
+
+export const fetchFilteredData = async ({ upr_cd, upkind }) => {
+  return await axios.get(
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=BbWyoYrUP9kk1GfSwQf%2BnNC9dq7LDgSw6o413LyKbUaLWOZ9%2FGriGFJnYXGB38Gahxe517KXWVh4v1g323qwqA%3D%3D&upr_cd=${upr_cd}&upkind=${upkind}&_type=json`
+  );
+};

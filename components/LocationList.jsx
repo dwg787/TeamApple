@@ -10,41 +10,57 @@ import {
 } from 'react-native';
 import styled from '@emotion/native';
 
-export default function LocationList({ loc }) {
-  const [isClicked, setIsClicked] = useState(false);
+export default function LocationList({ loc, onPress, isSelectedLocation }) {
+  // const [isClicked, setIsClicked] = useState(false);
   const { navigate } = useNavigation();
 
-  console.log(isClicked);
+  // console.log(isClicked);
 
-  const handleIsClicked = () => {
-    setIsClicked(!isClicked);
-  };
+  // const handleIsClicked = () => {
+  //   setIsClicked(!isClicked);
+  // };
 
   console.log('loc??', loc);
 
   return (
     <View>
-      <SelectLocationBtn
-        onPress={handleIsClicked}
-        style={{ backgroundColor: isClicked ? '#f19936' : 'white' }}
+      <TouchableOpacity
+        onPress={onPress}
+        style={
+          isSelectedLocation ? styles.locationBtnSelected : styles.locationBtn
+        }
       >
         <View>
           <LocationText>{loc}</LocationText>
         </View>
-      </SelectLocationBtn>
+      </TouchableOpacity>
       {/* <ScrollView horizontal={true}>
       </ScrollView> */}
     </View>
   );
 }
 
-const SelectLocationBtn = styled.TouchableOpacity`
-  /* width: 100; */
-  background-color: #f19936;
-  padding: 10px 15px;
-  border-radius: 5px;
-  align-items: center;
-`;
+const styles = StyleSheet.create({
+  locationBtnSelected: {
+    backgroundColor: '#f19936',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  locationBtn: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+});
+// const SelectLocationBtn = styled.TouchableOpacity`
+//   /* width: 100; */
+//   background-color: #f19936;
+//   padding: 10px 15px;
+//   border-radius: 5px;
+//   align-items: center;
+// `;
 
 const LocationText = styled.Text`
   font-size: 20px;

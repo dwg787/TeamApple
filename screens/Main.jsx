@@ -1,28 +1,51 @@
-import { useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity, ListTitle, Image, SafeAreaView, ScrollView } from "react-native";
-import { useQuery } from "react-query";
-import { getDetail } from "../api";
-import styled from "@emotion/native";
-import iconSRC from "../assets/icon.png";
+import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ListTitle,
+  Image,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import { useQuery } from 'react-query';
+import { getDetail } from '../api';
+import styled from '@emotion/native';
+import iconSRC from '../assets/icon.png';
+import { fetchData } from '../api';
 
 export default function Main() {
   const { navigate } = useNavigation();
 
-  const { isLoading, data, error } = useQuery(["animal"], getDetail);
+  // const {
+  //   data: rawData,
+  //   isLoading: isLoadingFilteredData,
+  //   // isError,
+  //   // error,
+  // } = useQuery('animal_list', fetchData);
 
-  const totalPosting = 0;
+  const { isLoading, data, error } = useQuery(['animal'], getDetail);
 
   const animalList = [
-    { card_kind: "토끼", card_gender: "수컷", card_age: "2022", card_location: "서울특별시 마포구 마포동", card_date: "2021-10-10", card_picture: { iconSRC } },
     {
-      card_kind: "래브라도 리트리버",
-      card_gender: "암컷",
-      card_age: "2020",
-      card_location: "서울특별시 송파구 송파동",
-      card_date: "2021-1-13",
+      card_kind: '토끼',
+      card_gender: '수컷',
+      card_age: '2022',
+      card_location: '서울특별시 마포구 마포동',
+      card_date: '2021-10-10',
       card_picture: { iconSRC },
     },
+    // {
+    //   card_kind: '래브라도 리트리버',
+    //   card_gender: '암컷',
+    //   card_age: '2020',
+    //   card_location: '서울특별시 송파구 송파동',
+    //   card_date: '2021-1-13',
+    //   card_picture: { iconSRC },
+    // },
   ];
+
+  const totalPosting = animalList.length;
 
   if (!isLoading) {
     const detailData = data.response.body.items.item;
@@ -39,7 +62,7 @@ export default function Main() {
             {/* 카드 1 */}
             <TouchableOpacity
               onPress={() =>
-                navigate("Detail", {
+                navigate('Detail', {
                   params: { data: detailData },
                 })
               }
@@ -56,97 +79,12 @@ export default function Main() {
                   <TextC>등록일</TextC>
                 </AnimalCardType>
                 <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
+                  <AnimalCardKind>{animalList[0].card_gender}</AnimalCardKind>
+                  <AnimalCardGender>{animalList[0].card_kind}</AnimalCardGender>
                   <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
-
-            {/* 카드 2 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
-
-            {/* 카드 4 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
-                  <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
-                </AnimalCardDescription>
-              </SingleCard>
-            </TouchableOpacity>
-
-            {/* 카드 3 */}
-            <TouchableOpacity
-              onPress={() =>
-                navigate("Detail", {
-                  params: { data: detailData },
-                })
-              }
-            >
-              <SingleCard>
-                <AnimalCardPicture>
-                  <Image source={animalList[0].card_picture} />
-                </AnimalCardPicture>
-                <AnimalCardType>
-                  <TextC>성별</TextC>
-                  <TextC>품종</TextC>
-                  <TextC>나이</TextC>
-                  <TextC>지역</TextC>
-                  <TextC>등록일</TextC>
-                </AnimalCardType>
-                <AnimalCardDescription>
-                  <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
-                  <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
+                  <AnimalCardLocation>
+                    {animalList[0].card_location}
+                  </AnimalCardLocation>
                   <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
                 </AnimalCardDescription>
               </SingleCard>
