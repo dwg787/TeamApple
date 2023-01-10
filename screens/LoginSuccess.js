@@ -14,8 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const LoginSuccess = ({navigation}) => {
-    
-  
 
     return (
         <View

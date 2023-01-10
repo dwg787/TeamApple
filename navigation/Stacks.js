@@ -7,6 +7,7 @@ import SignUp from '../screens/SignUp';
 import Filter from '../screens/Filter';
 import LoginSuccess from '../screens/LoginSuccess';
 import SignUpSuccess from '../screens/SignUpSuccess';
+import IntroSlider from '../screens/IntroSlider';
 import { AntDesign } from '@expo/vector-icons';
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
 import { useNavigation } from '@react-navigation/native';
@@ -80,6 +81,14 @@ export function NotTabs() {
         ),
       }}
     >
+    <Stack.Screen
+        name='IntroSlider'
+        component={IntroSlider}
+        options={{
+          title: 'IntroSlider',
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name='Login'
         component={Login}
