@@ -147,7 +147,9 @@ export default function Filter({ navigation }) {
       // <></>
       <FilterPageBackGround>
         <TextWrapper>
-          <Text style={{ color: 'white' }}>지역을 선택해주세요</Text>
+          <Text style={{ fontSize: 20, color: 'white' }}>
+            지역을 선택해주세요
+          </Text>
         </TextWrapper>
         <FlatList
           contentContainerStyle={styles.locationFlatList}
@@ -171,7 +173,9 @@ export default function Filter({ navigation }) {
           ItemSeparatorComponent={<View style={{ width: 10 }} />}
         />
         <TextWrapper>
-          <Text style={{ color: 'white' }}>축종을 선택해주세요</Text>
+          <Text style={{ fontSize: 20, color: 'white' }}>
+            축종을 선택해주세요
+          </Text>
         </TextWrapper>
         <FlatList
           contentContainerStyle={styles.kindFlatList}
