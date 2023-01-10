@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, Pressable, Keyboard, TouchableWithoutFeedback ,Platform  } from 'react-native';
 import styled from "@emotion/native";
 import firebase from '../firebase';
+import LoginSuccess from './LoginSuccess';
 
 
 
@@ -40,7 +41,7 @@ export default class Login extends Component {
             email: '',
             password: '',
           });
-          this.props.navigation.navigate('NotTabs', { screen: 'Filter' })
+          this.props.navigation.navigate('NotTabs', { screen: 'LoginSuccess' })
         })
         .catch((error) => this.setState({ errorMessage: error.message }));
     }
