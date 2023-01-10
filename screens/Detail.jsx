@@ -13,9 +13,10 @@ import Details from '../components/Han/Details';
 import Review from './Review';
 import { DARK_COLOR } from '../colors';
 import ReviewCard from '../components/ReviewCard';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Detail({ route: { params } }) {
-  console.log(params.data);
+  // console.log(params.data);
   const isDark = useColorScheme() === 'dark';
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -24,35 +25,38 @@ export default function Detail({ route: { params } }) {
     setIsOpenModal(true);
   };
 
+  console.log('reviews', reviews);
   return (
-    <>
-      <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
-        <Details data={params.data} />
-        <TitleWrapper
-          style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
-        >
-          <SectionTitle>문의</SectionTitle>
-        </TitleWrapper>
-        <ReviewContainer>
-          <AddReview onPress={handleAdding}>
-            <TempText>문의 사항 입력하기</TempText>
-          </AddReview>
-        </ReviewContainer>
-        <FlatList
-          data={reviews}
-          renderItem={({ item }) => <ReviewCard review={item} />}
-          keyExtractor={(item) => item.id}
-        />
-        <Review
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
-          setReviews={setReviews}
-        />
-      </Container>
-    </>
+    <FlatList
+      data={reviews}
+      renderItem={({ item }) => {
+        <ReviewCard review={item} />;
+      }}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={
+        <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
+          <Details data={params.data} />
+          <TitleWrapper
+            style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
+          >
+            <SectionTitle>문의</SectionTitle>
+          </TitleWrapper>
+          <ReviewContainer>
+            <AddReview onPress={handleAdding}>
+              <TempText>문의 사항 입력하기</TempText>
+            </AddReview>
+          </ReviewContainer>
+          <Review
+            isOpenModal={isOpenModal}
+            setIsOpenModal={setIsOpenModal}
+            setReviews={setReviews}
+          />
+        </Container>
+      }
+    />
   );
 }
-const Container = styled.ScrollView`
+const Container = styled.View`
   flex: 1;
 `;
 const TitleWrapper = styled.View`
