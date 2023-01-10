@@ -9,7 +9,6 @@ import Loader from '../components/Loader';
 import DropShadow from 'react-native-drop-shadow';
 import iconSRC from '../assets/icon.png';
 import { DARK_COLOR } from '../colors';
-const isDark = useColorScheme() === 'dark';
 
 // import { getDetail } from '../api';
 // import iconSRC from '../assets/icon.png';
@@ -17,6 +16,7 @@ const isDark = useColorScheme() === 'dark';
 export default function Main() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
+  const isDark = useColorScheme() === 'dark';
 
   // const {
   //   data: rawData,
@@ -86,20 +86,6 @@ export default function Main() {
             총 <TextB>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
-        <View>
-          {detailData.map((item) => (
-            <TouchableOpacity
-              key={item.desertionNo}
-              onPress={() =>
-                navigate('Detail', {
-                  data: item,
-                })
-              }
-            >
-              <Text>{item.desertionNo}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
         <AnimalCardContainer>
           <FlatList
             refreshing={isRefreshing}
