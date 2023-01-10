@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, k } from 'react-native';
 import styled from "@emotion/native";
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import firebase from '../firebase';
 
@@ -38,14 +39,14 @@ export default class Signup extends Component {
         res.user.updateProfile({
           displayName: this.state.displayName
         })
-        console.log('로그인 성공')
+        console.log('회원가입 성공')
         this.setState({
           isLoading: false,
           displayName: '',
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('NotTabs', { screen: 'SignUpSuccess' })
       })
       .catch(error => this.setState({ errorMessage: error.message }))      
     }
@@ -173,12 +174,6 @@ const ToLoginText = styled.Text`
   margin-top: 25px;
   text-align: center;
 `;
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   inputStyle: {

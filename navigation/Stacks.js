@@ -5,6 +5,8 @@ import Detail from '../screens/Detail';
 import Main from '../screens/Main';
 import SignUp from '../screens/SignUp';
 import Filter from '../screens/Filter';
+import LoginSuccess from '../screens/LoginSuccess';
+import SignUpSuccess from '../screens/SignUpSuccess';
 import { AntDesign } from '@expo/vector-icons';
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
 import { useNavigation } from '@react-navigation/native';
@@ -99,6 +101,22 @@ export function NotTabs() {
         component={Filter}
         options={{
           title: 'Filter',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='LoginSuccess'
+        component={LoginSuccess}
+        options={{
+          title: 'LoginSuccess',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='SignUpSuccess'
+        component={SignUpSuccess}
+        options={{
+          title: 'SignUpSuccess',
           headerShown: false,
         }}
       />
