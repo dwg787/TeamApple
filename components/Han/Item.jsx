@@ -1,103 +1,125 @@
 import styled from "@emotion/native";
 import { SCREEN_HEIGHT } from "../../utils";
 
-export default function Item() {
+export default function Item({ data }) {
   return (
     <DetailMainWrap>
       <DetailTextWrap>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>품종</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>고양이</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.kindCd}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>성별</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>여</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.sexCd}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>나이</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>2019(년생)</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.age}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>체중</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>5kg</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.weight}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox style={{ marginBottom: 20 }}>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>색상</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>귀여운 색</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.colorCd}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
       </DetailTextWrap>
       <DetailTextWrap>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>공고번호</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>서울-xx-xxxx-xxxx</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.noticeNo}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>유기번호</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>xxxxxxxxxxxxxxxx</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.desertionNo}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>상태</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>보호중</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.processState}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>접수일</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>2022-12-10</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.noticeSdt}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox style={{ marginBottom: 20 }}>
-          <DetailTextTItleBox>
+          <DetailTextTitleBox>
             <DetailTextTitle>공고시작일</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>2022-12-10</DetailTextContent>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.noticeEdt}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
       </DetailTextWrap>
       <DetailTextWrap>
         <DetailTextBox>
-          <DetailTextTItleBox>
-            <DetailTextTitle>공고번호</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>서울-xx-xxxx-xxxx</DetailTextContent>
+          <DetailTextTitleBox>
+            <DetailTextTitle>발견 장소</DetailTextTitle>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.happenPlace}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
-            <DetailTextTitle>유기번호</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>xxxxxxxxxxxxxxxx</DetailTextContent>
+          <DetailTextTitleBox>
+            <DetailTextTitle>보호소 이름</DetailTextTitle>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.careNm}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
-          <DetailTextTItleBox>
-            <DetailTextTitle>상태</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>보호중</DetailTextContent>
-        </DetailTextBox>
-        <DetailTextBox>
-          <DetailTextTItleBox>
-            <DetailTextTitle>접수일</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>2022-12-10</DetailTextContent>
+          <DetailTextTitleBox>
+            <DetailTextTitle>보호소 번호</DetailTextTitle>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.careTel}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox style={{ marginBottom: 20 }}>
-          <DetailTextTItleBox>
-            <DetailTextTitle>공고시작일</DetailTextTitle>
-          </DetailTextTItleBox>
-          <DetailTextContent>2022-12-10</DetailTextContent>
+          <DetailTextTitleBox>
+            <DetailTextTitle>보호소 주소</DetailTextTitle>
+          </DetailTextTitleBox>
+          <DetailTextContentBox>
+            <DetailTextContent>{data.careAddr}</DetailTextContent>
+          </DetailTextContentBox>
         </DetailTextBox>
       </DetailTextWrap>
     </DetailMainWrap>
@@ -124,7 +146,7 @@ const DetailTextBox = styled.View`
   margin-bottom: 1%;
 `;
 
-const DetailTextTItleBox = styled.View`
+const DetailTextTitleBox = styled.View`
   width: 35%;
 `;
 
@@ -132,6 +154,10 @@ const DetailTextTitle = styled.Text`
   color: rgba(0, 0, 0, 0.3);
   font-weight: bold;
   /* margin-right: 20%; */
+`;
+
+const DetailTextContentBox = styled.View`
+  width: 65%;
 `;
 
 const DetailTextContent = styled.Text`

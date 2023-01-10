@@ -4,10 +4,13 @@ import { Modal } from "react-native";
 import { useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
+import { DARK_COLOR } from "../colors";
 import ReviewCard from "../components/ReviewCard";
 
+
 export default function Detail({ route: { params } }) {
-  console.log(params);
+  console.log(params.data);
+  const isDark = useColorScheme() === "dark";
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -18,9 +21,11 @@ export default function Detail({ route: { params } }) {
 
   return (
     <>
-      <Container>
-        <Details />
-        <TitleWrapper style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}>
+      <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
+        <Details data={params.data} />
+        <TitleWrapper
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+        >
           <SectionTitle>문의</SectionTitle>
         </TitleWrapper>
         <ReviewContainer>

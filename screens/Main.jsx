@@ -1,11 +1,22 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity, ListTitle, Image, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ListTitle,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  useColorScheme,
+} from "react-native";
 import { useQuery } from "react-query";
 import { getDetail } from "../api";
 import styled from "@emotion/native";
 import iconSRC from "../assets/icon.png";
+import { DARK_COLOR } from "../colors";
 
 export default function Main() {
+  const isDark = useColorScheme() === "dark";
   const { navigate } = useNavigation();
 
   const { isLoading, data, error } = useQuery(["animal"], getDetail);
@@ -14,6 +25,7 @@ export default function Main() {
 
   const animalList = [
     { card_kind: "토끼", card_gender: "수컷", card_age: "2022", card_location: "서울특별시 마포구 마포동", card_date: "2021-10-10", card_picture: { iconSRC } },
+
     {
       card_kind: "래브라도 리트리버",
       card_gender: "암컷",
@@ -27,13 +39,26 @@ export default function Main() {
   if (!isLoading) {
     const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
         <StyleTopHeaderPostingCounter>
           <TextA>
             총 <TextB>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
-
+        <View>
+          {detailData.map((item) => (
+            <TouchableOpacity
+              key={item.desertionNo}
+              onPress={() =>
+                navigate("Detail", {
+                  data: item,
+                })
+              }
+            >
+              <Text>{item.desertionNo}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
         <AnimalCardContainer>
           <ScrollView>
             {/* 카드 1 */}
@@ -57,9 +82,13 @@ export default function Main() {
                 </AnimalCardType>
                 <AnimalCardDescription>
                   <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
+                  <AnimalCardGender>
+                    {animalList[0].card_gender}
+                  </AnimalCardGender>
                   <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
+                  <AnimalCardLocation>
+                    {animalList[0].card_location}
+                  </AnimalCardLocation>
                   <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
                 </AnimalCardDescription>
               </SingleCard>
@@ -86,9 +115,13 @@ export default function Main() {
                 </AnimalCardType>
                 <AnimalCardDescription>
                   <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
+                  <AnimalCardGender>
+                    {animalList[0].card_gender}
+                  </AnimalCardGender>
                   <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
+                  <AnimalCardLocation>
+                    {animalList[0].card_location}
+                  </AnimalCardLocation>
                   <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
                 </AnimalCardDescription>
               </SingleCard>
@@ -115,9 +148,13 @@ export default function Main() {
                 </AnimalCardType>
                 <AnimalCardDescription>
                   <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
+                  <AnimalCardGender>
+                    {animalList[0].card_gender}
+                  </AnimalCardGender>
                   <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
+                  <AnimalCardLocation>
+                    {animalList[0].card_location}
+                  </AnimalCardLocation>
                   <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
                 </AnimalCardDescription>
               </SingleCard>
@@ -144,9 +181,13 @@ export default function Main() {
                 </AnimalCardType>
                 <AnimalCardDescription>
                   <AnimalCardKind>{animalList[0].card_kind}</AnimalCardKind>
-                  <AnimalCardGender>{animalList[0].card_gender}</AnimalCardGender>
+                  <AnimalCardGender>
+                    {animalList[0].card_gender}
+                  </AnimalCardGender>
                   <AnimalCardAge>{animalList[0].card_age}</AnimalCardAge>
-                  <AnimalCardLocation>{animalList[0].card_location}</AnimalCardLocation>
+                  <AnimalCardLocation>
+                    {animalList[0].card_location}
+                  </AnimalCardLocation>
                   <AnimalCardDate>{animalList[0].card_date}</AnimalCardDate>
                 </AnimalCardDescription>
               </SingleCard>
