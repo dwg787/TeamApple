@@ -1,5 +1,3 @@
-import React from "react";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text, TouchableOpacity, useColorScheme } from "react-native";
 import Login from "../screens/Login";
@@ -28,7 +26,6 @@ export default function Stacks({ navigation: { goBack } }) {
           </TouchableOpacity>
         ),
       }}
-      sceneContainerStyle={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
     >
       <Stack.Screen
         options={{
@@ -36,6 +33,7 @@ export default function Stacks({ navigation: { goBack } }) {
         }}
         name="Main"
         component={Main}
+        style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
       />
       <Stack.Screen
         options={{
@@ -44,6 +42,29 @@ export default function Stacks({ navigation: { goBack } }) {
         name="Detail"
         component={Detail}
       />
+    </Stack.Navigator>
+  );
+}
+
+export function NotTabs() {
+  const isDark = useColorScheme() === "dark";
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+    >
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );

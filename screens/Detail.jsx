@@ -10,9 +10,11 @@ import { Modal } from "react-native";
 import { useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
+import { DARK_COLOR } from "../colors";
 
 export default function Detail({ route: { params } }) {
-  console.log(params);
+  console.log(params.data);
+  const isDark = useColorScheme() === "dark";
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -30,8 +32,8 @@ export default function Detail({ route: { params } }) {
   //5. swiper deledte 버튼 만들기
   return (
     <>
-      <Container>
-        <Details />
+      <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
+        <Details data={params.data} />
         <TitleWrapper
           style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
         >
