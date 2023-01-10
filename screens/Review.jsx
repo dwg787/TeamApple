@@ -62,6 +62,11 @@ export default function Review({
                 title='취소'
                 color='#f19936'
               />
+              <ModalBtn
+                onPress={() => setIsOpenModal(false)}
+                title='취소'
+                color='#f19936'
+              />
             </BtnWrapper>
             <BtnWrapper2>
               <ModalBtn
