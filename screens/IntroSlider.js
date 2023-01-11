@@ -51,19 +51,20 @@ const IntroSlider = () => {
         <View style={styles.container}>
           <View style={styles.container}>
             <Text style={styles.titleStyle}>
-              React Native App Intro Slider using AppIntroSlider
+              유기동물 집찾아주기 프로젝트
             </Text>
             <Text style={styles.paragraphStyle}>
-              This will be your screen when you click Skip
-              from any slide or Done button at last
+              애플독이 앞장 서겠습니다.
             </Text>
             <Button
               title="다시 보기"
               onPress={() => setShowRealApp(false)}
+              color="#fff"
             />
             <Button
               title="애플독 시작하기"
               onPress={() => navigation.navigate('NotTabs', { screen: 'Login' })}
+              color="#fff"
             />
           </View>
         </View>
@@ -90,17 +91,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     justifyContent: 'center',
+    backgroundColor : '#0c68f2'
   },
   titleStyle: {
     padding: 10,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 30,
+    color: 'white',
     fontWeight: 'bold',
   },
   paragraphStyle: {
-    padding: 20,
+    paddingTop: 50,
+    paddingBottom: 100,
+    fontSize: 25,
     textAlign: 'center',
-    fontSize: 16,
+    color: 'white',
+
   },
   introImageStyle: {
     resizeMode: 'stretch',
@@ -155,34 +161,5 @@ const slides = [
     },
     backgroundColor: '#22bcb5',
   },
-  {
-    key: 's4',
-    title: '',
-    text: '',
-    image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697059-ade4c327-3bde-464c-94e0-1760b3b7208f.png',
-    },
-    backgroundColor: '#3395ff',
-  },
-  {
-    key: 's5',
-    title: '',
-    text: '',
-    image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697093-f2ebfcfe-b728-4c2d-9689-950e895004ec.png',
-    },
-    backgroundColor: '#f6437b',
-  },
-  {
-    key: 's6',
-    title: '',
-    text: '',
-    image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697071-afd0f892-7645-4345-8c68-96819051a257.png',
-    },
-    backgroundColor: '#febe29',
-  },
+  
 ];
