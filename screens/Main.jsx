@@ -14,18 +14,28 @@ import MainCard from '../components/MainCard';
 import Loader from '../components/Loader';
 import DropShadow from 'react-native-drop-shadow';
 import { DARK_COLOR } from '../colors';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function Main({ route: { params } }) {
+export default function Main() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
   const isDark = useColorScheme() === 'dark';
-
-  console.log(
-    'filter 페이지에서 넘겨준 축종 코드:',
-    params.selectedKind,
-    'filter 페이지에서 넘겨준 시도 코드:',
-    params.selectedLocation
+  const { selectedLocation, selectedKind } = useSelector(
+    (state) => state.selection.selection
   );
+
+  // console.log(
+  //   'filter 페이지에서 main으로 넘겨준 선택값:',
+  //   selectedLocation,
+  //   selectedKind
+  // );
+  // console.log(
+  //   'filter 페이지에서 넘겨준 축종 코드:',
+  //   params.selectedKind,
+  //   'filter 페이지에서 넘겨준 시도 코드:',
+  //   params.selectedLocation
+  // );
+
   // const {
   //   data: rawData,
   //   isLoading,
@@ -36,8 +46,8 @@ export default function Main({ route: { params } }) {
   const {
     data: rawData,
     isLoading,
-    isFetching,
-    isFetchingNextPage,
+    // isFetching,
+    // isFetchingNextPage,
     // isError,
     // error,
     hasNextPage,
@@ -45,11 +55,7 @@ export default function Main({ route: { params } }) {
   } = useInfiniteQuery(
     ['animal_list'],
     ({ pageParam = 1 }) =>
-      fetchFilteredData(
-        Number(params.selectedLocation),
-        params.selectedKind,
-        pageParam
-      ),
+      fetchFilteredData(selectedLocation, selectedKind, pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
         // console.log('lastPage', lastPage);
