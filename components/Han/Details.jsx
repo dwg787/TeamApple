@@ -4,7 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import Item from "./Item";
 
 export default function Details({ data }) {
-  console.log("params", data);
+  // console.log("params", data);
   return (
     <>
       <ScrollWrap>

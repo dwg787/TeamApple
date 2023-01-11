@@ -1,6 +1,11 @@
 import { useState } from "react";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
+import firebase from "../firebase";
+import { addDoc } from "@firebase/firestore";
+import { async } from "@firebase/util";
+import { collection } from "@firebase/firestore";
+import { authService, dbService } from "./../firebase";
 
 export default function Review({
   isOpenModal,
@@ -29,13 +34,15 @@ export default function Review({
 
   // 1. 문의 추가 (add)
   const newReview = {
-    id: Date.now(),
+    // id: Date.now(),
     contents: addContent,
     isEdit: false,
+    createdAt: Date.now(),
   };
 
-  const addReview = () => {
-    setReviews((prev) => [...prev, newReview]);
+  const addReview = async () => {
+    await addDoc(collection(dbService, "reviews"), newReview);
+    // setReviews((prev) => [...prev, newReview]);
     setAddcontent("");
     setIsOpenModal(false);
   };
