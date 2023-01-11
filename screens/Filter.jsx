@@ -184,8 +184,8 @@ export default function Filter({ navigation }) {
             );
             if (selectedLocation && selectedKind) {
               dispatch(updateSelection({ selectedLocation, selectedKind }));
-              navigate('Stacks', {
-                screen: 'Main',
+              navigate('Tabs', {
+                screen: 'Stacks',
                 // params: { selectedLocation, selectedKind },
               });
             } else {
