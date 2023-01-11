@@ -46,7 +46,7 @@ export default function Main({ route: { params } }) {
     ['animal_list'],
     ({ pageParam = 1 }) =>
       fetchFilteredData(
-        Number(params.selectedLocation),
+        params.selectedLocation,
         params.selectedKind,
         pageParam
       ),

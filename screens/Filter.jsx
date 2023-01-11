@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useQuery, useInfiniteQuery } from 'react-query';
-import Loader from '../components/Loader';
 import LocationList from '../components/LocationList';
-import { fetchData } from '../api';
 import { KindList } from '../components/KindList';
 import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect, useState } from 'react';
+import Swiper from 'react-native-swiper';
+// import { useQuery, useInfiniteQuery } from 'react-query';
+// import Loader from '../components/Loader';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Filter({ navigation }) {
   const { navigate } = useNavigation();
@@ -31,71 +31,71 @@ export default function Filter({ navigation }) {
 
   const LocationData = [
     {
-      orgCd: '6110000',
+      orgCd: 6110000,
       orgdownNm: '서울',
     },
     {
-      orgCd: '6260000',
+      orgCd: 6260000,
       orgdownNm: '부산',
     },
     {
-      orgCd: '6270000',
+      orgCd: 6270000,
       orgdownNm: '대구',
     },
     {
-      orgCd: '6280000',
+      orgCd: 6280000,
       orgdownNm: '인천',
     },
     {
-      orgCd: '6290000',
+      orgCd: 6290000,
       orgdownNm: '광주',
     },
     {
-      orgCd: '5690000',
+      orgCd: 5690000,
       orgdownNm: '세종',
     },
     {
-      orgCd: '6300000',
+      orgCd: 6300000,
       orgdownNm: '대전',
     },
     {
-      orgCd: '6310000',
+      orgCd: 6310000,
       orgdownNm: '울산',
     },
     {
-      orgCd: '6410000',
+      orgCd: 6410000,
       orgdownNm: '경기',
     },
     {
-      orgCd: '6420000',
+      orgCd: 6420000,
       orgdownNm: '강원',
     },
     {
-      orgCd: '6430000',
+      orgCd: 6430000,
       orgdownNm: '충북',
     },
     {
-      orgCd: '6440000',
+      orgCd: 6440000,
       orgdownNm: '충남',
     },
     {
-      orgCd: '6450000',
+      orgCd: 6450000,
       orgdownNm: '전북',
     },
     {
-      orgCd: '6460000',
+      orgCd: 6460000,
       orgdownNm: '전남',
     },
     {
-      orgCd: '6470000',
+      orgCd: 6470000,
       orgdownNm: '경북',
     },
     {
-      orgCd: '6480000',
+      orgCd: 6480000,
       orgdownNm: '경남',
     },
     {
-      orgCd: '6500000',
+      orgCd: 6500000,
       orgdownNm: '제주',
     },
   ];
@@ -105,25 +105,6 @@ export default function Filter({ navigation }) {
     { id: 422400, kind: '고양이' },
     { id: 429900, kind: '기타' },
   ];
-
-  // useEffect(() => {
-  //   navigation.getParent().setOptions({
-  //     tabBarStyle: { display: 'none' },
-  //   });
-  // }, []);
-
-  // const { data: rawData, isLoading } = useInfiniteQuery(
-  //   ['animal_list'],
-  //   fetchData
-  // );
-
-  //loading은 캐싱이 반영
-
-  // const loadMoreData = async () => {
-  //   if (hasNextLocation) {
-  //     await fetchNextPage();
-  //   }
-  // };
 
   // if (isLoading) {
   //   return <Loader />;
@@ -188,7 +169,6 @@ export default function Filter({ navigation }) {
           );
         }}
         keyExtractor={(item) => item.id}
-        // contentContainerStyle={{ paddingHorizontal: 20 }}
         ItemSeparatorComponent={<View style={{ width: 10 }} />}
       />
       <FilterBtnWrapper>
@@ -257,23 +237,25 @@ const TextWrapper = styled.View`
 
 const styles = StyleSheet.create({
   locationFlatList: {
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
   },
   kindFlatList: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
   },
 });
 
-// const LocationFlatList = styled.FlatList`
+// const LocationWrapper = styled.View`
 //   flex: 1;
+//   flex-direction: row;
 //   align-items: center;
 //   justify-content: center;
+//   grid-template-rows: 1fr;
+//   grid-template-columns: 1fr 1fr 1fr 1fr;
 // `;
 
 // const KindFlatList = styled.FlatList`

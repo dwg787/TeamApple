@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/native": "^11.10.0",
     "@emotion/react": "^11.10.5",
+    "@parse/react-native": "^0.0.1-alpha.18",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.5.2",
     "@react-navigation/native": "^6.1.1",
@@ -20,6 +21,7 @@
     "expo-linear-gradient": "^12.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.15.0",
+    "parse": "^3.5.1",
     "react": "18.1.0",
     "react-native": "0.70.5",
     "react-native-app-intro-slider": "^4.0.4",

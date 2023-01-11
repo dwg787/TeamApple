@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, { useState, Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,7 +22,7 @@ const IntroSlider = () => {
     setShowRealApp(true);
   };
 
-  const RenderItem = ({item}) => {
+  const RenderItem = ({ item }) => {
     return (
       <View
         style={{
@@ -31,16 +31,11 @@ const IntroSlider = () => {
           alignItems: 'center',
           justifyContent: 'space-around',
           paddingBottom: 100,
-        }}>
-        <Text style={styles.introTitleStyle}>
-          {item.title}
-        </Text>
-        <Image
-          style={styles.introImageStyle}
-          source={item.image} />
-        <Text style={styles.introTextStyle}>
-          {item.text}
-        </Text>
+        }}
+      >
+        <Text style={styles.introTitleStyle}>{item.title}</Text>
+        <Image style={styles.introImageStyle} source={item.image} />
+        <Text style={styles.introTextStyle}>{item.text}</Text>
       </View>
     );
   };
@@ -50,21 +45,19 @@ const IntroSlider = () => {
       {showRealApp ? (
         <View style={styles.container}>
           <View style={styles.container}>
-            <Text style={styles.titleStyle}>
-              유기동물 집찾아주기 프로젝트
-            </Text>
-            <Text style={styles.paragraphStyle}>
-              애플독이 앞장 서겠습니다.
-            </Text>
+            <Text style={styles.titleStyle}>유기동물 집찾아주기 프로젝트</Text>
+            <Text style={styles.paragraphStyle}>애플펫이 앞장 서겠습니다.</Text>
             <Button
-              title="다시 보기"
+              title='다시 보기'
               onPress={() => setShowRealApp(false)}
-              color="#fff"
+              color='#fff'
             />
             <Button
-              title="애플독 시작하기"
-              onPress={() => navigation.navigate('NotTabs', { screen: 'Login' })}
-              color="#fff"
+              title='애플펫 시작하기'
+              onPress={() =>
+                navigation.navigate('NotTabs', { screen: 'Login' })
+              }
+              color='#fff'
             />
           </View>
         </View>
@@ -91,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     justifyContent: 'center',
-    backgroundColor : '#0c68f2'
+    backgroundColor: '#0c68f2',
   },
   titleStyle: {
     padding: 10,
@@ -106,7 +99,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     color: 'white',
-
   },
   introImageStyle: {
     resizeMode: 'stretch',
@@ -119,7 +111,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     position: 'absolute',
-    bottom: 300
+    bottom: 300,
   },
   // introTitleStyle: {
   //   fontSize: 25,
@@ -136,8 +128,7 @@ const slides = [
     text: '하루에 193마리',
     title: '하루에 193마리',
     image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697029-eed47a32-e388-4842-bd6d-b2587ecaf110.png',
+      uri: 'https://user-images.githubusercontent.com/78587041/211697029-eed47a32-e388-4842-bd6d-b2587ecaf110.png',
     },
     backgroundColor: '#20d2bb',
   },
@@ -146,8 +137,7 @@ const slides = [
     title: '',
     text: '유기 동물 한해 135,000 마리',
     image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697040-c44d0834-ef13-416c-b1b9-57c96a0e7d38.png',
+      uri: 'https://user-images.githubusercontent.com/78587041/211697040-c44d0834-ef13-416c-b1b9-57c96a0e7d38.png',
     },
     backgroundColor: '#febe29',
   },
@@ -156,10 +146,8 @@ const slides = [
     title: '',
     text: '사지말고 입양하세요',
     image: {
-      uri:
-        'https://user-images.githubusercontent.com/78587041/211697050-39e00c76-cab4-41ee-a1e2-426115fa5c28.png',
+      uri: 'https://user-images.githubusercontent.com/78587041/211697050-39e00c76-cab4-41ee-a1e2-426115fa5c28.png',
     },
     backgroundColor: '#22bcb5',
   },
-  
 ];
