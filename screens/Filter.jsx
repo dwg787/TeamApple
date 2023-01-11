@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import Loader from '../components/Loader';
@@ -193,11 +194,19 @@ export default function Filter({ navigation }) {
       <FilterBtnWrapper>
         <FilterBtn
           onPress={() => {
-            console.log('친구들 보러가기 클릭!');
-            navigate('Stacks', {
-              screen: 'Main',
-              // params: { movieId: item.id },
-            });
+            console.log(
+              '친구들 보러가기 클릭!',
+              selectedLocation,
+              selectedKind
+            );
+            if (selectedLocation && selectedKind) {
+              navigate('Stacks', {
+                screen: 'Main',
+                params: { selectedLocation, selectedKind },
+              });
+            } else {
+              Alert.alert('지역과 축종을 선택해주세요!');
+            }
           }}
         >
           <TempText>친구들 보러가기</TempText>
