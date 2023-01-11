@@ -22,8 +22,9 @@ export const fetchData = async (pageParam) => {
   return res.data.response.body;
 };
 
-export const fetchFilteredData = async ({ upr_cd, upkind }) => {
-  return await axios.get(
-    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=BbWyoYrUP9kk1GfSwQf%2BnNC9dq7LDgSw6o413LyKbUaLWOZ9%2FGriGFJnYXGB38Gahxe517KXWVh4v1g323qwqA%3D%3D&upr_cd=${upr_cd}&upkind=${upkind}&_type=json`
+export const fetchFilteredData = async (upr_cd, upkind, pageParam) => {
+  const res = await axios.get(
+    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&upr_cd=${upr_cd}&upkind=${upkind}&pageNo=${pageParam}&_type=json`
   );
+  return res.data.response.body;
 };

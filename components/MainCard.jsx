@@ -12,6 +12,7 @@ import styled from '@emotion/native';
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
   // console.log('item???', item);
+
   return (
     // <></>
     <TouchableOpacity

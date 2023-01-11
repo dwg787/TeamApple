@@ -1,10 +1,32 @@
 import React from "react";
 import styled from "@emotion/native";
-import { View, TouchableOpacity, StyleSheet, Text, Animated } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  Animated,
+} from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { Ionicons } from "@expo/vector-icons";
+import Review from "./../screens/Review";
 
-export default function ReviewCard({ review }) {
+export default function ReviewCard({
+  review,
+  reviews,
+  deleteReview,
+  isOpenModal,
+  setIsOpenModal,
+  isEdit,
+  setIsEdit,
+  setReviews,
+}) {
+  const handEditing = () => {
+    setIsEdit(true);
+    setIsOpenModal(true);
+  };
+
+  console.log(reviews);
+
   const rigthSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
@@ -12,16 +34,25 @@ export default function ReviewCard({ review }) {
       extrapolate: "clamp",
     });
     return (
-      <TouchableOpacity activeOpacity={0.6}>
-        <DeletBox>
-          <Animated.Text style={{ color: "white", transform: [{ scale: scale }] }}>Delete</Animated.Text>
+      <TouchableOpacity
+        onPress={() => deleteReview(review.id)}
+        activeOpacity={0.6}
+      >
+        <DeletBox
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+        >
+          <Animated.Text
+            style={{ color: "white", transform: [{ scale: scale }] }}
+          >
+            Delete
+          </Animated.Text>
         </DeletBox>
       </TouchableOpacity>
     );
   };
   return (
     <Swipeable renderRightActions={rigthSwipe}>
-      <TouchableOpacity key={review.id}>
+      <TouchableOpacity key={review.id} onPress={handEditing}>
         <ReviewWrapper
           style={{
             borderBottomWidth: 1,
@@ -34,6 +65,17 @@ export default function ReviewCard({ review }) {
           <ReviewContent>{review.contents}</ReviewContent>
         </ReviewWrapper>
       </TouchableOpacity>
+
+      {/*수정버튼 */}
+      <Review
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        reviews={reviews}
+        setReviews={setReviews}
+        id={review.id}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+      />
     </Swipeable>
   );
 }
