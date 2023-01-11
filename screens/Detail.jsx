@@ -5,17 +5,21 @@ import {
   ScrollView,
   useColorScheme,
   FlatList,
-} from 'react-native';
-import styled from '@emotion/native';
-import { Modal } from 'react-native';
-import { useState } from 'react';
-import Details from '../components/Han/Details';
-import Review from './Review';
-import ReviewCard from '../components/ReviewCard';
-import { Alert } from 'react-native';
+} from "react-native";
+import styled from "@emotion/native";
+import { Modal } from "react-native";
+import { useState } from "react";
+import Details from "../components/Han/Details";
+import Review from "./Review";
+import ReviewCard from "../components/ReviewCard";
+import { Alert } from "react-native";
 
-export default function Detail({ route: { params } }) {
-  const isDark = useColorScheme() === 'dark';
+export default function Detail({
+  route: {
+    params: { params },
+  },
+}) {
+  const isDark = useColorScheme() === "dark";
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -23,15 +27,15 @@ export default function Detail({ route: { params } }) {
 
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
-    Alert.alert('문의 사항 삭제', '정말 삭제하시겠습니까?', [
+    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
       {
-        text: '취소',
-        style: 'cancel',
-        onPress: () => console.log('취소 클릭!'),
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
       },
       {
-        text: '삭제',
-        style: 'destructive',
+        text: "삭제",
+        style: "destructive",
         onPress: () => {
           const newReviews = reviews.filter((review) => review.id !== id);
           setReviews(newReviews);
@@ -45,7 +49,7 @@ export default function Detail({ route: { params } }) {
     setIsOpenModal(true);
   };
 
-  console.log('reviews', reviews);
+  console.log("reviews", reviews);
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
@@ -55,10 +59,10 @@ export default function Detail({ route: { params } }) {
       }}
       keyExtractor={(item) => item.id}
       ListFooterComponent={
-        <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
+        <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
           <Details data={params.data} />
           <TitleWrapper
-            style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
+            style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
           >
             <SectionTitle>문의</SectionTitle>
           </TitleWrapper>

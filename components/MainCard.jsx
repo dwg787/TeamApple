@@ -5,22 +5,109 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styled from '@emotion/native';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import styled from "@emotion/native";
+import {
+  onSnapshot,
+  collection,
+  addDoc,
+  setDoc,
+  query,
+  orderBy,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { dbService } from "../firebase";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
   // console.log('item???', item);
+  const [items, setItems] = useState([]);
+
+  // const id = uuidv4();
+  // item.id = id;
+  // item.isLike = false;
+
+  // console.log(id);
+
+  const q = query(collection(dbService, "isLike"));
+
+  // const getData = async () => {
+  //   // const querySnapshot = await getDocs(q);
+  //   // const dataArray = [];
+  //   // querySnapshot.forEach((doc) => {
+  //   //   dataArray.push(doc.data());
+  //   // });
+  //   onSnapshot(q, (snapshot) => {
+  //     const newItems = snapshot.docs.map((doc) => {
+  //       const newitem = {
+  //         id: doc.id,
+  //         isLike: false,
+  //         ...doc.data(), // doc.data() : { text, createdAt, ...  }
+  //       };
+  //       return newitem;
+  //     });
+  //     setItems(newItems);
+  //   });
+  // };
+
+  const addIsLike = async (data) => {
+    const selectedItem = items.find(
+      (item) => item.desertionNo === data.desertionNo
+    );
+    if (!selectedItem) {
+      const id = uuidv4();
+      await setDoc(doc(dbService, "isLike", id), {
+        ...item,
+        id,
+        isLike: false,
+      });
+      getData();
+    }
+  };
+
+  const getData = async () => {
+    const querySnapshot = await getDocs(q);
+    const itemArray = [];
+    querySnapshot.forEach((doc) => {
+      itemArray.push(doc.data());
+    });
+    setItems(itemArray);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     getData();
+  //     addIsLike();
+
+  //     return () => {
+  //       getData();
+  //     };
+  //   }, [])
+  // );
+
+  console.log("mainItems", items);
 
   return (
     // <></>
     <TouchableOpacity
-      onPress={() =>
-        navigate('Detail', {
-          data: item,
-        })
-      }
+      onPress={() => {
+        addIsLike(item);
+        navigate("Detail", {
+          params: { data: item },
+        });
+      }}
     >
       <SingleCard>
         <AnimalCardPicture>
