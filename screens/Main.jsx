@@ -9,17 +9,23 @@ import {
 import { useState } from 'react';
 import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
 import styled from '@emotion/native';
-import { fetchData } from '../api';
+import { fetchData, fetchFilteredData } from '../api';
 import MainCard from '../components/MainCard';
 import Loader from '../components/Loader';
 import DropShadow from 'react-native-drop-shadow';
 import { DARK_COLOR } from '../colors';
 
-export default function Main() {
+export default function Main({ route: { params } }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
   const isDark = useColorScheme() === 'dark';
 
+  console.log(
+    'filter 페이지에서 넘겨준 축종 코드:',
+    params.selectedKind,
+    'filter 페이지에서 넘겨준 시도 코드:',
+    params.selectedLocation
+  );
   // const {
   //   data: rawData,
   //   isLoading,
@@ -38,7 +44,12 @@ export default function Main() {
     fetchNextPage,
   } = useInfiniteQuery(
     ['animal_list'],
-    ({ pageParam = 1 }) => fetchData(pageParam),
+    ({ pageParam = 1 }) =>
+      fetchFilteredData(
+        Number(params.selectedLocation),
+        params.selectedKind,
+        pageParam
+      ),
     {
       getNextPageParam: (lastPage, pages) => {
         // console.log('lastPage', lastPage);
