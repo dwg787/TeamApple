@@ -8,6 +8,7 @@ import {
   Button,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 const IntroSlider = () => {

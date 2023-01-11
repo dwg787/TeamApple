@@ -12,13 +12,16 @@ import { KindList } from '../components/KindList';
 import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import Swiper from 'react-native-swiper';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateSelection } from '../redux/modules/selection';
+// import Swiper from 'react-native-swiper';
 // import { useQuery, useInfiniteQuery } from 'react-query';
 // import Loader from '../components/Loader';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Filter({ navigation }) {
   const { navigate } = useNavigation();
+  const dispatch = useDispatch();
   const [selectedLocation, setSelectedLocation] = useState();
   const [selectedKind, setSelectedKind] = useState();
 
@@ -180,9 +183,10 @@ export default function Filter({ navigation }) {
               selectedKind
             );
             if (selectedLocation && selectedKind) {
+              dispatch(updateSelection({ selectedLocation, selectedKind }));
               navigate('Stacks', {
                 screen: 'Main',
-                params: { selectedLocation, selectedKind },
+                // params: { selectedLocation, selectedKind },
               });
             } else {
               Alert.alert('지역과 축종을 선택해주세요!');
