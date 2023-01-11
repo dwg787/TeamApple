@@ -37,7 +37,10 @@ export default function MainCard({ item }) {
           <AnimalCardGender>{item.sexCd}</AnimalCardGender>
           <AnimalCardKind>{item.kindCd}</AnimalCardKind>
           <AnimalCardAge>{item.age}</AnimalCardAge>
-          <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
+          <AnimalCardLocation>
+            {item.orgNm.slice(0, 2)}
+            {/* {item.orgNm.length > 2 && '...'} */}
+          </AnimalCardLocation>
           <AnimalCardDate>{item.happenDt}</AnimalCardDate>
         </AnimalCardDescription>
       </SingleCard>

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styled from '@emotion/native';
+import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs';
 
 export default function LocationList({ loc, onPress, isSelectedLocation }) {
   const { navigate } = useNavigation();
@@ -55,6 +56,15 @@ const styles = StyleSheet.create({
 //   padding: 10px 15px;
 //   border-radius: 5px;
 //   align-items: center;
+// `;
+
+// const LocationWrapper = styled.View`
+//   flex: 1;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: center;
+//   grid-template-rows: 1fr;
+//   grid-template-columns: 1fr 1fr 1fr 1fr;
 // `;
 
 const LocationText = styled.Text`
