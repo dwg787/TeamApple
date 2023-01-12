@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { SCREEN_HEIGHT } from '../utils';
+import { useState, useEffect, useCallback } from "react";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { SCREEN_HEIGHT } from "../utils";
 import {
   collection,
   addDoc,
@@ -12,17 +12,18 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from 'firebase/firestore';
-import { dbService, authService } from '../firebase';
-import styled from '@emotion/native';
-import { useNavigation } from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
+} from "firebase/firestore";
+import { dbService, authService } from "../firebase";
+import styled from "@emotion/native";
+import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
+import DropShadow from "react-native-drop-shadow";
 
 export default function Favorites() {
   const { navigate } = useNavigation();
-  const [like, setLike] = useState(true);
   const [items, setItems] = useState([]);
-  const q = query(collection(dbService, 'isLike'));
+
+  const q = query(collection(dbService, "isLike"));
   const getData = async () => {
     const querySnapshot = await getDocs(q);
     const dataArray = [];
@@ -43,7 +44,7 @@ export default function Favorites() {
   return (
     <>
       {!!authService.currentUser ? (
-        <View>
+        <ScrollView>
           {items.map((item) => {
             if (item.isLike) {
               return (
@@ -51,35 +52,47 @@ export default function Favorites() {
                   key={item.id}
                   onPress={() => {
                     getData();
-                    navigate('Detail', {
+                    navigate("Detail", {
                       params: { data: item },
                     });
                   }}
                 >
-                  <SingleCard>
-                    <AnimalCardPicture>
-                      <AnimalPic source={{ url: `${item.popfile}` }} />
-                    </AnimalCardPicture>
-                    <AnimalCardType>
-                      <TextC>성별</TextC>
-                      <TextC>품종</TextC>
-                      <TextC>나이</TextC>
-                      <TextC>지역</TextC>
-                      <TextC>등록일</TextC>
-                    </AnimalCardType>
-                    <AnimalCardDescription>
-                      <AnimalCardGender>{item.sexCd}</AnimalCardGender>
-                      <AnimalCardKind>{item.kindCd}</AnimalCardKind>
-                      <AnimalCardAge>{item.age}</AnimalCardAge>
-                      <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
-                      <AnimalCardDate>{item.happenDt}</AnimalCardDate>
-                    </AnimalCardDescription>
-                  </SingleCard>
+                  <DropShadow
+                    style={{
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 0,
+                        height: 5,
+                      },
+                      shadowOpacity: 0.29,
+                      shadowRadius: 4.65,
+                    }}
+                  >
+                    <SingleCard>
+                      <AnimalCardPicture>
+                        <AnimalPic source={{ url: `${item.popfile}` }} />
+                      </AnimalCardPicture>
+                      <AnimalCardType>
+                        <TextC>성별</TextC>
+                        <TextC>품종</TextC>
+                        <TextC>나이</TextC>
+                        <TextC>지역</TextC>
+                        <TextC>등록일</TextC>
+                      </AnimalCardType>
+                      <AnimalCardDescription>
+                        <AnimalCardGender>{item.sexCd}</AnimalCardGender>
+                        <AnimalCardKind>{item.kindCd}</AnimalCardKind>
+                        <AnimalCardAge>{item.age}</AnimalCardAge>
+                        <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
+                        <AnimalCardDate>{item.happenDt}</AnimalCardDate>
+                      </AnimalCardDescription>
+                    </SingleCard>
+                  </DropShadow>
                 </TouchableOpacity>
               );
             }
           })}
-        </View>
+        </ScrollView>
       ) : (
         <VisitorView>
           <Text>로그인 해주세요.</Text>
@@ -102,14 +115,14 @@ const TextC = styled.Text`
 `;
 
 const SingleCard = styled.View`
+  margin-left: 2.5%;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 95%;
   height: 170px;
-  margin-bottom: 15px;
+  margin-top: 15px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 2px 3px 2px;
 `;
 
 const AnimalCardPicture = styled.View`
@@ -157,7 +170,7 @@ const AnimalCardDate = styled.Text`
 `;
 
 const VisitorView = styled.View`
-  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
+  height: ${SCREEN_HEIGHT / 1.5 + "px"};
   justify-content: center;
   align-items: center;
 `;

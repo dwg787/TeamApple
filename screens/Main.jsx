@@ -5,21 +5,21 @@ import {
   SafeAreaView,
   useColorScheme,
   TouchableOpacity,
-} from 'react-native';
-import { useState } from 'react';
-import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
-import styled from '@emotion/native';
-import { fetchData, fetchFilteredData } from '../api';
-import MainCard from '../components/MainCard';
-import Loader from '../components/Loader';
-import DropShadow from 'react-native-drop-shadow';
-import { DARK_COLOR } from '../colors';
-import { useSelector, useDispatch } from 'react-redux';
+} from "react-native";
+import { useState } from "react";
+import { useQuery, useQueryClient, useInfiniteQuery } from "react-query";
+import styled from "@emotion/native";
+import { fetchData, fetchFilteredData } from "../api";
+import MainCard from "../components/MainCard";
+import Loader from "../components/Loader";
+import DropShadow from "react-native-drop-shadow";
+import { DARK_COLOR } from "../colors";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Main() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
-  const isDark = useColorScheme() === 'dark';
+  const isDark = useColorScheme() === "dark";
   const { selectedLocation, selectedKind } = useSelector(
     (state) => state.selection.selection
   );
@@ -53,7 +53,7 @@ export default function Main() {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    ['animal_list'],
+    ["animal_list"],
     ({ pageParam = 1 }) =>
       fetchFilteredData(selectedLocation, selectedKind, pageParam),
     {
@@ -75,7 +75,7 @@ export default function Main() {
     // await getData();
     //refetch
     // await Promise.all();
-    await queryClient.refetchQueries(['animal_list']);
+    await queryClient.refetchQueries(["animal_list"]);
     setIsRefreshing(false);
   };
 
@@ -108,33 +108,33 @@ export default function Main() {
     // console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
+      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
         <StyleTopHeaderPostingCounter>
           <TextA>
             총 <TextB>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
-        <AnimalCardContainer>
-          <TouchableOpacity
+        {/* <AnimalCardContainer> */}
+        {/* <TouchableOpacity
             onPress={() =>
               navigate('Detail', {
                 params: { data: animalList },
               })
             }
-          >
-            <FlatList
-              refreshing={isRefreshing}
-              onRefresh={onRefresh}
-              showsHorizontalScrollIndicator={false}
-              onEndReachedThreshold={0.5}
-              onEndReached={loadMoreData}
-              data={animalList}
-              renderItem={({ item }) => <MainCard item={item} />}
-              keyExtractor={(item) => item.desertionNo}
-              ItemSeparatorComponent={<View style={{ width: 10 }} />}
-            />
-          </TouchableOpacity>
-        </AnimalCardContainer>
+          > */}
+        <FlatList
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+          showsHorizontalScrollIndicator={false}
+          onEndReachedThreshold={0.5}
+          onEndReached={loadMoreData}
+          data={animalList}
+          renderItem={({ item }) => <MainCard item={item} />}
+          keyExtractor={(item) => item.desertionNo}
+          ItemSeparatorComponent={<View style={{ width: 10 }} />}
+        />
+        {/* </TouchableOpacity> */}
+        {/* </AnimalCardContainer> */}
       </SafeAreaView>
     );
   }
