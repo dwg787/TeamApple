@@ -3,7 +3,6 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/compat/database";
-import "firebase/compat/analytics";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -17,6 +16,7 @@ import { getAuth } from "firebase/auth";
 //   appId: "1:359514959473:web:b195adeaadc922f1da35d0",
 //   measurementId: "G-Z21B8YV9BB",
 // };
+
 const firebaseConfig = {
   apiKey: "AIzaSyBnLHAPwv31MVnATtgqabeJVM9_xR0Lems",
   authDomain: "teamapple2.firebaseapp.com",
@@ -29,7 +29,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 const app = initializeApp(firebaseConfig);
 export const dbService = getFirestore(app);
 export const authService = getAuth(app);

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, useColorScheme } from "react-native";
+import { Alert, TouchableOpacity, useColorScheme } from "react-native";
 import Login from "../screens/Login";
 import Detail from "../screens/Detail";
 import Main from "../screens/Main";
@@ -10,23 +10,31 @@ import SignUpSuccess from "../screens/SignUpSuccess";
 import IntroSlider from "../screens/IntroSlider";
 import { AntDesign } from "@expo/vector-icons";
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
-import { useNavigation } from "@react-navigation/native";
 import { authService } from "../firebase";
 import { signOut } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
-export default function Stacks({ navigation: { goBack } }) {
+export default function Stacks() {
   const isDark = useColorScheme() === "dark";
   const { navigate } = useNavigation();
-
   const logout = () => {
-    signOut(authService)
-      .then(() => {
-        console.log("로그아웃 성공");
-        navigate("NotTabs", { screen: "Login" });
-      })
-      .catch((err) => alert(err));
+    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "로그아웃",
+        style: "destructive",
+        onPress: () => {
+          signOut(authService);
+          navigate("NotTabs", { screen: "Login" });
+        },
+      },
+    ]);
   };
 
   return (
@@ -34,15 +42,6 @@ export default function Stacks({ navigation: { goBack } }) {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => goBack()}>
-            <AntDesign
-              name="left"
-              size={24}
-              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
-            />
-          </TouchableOpacity>
-        ),
         headerRight: () => {
           let button = !authService.currentUser ? (
             <TouchableOpacity onPress={() => navigate("Login")}>
@@ -93,15 +92,6 @@ export function NotTabs() {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => goBack()}>
-            <AntDesign
-              name="left"
-              size={24}
-              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
-            />
-          </TouchableOpacity>
-        ),
       }}
     >
       <Stack.Screen
