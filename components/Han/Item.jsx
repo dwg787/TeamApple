@@ -21,7 +21,7 @@ export default function Item({ data }) {
             <DetailTextTitle style={{ color: isDark ? ORANGE_COLOR : "black" }}>성별</DetailTextTitle>
           </DetailTextTitleBox>
           <DetailTextContentBox>
-            <DetailTextContent style={{ color: isDark ? "white" : "black" }}>{data.sexCd}</DetailTextContent>
+            <DetailTextContent style={{ color: isDark ? "white" : "black" }}>{data.sexCd === "M" ? "남" : "W" ? "여" : "잡종"}</DetailTextContent>
           </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>
