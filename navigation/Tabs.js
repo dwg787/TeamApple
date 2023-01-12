@@ -36,6 +36,15 @@ export default function Tabs({ navigation: { goBack } }) {
             />
           </TouchableOpacity>
         ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigate('Login')}>
+            <AntDesign
+              name='login'
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
       }}
       sceneContainerStyle={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}
     >
