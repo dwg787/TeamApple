@@ -7,7 +7,7 @@ import { useColorScheme } from 'react-native';
 // import { ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Root from './navigation/Root';
-// import { LightTheme } from ‘./themeManager/theme’;
+// import { LightTheme } from './themeManager/theme';
 import { Provider } from 'react-redux';
 import store from './redux/config/configStore';
 const queryClient = new QueryClient();
