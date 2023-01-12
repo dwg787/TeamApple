@@ -6,20 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import LocationList from '../components/LocationList';
-import { KindList } from '../components/KindList';
-import styled from '@emotion/native';
-import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateSelection } from '../redux/modules/selection';
+} from "react-native";
+import LocationList from "../components/LocationList";
+import { KindList } from "../components/KindList";
+import styled from "@emotion/native";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSelection } from "../redux/modules/selection";
 // import Swiper from 'react-native-swiper';
 // import { useQuery, useInfiniteQuery } from 'react-query';
 // import Loader from '../components/Loader';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Filter({ navigation }) {
+export default function Filter() {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
   const [selectedLocation, setSelectedLocation] = useState();
@@ -35,78 +35,78 @@ export default function Filter({ navigation }) {
   const LocationData = [
     {
       orgCd: 6110000,
-      orgdownNm: '서울',
+      orgdownNm: "서울",
     },
     {
       orgCd: 6260000,
-      orgdownNm: '부산',
+      orgdownNm: "부산",
     },
     {
       orgCd: 6270000,
-      orgdownNm: '대구',
+      orgdownNm: "대구",
     },
     {
       orgCd: 6280000,
-      orgdownNm: '인천',
+      orgdownNm: "인천",
     },
     {
       orgCd: 6290000,
-      orgdownNm: '광주',
+      orgdownNm: "광주",
     },
     {
       orgCd: 5690000,
-      orgdownNm: '세종',
+      orgdownNm: "세종",
     },
     {
       orgCd: 6300000,
-      orgdownNm: '대전',
+      orgdownNm: "대전",
     },
     {
       orgCd: 6310000,
-      orgdownNm: '울산',
+      orgdownNm: "울산",
     },
     {
       orgCd: 6410000,
-      orgdownNm: '경기',
+      orgdownNm: "경기",
     },
     {
       orgCd: 6420000,
-      orgdownNm: '강원',
+      orgdownNm: "강원",
     },
     {
       orgCd: 6430000,
-      orgdownNm: '충북',
+      orgdownNm: "충북",
     },
     {
       orgCd: 6440000,
-      orgdownNm: '충남',
+      orgdownNm: "충남",
     },
     {
       orgCd: 6450000,
-      orgdownNm: '전북',
+      orgdownNm: "전북",
     },
     {
       orgCd: 6460000,
-      orgdownNm: '전남',
+      orgdownNm: "전남",
     },
     {
       orgCd: 6470000,
-      orgdownNm: '경북',
+      orgdownNm: "경북",
     },
     {
       orgCd: 6480000,
-      orgdownNm: '경남',
+      orgdownNm: "경남",
     },
     {
       orgCd: 6500000,
-      orgdownNm: '제주',
+      orgdownNm: "제주",
     },
   ];
 
   const KindData = [
-    { id: 417000, kind: '개' },
-    { id: 422400, kind: '고양이' },
-    { id: 429900, kind: '기타' },
+    { id: 417000, kind: "개" },
+    { id: 422400, kind: "고양이" },
+    { id: 429900, kind: "기타" },
   ];
 
   // if (isLoading) {
@@ -126,7 +126,7 @@ export default function Filter({ navigation }) {
     // <></>
     <FilterPageBackGround>
       <TextWrapper>
-        <Text style={{ fontSize: 20, color: 'white' }}>
+        <Text style={{ fontSize: 20, color: "white" }}>
           지역을 선택해주세요
         </Text>
       </TextWrapper>
@@ -152,7 +152,7 @@ export default function Filter({ navigation }) {
         ItemSeparatorComponent={<View style={{ width: 10 }} />}
       />
       <TextWrapper>
-        <Text style={{ fontSize: 20, color: 'white' }}>
+        <Text style={{ fontSize: 20, color: "white" }}>
           축종을 선택해주세요
         </Text>
       </TextWrapper>
@@ -177,19 +177,14 @@ export default function Filter({ navigation }) {
       <FilterBtnWrapper>
         <FilterBtn
           onPress={() => {
-            console.log(
-              '친구들 보러가기 클릭!',
-              selectedLocation,
-              selectedKind
-            );
             if (selectedLocation && selectedKind) {
               dispatch(updateSelection({ selectedLocation, selectedKind }));
-              navigate('Tabs', {
-                screen: 'Stacks',
+              navigate("Tabs", {
+                screen: "Stacks",
                 // params: { selectedLocation, selectedKind },
               });
             } else {
-              Alert.alert('지역과 축종을 선택해주세요!');
+              Alert.alert("지역과 축종을 선택해주세요!");
             }
           }}
         >
@@ -241,14 +236,14 @@ const TextWrapper = styled.View`
 
 const styles = StyleSheet.create({
   locationFlatList: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 5,
   },
   kindFlatList: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 5,
   },
 });

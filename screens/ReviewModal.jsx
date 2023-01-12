@@ -1,41 +1,42 @@
 import { useState } from "react";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
+import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { authService, dbService } from "../firebase";
 
-export default function Review({
+export default function ReviewModal({
   isOpenModal,
   setIsOpenModal,
-  setReviews,
   isEdit,
-  reviews,
   setIsEdit,
-  id,
+  data,
+  idchange,
 }) {
   const [addContent, setAddcontent] = useState("");
 
-  console.log(addContent);
-
-  const editReview = () => {
-    const newReviews = [...reviews];
-    const idx = newReviews.findIndex((review) => review.id === id);
-    newReviews[idx].contents = addContent;
-    newReviews[idx].isEdit = false;
-    setAddcontent();
-    setIsEdit(false);
-    setReviews(newReviews);
-    setIsOpenModal(false);
+  // 3. 문의 수정 (edit)
+  const editReview = async (idchange) => {
+    await updateDoc(doc(dbService, "reviews", idchange), {
+      contents: addContent,
+    }).then(() => {
+      setAddcontent("");
+      setIsEdit(false);
+      setIsOpenModal(false);
+    });
   };
-  // console.log(reviews);
 
   // 1. 문의 추가 (add)
   const newReview = {
-    id: Date.now(),
     contents: addContent,
-    isEdit: false,
+    createdAt: Date.now(),
+    userId: authService.currentUser?.uid,
+    nickname: authService.currentUser?.displayName,
+    cardID: data?.desertionNo,
   };
 
-  const addReview = () => {
-    setReviews((prev) => [...prev, newReview]);
+  const addReview = async () => {
+    await addDoc(collection(dbService, "reviews"), newReview);
+    // setReviews((prev) => [...prev, newReview]);
     setAddcontent("");
     setIsOpenModal(false);
   };
@@ -65,7 +66,7 @@ export default function Review({
             </BtnWrapper>
             <BtnWrapper2>
               <ModalBtn
-                onPress={isEdit ? () => editReview() : addReview}
+                onPress={isEdit ? () => editReview(idchange) : addReview}
                 title={isEdit ? "수정" : "완료"}
                 color='white'
               />
@@ -109,7 +110,6 @@ const InputWrapper = styled.KeyboardAvoidingView``;
 
 const Backdrop = styled.View`
   flex: 1;
-  /* justify-content: flex-start; */
   justify-content: center;
   align-items: center;
 `;

@@ -7,7 +7,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
+import { Alert, TouchableOpacity } from "react-native";
 import { useColorScheme } from "react-native";
 import { DARK_COLOR, BLUE_COLOR, ORANGE_COLOR } from "../colors";
 import { authService } from "../firebase";
@@ -15,16 +15,25 @@ import { signOut } from "firebase/auth";
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs({ navigation: { goBack, navigate } }) {
+export default function Tabs({ navigation: { navigate } }) {
   const isDark = useColorScheme() === "dark";
 
   const logout = () => {
-    signOut(authService)
-      .then(() => {
-        console.log("로그아웃 성공");
-        navigate("NotTabs", { screen: "Login" });
-      })
-      .catch((err) => alert(err));
+    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "로그아웃",
+        style: "destructive",
+        onPress: () => {
+          signOut(authService);
+          navigate("NotTabs", { screen: "Login" });
+        },
+      },
+    ]);
   };
 
   return (
@@ -37,18 +46,6 @@ export default function Tabs({ navigation: { goBack, navigate } }) {
         tabBarInactiveTintColor: "#222222",
         headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => goBack()}>
-            <AntDesign
-              name="left"
-              size={24}
-              style={{
-                marginLeft: 16,
-                color: isDark ? ORANGE_COLOR : BLUE_COLOR,
-              }}
-            />
-          </TouchableOpacity>
-        ),
         headerRight: () => {
           let button = !authService.currentUser ? (
             <TouchableOpacity onPress={() => navigate("Login")}>

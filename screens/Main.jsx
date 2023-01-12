@@ -1,4 +1,3 @@
-// import { useNavigation } from '@react-navigation/native';
 import {
   View,
   FlatList,
@@ -6,22 +5,27 @@ import {
   useColorScheme,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery, useQueryClient, useInfiniteQuery } from "react-query";
 import styled from "@emotion/native";
 import { fetchData, fetchFilteredData } from "../api";
 import MainCard from "../components/MainCard";
 import Loader from "../components/Loader";
 import DropShadow from "react-native-drop-shadow";
-import { DARK_COLOR, ORANGE_COLOR, BLUE_COLOR } from "../colors";
+import { BLUE_COLOR, DARK_COLOR, ORANGE_COLOR } from "../colors";
 import { useSelector, useDispatch } from "react-redux";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+
+
 
 
 
 export default function Main() {
+  const isDark = useColorScheme() === "dark";
+  const { setOptions, reset } = useNavigation();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
-  const isDark = useColorScheme() === "dark";
   const { selectedLocation, selectedKind } = useSelector(
     (state) => state.selection.selection
   );
@@ -71,6 +75,24 @@ export default function Main() {
   );
 
   // console.log('rawData:', rawData);
+
+  useFocusEffect(
+    useCallback(() => {
+      setOptions({
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => reset({ index: 0, routes: [{ name: "Filter" }] })}
+          >
+            <AntDesign
+              name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }, [])
+  );
 
   const onRefresh = async () => {
     setIsRefreshing(true);

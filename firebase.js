@@ -3,7 +3,6 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/compat/database";
-import "firebase/compat/analytics";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -34,7 +33,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 const app = initializeApp(firebaseConfig);
 export const dbService = getFirestore(app);
 export const authService = getAuth(app);

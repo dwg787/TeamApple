@@ -1,17 +1,19 @@
 import styled from "@emotion/native";
-import { View, Text, useColorScheme } from "react-native";
+import { View, Text, Alert, useColorScheme } from "react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils";
 import { signOut } from "firebase/auth";
 import { authService, dbService } from "../firebase";
-import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import profileImg from "../assets/profileImg.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { AntDesign } from "@expo/vector-icons";
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
 
 export default function Settings() {
-  // console.log(authService.currentUser.displayName);
+  const isDark = useColorScheme() === "dark";
+  const { navigate, setOptions, goBack } = useNavigation();
   const [textValue, setTextValue] = useState("");
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,9 +21,7 @@ export default function Settings() {
   const isDark = useColorScheme() === "dark";
 
   const auth = getAuth();
-
   const user = auth.currentUser;
-
   const displayName = user?.displayName;
 
   const editNickName = async () => {
@@ -29,7 +29,7 @@ export default function Settings() {
       displayName: textValue,
     })
       .then(() => {
-        console.log("textValue", "hihi");
+        // console.log("textValue", "hihi");
         setTextValue(textValue);
       })
       .catch((error) => {
@@ -37,8 +37,6 @@ export default function Settings() {
       });
     refreshUser();
   };
-
-  const { navigate } = useNavigation();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -66,15 +64,42 @@ export default function Settings() {
   };
 
   const logout = () => {
-    signOut(authService)
-      .then(() => {
-        console.log("로그아웃 성공");
-        navigate("NotTabs", { screen: "Login" });
-      })
-      .catch((err) => alert(err));
+    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "로그아웃",
+        style: "destructive",
+        onPress: () => {
+          signOut(authService);
+          navigate("NotTabs", { screen: "Login" });
+        },
+      },
+    ]);
   };
 
-  //#3320B3
+  // useNavigation의 setOptions를 사용하려면 useFocusEffect에서 사용해줘야 한다.
+  // goBack으로 이전 페이지로 가지 않는 것을 처리해주기 위해 뒤로가기 버튼이 필요한 컴포넌트에서 각각 지정해줘야 한다.!!
+  useFocusEffect(
+    useCallback(() => {
+      setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              style={{ marginLeft: 16 }}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }, [])
+  );
+
   return (
     <>
       {!!user ? (
@@ -84,8 +109,8 @@ export default function Settings() {
             <ProfileTextWrap>
               <ProfileTitle>사용자 이름 수정</ProfileTitle>
               <ProfileTextInput
-                placeholder="닉네임을 입력해주세요 ..."
-                placeholderTextColor="#A8A8A8"
+                placeholder='닉네임을 입력해주세요 ...'
+                placeholderTextColor='#A8A8A8'
                 value={textValue}
                 onChangeText={setTextValue}
               />
@@ -102,10 +127,7 @@ export default function Settings() {
         </SettingWrap>
       ) : (
         <VisitorView>
-          <Text>로그인 해주세요.</Text>
-          {/* <LogInButton>
-            <Text>로그인</Text>
-          </LogInButton> */}
+          <Text>로그인이 필요한 서비스입니다.</Text>
         </VisitorView>
       )}
     </>
