@@ -1,10 +1,10 @@
-import styled from '@emotion/native';
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils';
-import { AntDesign } from '@expo/vector-icons';
-import Item from './Item';
+import styled from "@emotion/native";
+import { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
+import DropShadow from "react-native-drop-shadow";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
+import { AntDesign } from "@expo/vector-icons";
+import Item from "./Item";
 import {
   onSnapshot,
   collection,
@@ -23,6 +23,8 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
+  const [isLike, setIsLike] = useState(data.islike);
+  const isDark = useColorScheme() === "dark";
 
   // 상태에 따라서 변수도 바뀐다.
   const checkLike = items?.find(
@@ -108,7 +110,7 @@ export default function Details({ data }) {
 
   return (
     <>
-      <ScrollWrap>
+      <ScrollWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
         <DetailPictureBox>
           <DetailImage
             source={{

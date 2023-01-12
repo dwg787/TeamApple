@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Alert, TouchableOpacity, useColorScheme } from "react-native";
+import { Text, TouchableOpacity, useColorScheme } from "react-native";
 import Login from "../screens/Login";
 import Detail from "../screens/Detail";
 import Main from "../screens/Main";
@@ -10,9 +10,9 @@ import SignUpSuccess from "../screens/SignUpSuccess";
 import IntroSlider from "../screens/IntroSlider";
 import { AntDesign } from "@expo/vector-icons";
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
+import { useNavigation } from "@react-navigation/native";
 import { authService } from "../firebase";
 import { signOut } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +31,7 @@ export default function Stacks() {
         style: "destructive",
         onPress: () => {
           signOut(authService);
-          navigate("NotTabs", { screen: "Login" });
+        navigate("NotTabs", { screen: "Login" });
         },
       },
     ]);
@@ -71,7 +71,7 @@ export default function Stacks() {
         }}
         name="Main"
         component={Main}
-        style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}
+        style={{ backgroundColor: isDark ? "DARK_COLOR" : "white" }}
       />
       <Stack.Screen
         options={{
@@ -92,6 +92,15 @@ export function NotTabs() {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
       }}
     >
       <Stack.Screen

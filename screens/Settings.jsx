@@ -9,7 +9,7 @@ import { getAuth, updateProfile } from "firebase/auth";
 import profileImg from "../assets/profileImg.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
-import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
+import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
 
 export default function Settings() {
   const isDark = useColorScheme() === "dark";
@@ -18,6 +18,7 @@ export default function Settings() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  const isDark = useColorScheme() === "dark";
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -102,9 +103,9 @@ export default function Settings() {
   return (
     <>
       {!!user ? (
-        <SettingWrap>
+        <SettingWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
           <SettingImage source={profileImg} />
-          <ProfileView>
+          <ProfileView style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
             <ProfileTextWrap>
               <ProfileTitle>사용자 이름 수정</ProfileTitle>
               <ProfileTextInput
@@ -116,10 +117,11 @@ export default function Settings() {
               <Text>{displayName}</Text>
             </ProfileTextWrap>
             <ProfileButton onPress={editNickName}>
-              <ProfileButtonText>수정하기</ProfileButtonText>
+              <ProfileButtonText style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>수정하기</ProfileButtonText>
             </ProfileButton>
           </ProfileView>
-          <LogoutButton onPress={logout}>
+          <LogoutButton onPress={logout}
+          style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
             <LogoutButtonText>로그아웃</LogoutButtonText>
           </LogoutButton>
         </SettingWrap>
@@ -133,6 +135,7 @@ export default function Settings() {
 }
 
 const SettingWrap = styled.View`
+  flex : 1;
   padding: 10% 15%;
 `;
 

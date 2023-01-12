@@ -29,6 +29,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 
 
+import { DARK_COLOR } from "../colors";
 
 export default function Detail({
   navigation: { setOptions, goBack },
