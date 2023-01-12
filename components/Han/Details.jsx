@@ -42,7 +42,7 @@ export default function Details({ data }) {
       getData();
 
       return () => {
-        console.log("hi");
+        // console.log("hi");
         getData();
       };
     }, [])
@@ -88,7 +88,7 @@ export default function Details({ data }) {
         item.userId === authService?.currentUser?.uid
     );
 
-    console.log("items[idx].isLike", items[idx].isLike);
+    // console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
       isLike: !items[idx].isLike,
     });

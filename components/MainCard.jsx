@@ -65,14 +65,13 @@ export default function MainCard({ item }) {
 
   console.log(!authService?.currentUser?.uid);
   const addIsLike = async (data) => {
-    console.log(data);
     const selectedItem = items.find(
       (item) =>
         item.desertionNo === data.desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
     // const selectedItem2 = items.find((item) => item.userId === data.userId);
-    console.log("hi", selectedItem);
+
     // console.log(selectedItem2);
     if (!selectedItem) {
       const id = uuidv4();

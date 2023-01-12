@@ -12,6 +12,7 @@ import Details from "../components/Han/Details";
 import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { authService, dbService } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
 import {
   collection,
   onSnapshot,
@@ -26,17 +27,19 @@ export default function Detail({
   },
 }) {
   console.log("params.data!!!@@@@", params.data);
-  console.log("data!!!@@@", data);
 
+  const { navigate } = useNavigation();
   const isDark = useColorScheme() === "dark";
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [idchange, setIdchange] = useState("");
+  // console.log("isOpenModal", isOpenModal);
 
   // 문의 사항 버튼 클릭시 modal true 함수
-  const handleAdding = () => {
-    const isLogin = !!authService.currenUsers;
+  const handleAdding = async () => {
+    const isLogin = !!authService.currentUser;
     if (!isLogin) {
       navigate("Login");
       return;
@@ -58,15 +61,15 @@ export default function Detail({
     });
     return unsubscribe;
   }, []);
+  // const list = reviews.filter((el)=> el.cardID === params.data.desertionNo)
+  // console.log(" list", reviews);
 
-  console.log("params.data!!!@@@@", params.data);
-  console.log("data!!!@@@", data);
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
       data={reviews}
       renderItem={({ item }) => {
-        <ReviewCard review={item} />;
+        <ReviewCard />;
       }}
       keyExtractor={(item) => item.id}
       ListFooterComponent={
@@ -85,28 +88,35 @@ export default function Detail({
           <FlatList
             style={{ marginBottom: 50 }}
             data={reviews}
-            renderItem={({ item }) => (
-              <ReviewCard
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-                review={item}
-                deleteReview={deleteReview}
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-                reviews={reviews}
-                setReviews={setReviews}
-              />
-            )}
+            renderItem={({ item }) => {
+              if (params.data.desertionNo === item.cardID) {
+                return (
+                  <ReviewCard
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                    review={item}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
+                    reviews={reviews}
+                    setReviews={setReviews}
+                    data={params.data}
+                    idchange={idchange}
+                    setIdchange={setIdchange}
+                  />
+                );
+              }
+            }}
             keyExtractor={(item) => item.id}
           />
 
           {/*등록버튼 */}
           <ReviewModal
             isOpenModal={isOpenModal}
-            isEdit={isEdit}
             setIsOpenModal={setIsOpenModal}
-            setReviews={setReviews}
             reviews={reviews}
+            setReviews={setReviews}
+            isEdit={isEdit}
+            data={params.data}
           />
         </Container>
       }

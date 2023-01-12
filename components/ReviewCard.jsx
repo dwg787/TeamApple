@@ -8,8 +8,11 @@ import {
   Animated,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import Review from "../screens/ReviewModal";
+import ReviewModal from "../screens/ReviewModal";
 import { Alert } from "react-native";
+import { deleteDoc, doc } from "firebase/firestore";
+import { dbService } from "./../firebase";
+import { async } from "@firebase/util";
 
 export default function ReviewCard({
   review,
@@ -19,13 +22,17 @@ export default function ReviewCard({
   isEdit,
   setIsEdit,
   setReviews,
+  data,
+  idchange,
+  setIdchange,
 }) {
-  const handEditing = () => {
+  const handEditing = (id) => {
+    setIdchange(id);
     setIsEdit(true);
     setIsOpenModal(true);
   };
 
-  // console.log(reviews);
+  // console.log("isOpenModal########", isOpenModal);
 
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
@@ -38,9 +45,10 @@ export default function ReviewCard({
       {
         text: "삭제",
         style: "destructive",
-        onPress: () => {
-          const newReviews = reviews.filter((review) => review.id !== id);
-          setReviews(newReviews);
+        onPress: async (id) => {
+          // setReviews(newReviews);
+          // const newReviews = reviews.filter((review) => review.id !== id);
+          await deleteDoc(doc(dbService, "reviews", id));
         },
       },
     ]);
@@ -71,7 +79,7 @@ export default function ReviewCard({
   };
   return (
     <Swipeable renderRightActions={rigthSwipe}>
-      <TouchableOpacity key={review.id} onPress={handEditing}>
+      <TouchableOpacity key={review.id} onPress={() => handEditing(review.id)}>
         <ReviewWrapper
           style={{
             borderBottomWidth: 1,
@@ -80,21 +88,24 @@ export default function ReviewCard({
             paddingLeft: 30,
           }}
         >
-          <ReviewId>{review.id}</ReviewId>
+          <ReviewId>{review.nickname}</ReviewId>
           <ReviewContent>{review.contents}</ReviewContent>
         </ReviewWrapper>
       </TouchableOpacity>
 
       {/*수정버튼 */}
-      {/* <Review
+      <ReviewModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         reviews={reviews}
         setReviews={setReviews}
-        id={review.id}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
-      /> */}
+        id={review.id}
+        data={data}
+        setIdchange={setIdchange}
+        idchange={idchange}
+      />
     </Swipeable>
   );
 }
