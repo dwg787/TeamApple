@@ -18,7 +18,7 @@ import {
   updateDoc,
   deleteDoc,
 } from 'firebase/firestore';
-import { dbService } from '../../firebase';
+import { authService, dbService } from '../../firebase';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
@@ -91,7 +91,7 @@ export default function Details({ data }) {
   };
 
   // console.log('data??', getDoc());
-
+  // console.log('현재 접속자: ', authService.currentUser);
   return (
     <>
       <ScrollWrap>
