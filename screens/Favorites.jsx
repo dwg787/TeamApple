@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   useColorScheme,
-} from "react-native";
-import { SCREEN_HEIGHT } from "../utils";
+} from 'react-native';
+import { SCREEN_HEIGHT } from '../utils';
 import {
   collection,
   addDoc,
@@ -18,22 +18,22 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService, authService } from "../firebase";
-import styled from "@emotion/native";
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/native";
-import DropShadow from "react-native-drop-shadow";
-import { AntDesign } from "@expo/vector-icons";
-import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
+} from 'firebase/firestore';
+import { dbService, authService } from '../firebase';
+import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import DropShadow from 'react-native-drop-shadow';
+import { AntDesign } from '@expo/vector-icons';
+import { BLUE_COLOR, ORANGE_COLOR } from '../colors';
 
 export default function Favorites() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const { navigate, setOptions, goBack } = useNavigation();
   const [items, setItems] = useState([]);
 
   // 파이어 스토어 isLike에 있는 것들을 가져와서 items에 저장한다.
-  const q = query(collection(dbService, "isLike"));
+  const q = query(collection(dbService, 'isLike'));
   const getData = async () => {
     const querySnapshot = await getDocs(q);
     const dataArray = [];
@@ -51,7 +51,7 @@ export default function Favorites() {
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               style={{ marginLeft: 16 }}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
@@ -76,14 +76,14 @@ export default function Favorites() {
                   key={item.id}
                   onPress={() => {
                     getData();
-                    navigate("Detail", {
+                    navigate('Detail', {
                       params: { data: item },
                     });
                   }}
                 >
                   <DropShadow
                     style={{
-                      shadowColor: "#000",
+                      shadowColor: '#000',
                       shadowOffset: {
                         width: 0,
                         height: 5,
@@ -194,7 +194,7 @@ const AnimalCardDate = styled.Text`
 `;
 
 const VisitorView = styled.View`
-  height: ${SCREEN_HEIGHT / 1.5 + "px"};
+  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
   justify-content: center;
   align-items: center;
 `;
