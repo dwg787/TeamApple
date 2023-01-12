@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/native";
+import { useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -7,25 +8,54 @@ import {
   Text,
   Animated,
 } from "react-native";
+
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import Review from "./../screens/Review";
+import Review from "../screens/ReviewModal";
+import { doc, deleteDoc } from "@firebase/firestore";
+import { dbService } from "../firebase";
+import { async } from "@firebase/util";
+import ReviewModal from "./../screens/ReviewModal";
 
 export default function ReviewCard({
-  review,
-  reviews,
-  deleteReview,
   isOpenModal,
   setIsOpenModal,
+  review,
+  reviews,
   isEdit,
   setIsEdit,
   setReviews,
+  change,
+  setChange,
+  data,
+  addReview,
 }) {
-  const handEditing = () => {
+  const handEditing = async (id) => {
+    setChange(id);
     setIsEdit(true);
     setIsOpenModal(true);
   };
 
-  console.log(reviews);
+  // 2. 문의 삭제 (delete)
+  const deleteReview = (id, userId) => {
+    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "삭제",
+        style: "destructive",
+        onPress: async () => {
+          // setReviews(newReviews);
+          // const newReviews = reviews.filter((review) => review.id !== userId);
+          if (userId === authService.currentUser.uid) {
+            await deleteDoc(doc(dbService, "reviews", id));
+          }
+        },
+      },
+    ]);
+  };
 
   const rigthSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -35,7 +65,7 @@ export default function ReviewCard({
     });
     return (
       <TouchableOpacity
-        onPress={() => deleteReview(review.id)}
+        onPress={() => deleteReview(review.id, review.userId)}
         activeOpacity={0.6}
       >
         <DeletBox
@@ -52,7 +82,7 @@ export default function ReviewCard({
   };
   return (
     <Swipeable renderRightActions={rigthSwipe}>
-      <TouchableOpacity key={review.id} onPress={handEditing}>
+      <TouchableOpacity key={review.id} onPress={() => handEditing(review.id)}>
         <ReviewWrapper
           style={{
             borderBottomWidth: 1,
@@ -61,20 +91,23 @@ export default function ReviewCard({
             paddingLeft: 30,
           }}
         >
-          <ReviewId>{review.id}</ReviewId>
+          <ReviewId>{review.nickname}</ReviewId>
           <ReviewContent>{review.contents}</ReviewContent>
         </ReviewWrapper>
       </TouchableOpacity>
 
-      {/*수정버튼 */}
-      <Review
+      {/*수정버튼 edit 빼줘야된다.*/}
+
+      <ReviewModal
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         reviews={reviews}
         setReviews={setReviews}
-        id={review.id}
+        id={change}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        data={data}
+        addReview={addReview}
       />
     </Swipeable>
   );

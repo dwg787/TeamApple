@@ -5,25 +5,25 @@ import {
   SafeAreaView,
   useColorScheme,
   TouchableOpacity,
-} from 'react-native';
-import { useState } from 'react';
-import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
-import styled from '@emotion/native';
-import { fetchData, fetchFilteredData } from '../api';
-import MainCard from '../components/MainCard';
-import Loader from '../components/Loader';
-import DropShadow from 'react-native-drop-shadow';
-import { DARK_COLOR } from '../colors';
+} from "react-native";
+import { useState } from "react";
+import { useQuery, useQueryClient, useInfiniteQuery } from "react-query";
+import styled from "@emotion/native";
+import { fetchData, fetchFilteredData } from "../api";
+import MainCard from "../components/MainCard";
+import Loader from "../components/Loader";
+import DropShadow from "react-native-drop-shadow";
+import { DARK_COLOR } from "../colors";
 
 export default function Main({ route: { params } }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
-  const isDark = useColorScheme() === 'dark';
+  const isDark = useColorScheme() === "dark";
 
   console.log(
-    'filter 페이지에서 넘겨준 축종 코드:',
+    "filter 페이지에서 넘겨준 축종 코드:",
     params.selectedKind,
-    'filter 페이지에서 넘겨준 시도 코드:',
+    "filter 페이지에서 넘겨준 시도 코드:",
     params.selectedLocation
   );
   // const {
@@ -43,7 +43,7 @@ export default function Main({ route: { params } }) {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    ['animal_list'],
+    ["animal_list"],
     ({ pageParam = 1 }) =>
       fetchFilteredData(
         Number(params.selectedLocation),
@@ -69,7 +69,7 @@ export default function Main({ route: { params } }) {
     // await getData();
     //refetch
     // await Promise.all();
-    await queryClient.refetchQueries(['animal_list']);
+    await queryClient.refetchQueries(["animal_list"]);
     setIsRefreshing(false);
   };
 
@@ -95,14 +95,12 @@ export default function Main({ route: { params } }) {
   if (!isLoading) {
     const animalList = rawData?.pages.map((page) => page.items.item).flat();
     const totalPosting = animalList?.length || 0;
-    // console.log(
-    //   'animalList:',
-    //   rawData.pages.map((page) => page.items.item).flat()
-    // );
+
+    // console.log("animalList:", animalList);
     // console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
+      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
         <StyleTopHeaderPostingCounter>
           <TextA>
             총 <TextB>{totalPosting}</TextB> 마리
@@ -110,11 +108,11 @@ export default function Main({ route: { params } }) {
         </StyleTopHeaderPostingCounter>
         <AnimalCardContainer>
           <TouchableOpacity
-            onPress={() =>
-              navigate('Detail', {
-                params: { data: animalList },
-              })
-            }
+          // onPress={() =>
+          //   navigate("Detail", {
+          //     params: { data: animalList },
+          //   })
+          // }
           >
             <FlatList
               refreshing={isRefreshing}

@@ -10,35 +10,69 @@ import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { useState, useEffect } from "react";
 import Details from "../components/Han/Details";
-import Review from "./Review";
+import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { Alert } from "react-native";
-import firebase from "../firebase";
 import {
   collection,
+  addDoc,
+  deleteDoc,
   doc,
   onSnapshot,
   orderBy,
   query,
-} from "@firebase/firestore";
+} from "firebase/firestore";
 
-import { authService, dbService } from "./../firebase";
+import { authService, dbService } from "../firebase";
 
-export default function Detail({ route: { params } }) {
+export default function Detail({
+  navigation: { navigate },
+  route: {
+    params: { params },
+  },
+}) {
+  console.log("params.data:", params.data);
+
   const isDark = useColorScheme() === "dark";
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [change, setChange] = useState("");
+  const [addContent, setAddcontent] = useState("");
+
+  // console.log("isEdit!!!!!:", isEdit);
 
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = async () => {
-    const isLogin = !!authService.currenUsers;
+    const isLogin = !!authService.currentUser;
     if (!isLogin) {
       navigate("Login");
       return;
     }
     setIsOpenModal(true);
+  };
+
+  // 1. 문의 추가 (add)
+  // const newReview = {
+  //   // id: Date.now(),
+  //   contents: addContent,
+  //   createdAt: Date.now(),
+  //   userId: authService.currentUser?.uid,
+  //   nickname: authService.currentUser?.displayName,
+  //   cardID: params.data?.desertionNo,
+  // };
+
+  const addReview = async () => {
+    await addDoc(collection(dbService, "reviews"), {
+      contents: addContent,
+      createdAt: Date.now(),
+      userId: authService.currentUser?.uid,
+      nickname: authService.currentUser?.displayName,
+      cardID: params.data?.desertionNo,
+    });
+    setAddcontent("");
+    setIsOpenModal(false);
   };
 
   useEffect(() => {
@@ -47,43 +81,40 @@ export default function Detail({ route: { params } }) {
       orderBy("createdAt", "desc")
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newReviews = snapshot.docs.map((doc) => ({
+      const newReviews = snapshot.docs.map((dco) => ({
         id: doc.id,
-        ...doc.date(),
+        ...dco.date(),
       }));
       setReviews(newReviews);
     });
     return unsubscribe;
   }, []);
+  // console.log("reviews!!!!!", reviews);
 
-  // 2. 문의 삭제 (delete)
-  const deleteReview = (id) => {
-    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
-      {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
-      },
-      {
-        text: "삭제",
-        style: "destructive",
-        onPress: () => {
-          const newReviews = reviews.filter((review) => review.id !== id);
-          setReviews(newReviews);
-        },
-      },
-    ]);
-  };
+  // // 2. 문의 삭제 (delete)
+  // const deleteReview = (id, userId) => {
+  //   Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+  //     {
+  //       text: "취소",
+  //       style: "cancel",
+  //       onPress: () => console.log("취소 클릭!"),
+  //     },
+  //     {
+  //       text: "삭제",
+  //       style: "destructive",
+  //       onPress: async () => {
+  //         // setReviews(newReviews);
+  //         // const newReviews = reviews.filter((review) => review.id !== userId);
+  //         if (userId === authService.currentUser.uid) {
+  //           await deleteDoc(doc(dbService, "reviews", id));
+  //         }
+  //       },
+  //     },
+  //   ]);
+  // };
 
-  console.log("reviews", reviews);
   return (
     <FlatList
-      style={{ paddingBottom: 30 }}
-      data={reviews}
-      renderItem={({ item }) => {
-        <ReviewCard review={item} />;
-      }}
-      keyExtractor={(item) => item.id}
       ListFooterComponent={
         <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
           <Details data={params.data} />
@@ -100,29 +131,41 @@ export default function Detail({ route: { params } }) {
           <FlatList
             style={{ marginBottom: 50 }}
             data={reviews}
-            renderItem={({ item }) => (
-              <ReviewCard
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-                review={item}
-                deleteReview={deleteReview}
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-                reviews={reviews}
-                setReviews={setReviews}
-              />
-            )}
+            renderItem={({ item }) => {
+              if (params.data.desertionNo === item.cardID) {
+                return (
+                  <ReviewCard
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                    review={item}
+                    reviews={reviews}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
+                    setReviews={setReviews}
+                    change={change}
+                    setChange={setChange}
+                    data={params.data}
+                    addReview={addReview}
+                  />
+                );
+              }
+            }}
             keyExtractor={(item) => item.id}
           />
 
           {/*등록버튼 */}
-          <Review
+          {/* <ReviewModal
+            data={params.data}
             isOpenModal={isOpenModal}
             isEdit={isEdit}
             setIsOpenModal={setIsOpenModal}
             setReviews={setReviews}
             reviews={reviews}
-          />
+            id={change}
+            addContent={addContent}
+            setAddcontent={setAddcontent}
+            addReview={addReview}
+          /> */}
         </Container>
       }
     />
