@@ -31,7 +31,6 @@ const IntroSlider = () => {
           backgroundColor: item.backgroundColor,
           alignItems: "center",
           justifyContent: "space-around",
-          paddingBottom: 100,
         }}
       >
         <Text style={styles.introTitleStyle}>{item.title}</Text>
@@ -46,6 +45,7 @@ const IntroSlider = () => {
       {showRealApp ? (
         <View style={styles.container}>
           <View style={styles.container}>
+            <Image style= {styles.logo} source={{uri : "https://user-images.githubusercontent.com/78587041/211985746-3774d3f0-8fd9-482a-824e-5590a3921d3d.png"}} />
             <Text style={styles.titleStyle}>유기동물 집찾아주기 프로젝트</Text>
             <Text style={styles.paragraphStyle}>애플펫이 앞장 서겠습니다.</Text>
             <Button
@@ -87,17 +87,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#0c68f2",
   },
+  logo: {
+    width: 200,
+    height: 200,
+    
+  },
   titleStyle: {
     padding: 10,
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 25,
     color: "white",
     fontWeight: "bold",
   },
   paragraphStyle: {
     paddingTop: 50,
     paddingBottom: 100,
-    fontSize: 25,
+    fontSize: 20,
     textAlign: "center",
     color: "white",
   },
