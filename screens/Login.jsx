@@ -157,17 +157,17 @@ const SignInContainer = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-  margin-top: 70px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const HeaderText = styled.Text`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   color: #fff;
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
 `;
 const HeaderImg = styled.View`
@@ -176,17 +176,19 @@ const HeaderImg = styled.View`
   height: 200px;
 `;
 const HeaderPic = styled.Image`
-  width: 100%;
+  margin-left: -13px;
+  width: 120%;
   height: 100%;
 `;
 
 const LoginContainer = styled.View`
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 35px;
+  padding: 36px;
+  margin-top: 30px;
   background-color: #0c68f2;
 `;
 
@@ -199,7 +201,8 @@ const NextTimeText = styled.Text`
 const ToSignUpText = styled.Text`
   color: #fff;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 25px;
+  font-weight: 700;
 `;
 
 const styles = StyleSheet.create({
