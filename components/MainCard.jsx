@@ -21,7 +21,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { dbService } from "../firebase";
+import { dbService, authService } from "../firebase";
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { v4 as uuidv4 } from "uuid";
@@ -59,16 +59,28 @@ export default function MainCard({ item }) {
   //   });
   // };
 
+  // console.log(item);
+
+  // 매개변수로 넘겨받은 data에 userId가 없어서 판별 불가능.
+
+  console.log(!authService?.currentUser?.uid);
   const addIsLike = async (data) => {
+    console.log(data);
     const selectedItem = items.find(
-      (item) => item.desertionNo === data.desertionNo
+      (item) =>
+        item.desertionNo === data.desertionNo &&
+        item.userId === authService?.currentUser?.uid
     );
+    // const selectedItem2 = items.find((item) => item.userId === data.userId);
+    console.log("hi", selectedItem);
+    // console.log(selectedItem2);
     if (!selectedItem) {
       const id = uuidv4();
       await setDoc(doc(dbService, "isLike", id), {
         ...item,
         id,
         isLike: false,
+        userId: authService?.currentUser?.uid,
       });
       getData();
     }
