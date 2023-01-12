@@ -4,19 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import Item from "./Item";
-import {
-  onSnapshot,
-  collection,
-  addDoc,
-  setDoc,
-  query,
-  orderBy,
-  getDocs,
-  getDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, query, getDocs, doc, updateDoc } from "firebase/firestore";
 import { dbService } from "../../firebase";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -73,14 +61,10 @@ export default function Details({ data }) {
   // }, []);
 
   const isLikeChangeHandler = async (desertionNo) => {
-    console.log("items", items);
-    console.log("desertionNo", desertionNo);
     const itemId = items.find((item) => item.desertionNo === desertionNo);
-    console.log(itemId);
     const commentRef = doc(dbService, "isLike", itemId.id);
-    console.log("commentRef", commentRef);
     const idx = items.findIndex((item) => item.desertionNo === desertionNo);
-    console.log("번호", idx);
+
     console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
       isLike: !items[idx].isLike,

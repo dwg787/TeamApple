@@ -1,18 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { SCREEN_HEIGHT } from "../utils";
-import {
-  collection,
-  addDoc,
-  setDoc,
-  query,
-  orderBy,
-  getDocs,
-  getDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { dbService, authService } from "../firebase";
 import styled from "@emotion/native";
 import { useNavigation } from "@react-navigation/native";
