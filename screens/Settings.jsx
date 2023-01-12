@@ -9,7 +9,6 @@ import { getAuth, updateProfile } from "firebase/auth";
 import profileImg from "../assets/profileImg.png";
 
 export default function Settings() {
-  // console.log(authService.currentUser.displayName);
   const [textValue, setTextValue] = useState("");
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,13 +22,10 @@ export default function Settings() {
 
   const editNickName = async () => {
     console.log(auth);
-    // console.log(displayName);
-    // console.log(displayName);
     await updateProfile(auth.currentUser, {
       displayName: textValue,
     })
       .then(() => {
-        console.log("textValue", "hihi");
         setTextValue(textValue);
       })
       .catch((error) => {
@@ -37,10 +33,6 @@ export default function Settings() {
       });
     refreshUser();
   };
-
-  useEffect(() => {
-    console.log("textValue", textValue);
-  }, [textValue]);
 
   const { navigate } = useNavigation();
 

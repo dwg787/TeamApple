@@ -19,7 +19,6 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function Favorites() {
   const { navigate } = useNavigation();
-  const [like, setLike] = useState(true);
   const [items, setItems] = useState([]);
   const q = query(collection(dbService, "isLike"));
   const getData = async () => {
