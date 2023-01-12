@@ -1,6 +1,6 @@
 import { ORANGE_COLOR, BLUE_COLOR } from '../colors';
 
-export const lightTheme = {
+export const LightTheme = {
   headercolor: BLUE_COLOR,
   text: 'black',
   buttonText: 'white',
@@ -9,7 +9,7 @@ export const lightTheme = {
   toggleBorder: '#FFF',
   gradient: 'linear-gradient(#39598A, #79D7ED)',
 };
-export const darkTheme = {
+export const DarkTheme = {
   headercolor: ORANGE_COLOR,
   text: 'white',
   buttonText: 'white',

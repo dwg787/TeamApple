@@ -1,6 +1,6 @@
 import {
-  darkTheme,
-  lightTheme,
+  DarkTheme,
+  LightTheme,
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
@@ -19,8 +19,8 @@ export default function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-          <NavigationContainer theme={isDark ? darkTheme : DefaultTheme}>
+        <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+          <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
             <Root />
           </NavigationContainer>
         </ThemeProvider>
