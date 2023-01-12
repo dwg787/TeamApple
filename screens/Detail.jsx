@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Details from "../components/Han/Details";
 import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
@@ -27,14 +27,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 import { DARK_COLOR } from "../colors";
 
-
 export default function Detail({
   navigation: { setOptions, goBack },
   route: {
     params: { params },
   },
 }) {
-
   const { navigate } = useNavigation();
   const isDark = useColorScheme() === "dark";
 
@@ -83,7 +81,6 @@ export default function Detail({
     setIsOpenModal(true);
   };
 
-
   useEffect(() => {
     const q = query(
       collection(dbService, "reviews"),
@@ -98,7 +95,6 @@ export default function Detail({
     });
     return unsubscribe;
   }, []);
-
 
   console.log("reviews", reviews);
 

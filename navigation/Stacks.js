@@ -31,7 +31,7 @@ export default function Stacks() {
         style: "destructive",
         onPress: () => {
           signOut(authService);
-        navigate("NotTabs", { screen: "Login" });
+          navigate("NotTabs", { screen: "Login" });
         },
       },
     ]);
@@ -92,15 +92,6 @@ export function NotTabs() {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => goBack()}>
-            <AntDesign
-              name="left"
-              size={24}
-              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
-            />
-          </TouchableOpacity>
-        ),
       }}
     >
       <Stack.Screen
