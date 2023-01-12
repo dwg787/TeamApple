@@ -8,13 +8,17 @@ import {
 } from "react-native";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
 import ReviewCard from "../components/ReviewCard";
 import { Alert } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 
 export default function Detail({
+  navigation: { setOptions, goBack },
   route: {
     params: { params },
   },
@@ -44,6 +48,23 @@ export default function Detail({
     ]);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }, [])
+  );
+
+  // useFocusEffect
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = () => {
     setIsOpenModal(true);

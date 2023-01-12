@@ -1,5 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useColorScheme,
+} from "react-native";
 import { SCREEN_HEIGHT } from "../utils";
 import {
   collection,
@@ -18,11 +24,15 @@ import styled from "@emotion/native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import DropShadow from "react-native-drop-shadow";
+import { AntDesign } from "@expo/vector-icons";
+import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 
 export default function Favorites() {
-  const { navigate } = useNavigation();
+  const isDark = useColorScheme() === "dark";
+  const { navigate, setOptions, goBack } = useNavigation();
   const [items, setItems] = useState([]);
 
+  // 파이어 스토어 isLike에 있는 것들을 가져와서 items에 저장한다.
   const q = query(collection(dbService, "isLike"));
   const getData = async () => {
     const querySnapshot = await getDocs(q);
@@ -33,21 +43,30 @@ export default function Favorites() {
     setItems(dataArray);
   };
 
+  // 첫 렌더링시에 getData해주고, 스크린을 벗어날때도 해준다.
   useFocusEffect(
     useCallback(() => {
       getData();
-
+      setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              style={{ marginLeft: 16 }}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      });
       return () => getData();
     }, [])
   );
-  console.log(authService?.currentUser?.uid);
-
-  // const item = items.filter(
-  //   (item) => item.userId === authService?.currentUser?.uid
-  // );
 
   return (
     <>
+      {/* 1. 로그인 상태라면 페이지를 띄워주고 아니라면 로그인 하라는 안내 페이지를 띄워준다. */}
+      {/* 2. item.isLike가 true이고, item.userId가 로그인한 아이디와 같은 것들만 관심목록 페이지에 띄워준다. */}
       {!!authService.currentUser ? (
         <ScrollView>
           {items.map((item) => {
@@ -100,7 +119,7 @@ export default function Favorites() {
         </ScrollView>
       ) : (
         <VisitorView>
-          <Text>로그인 해주세요.</Text>
+          <Text>로그인이 필요한 서비스입니다.</Text>
         </VisitorView>
       )}
     </>
