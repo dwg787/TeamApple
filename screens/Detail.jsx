@@ -13,21 +13,13 @@ import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { authService, dbService } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  doc,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 export default function Detail({
   route: {
     params: { params },
   },
 }) {
-  console.log("params.data!!!@@@@", params.data);
-
   const { navigate } = useNavigation();
   const isDark = useColorScheme() === "dark";
 
@@ -35,7 +27,6 @@ export default function Detail({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [idchange, setIdchange] = useState("");
-  // console.log("isOpenModal", isOpenModal);
 
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = async () => {
@@ -61,8 +52,6 @@ export default function Detail({
     });
     return unsubscribe;
   }, []);
-  // const list = reviews.filter((el)=> el.cardID === params.data.desertionNo)
-  // console.log(" list", reviews);
 
   return (
     <FlatList
