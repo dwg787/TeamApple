@@ -10,12 +10,9 @@ import Root from "./navigation/Root";
 // import { LightTheme } from './themeManager/theme';
 import { Provider } from "react-redux";
 import store from "./redux/config/configStore";
-
 const queryClient = new QueryClient();
-
 export default function App() {
   const isDark = useColorScheme() === "dark";
-
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>

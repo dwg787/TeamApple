@@ -41,24 +41,49 @@ export default function Detail({
   const [isEdit, setIsEdit] = useState(false);
   const [idchange, setIdchange] = useState("");
 
-  // 2. 문의 삭제 (delete)
-  const deleteReview = (id) => {
-    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
-      {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
-      },
-      {
-        text: "삭제",
-        style: "destructive",
-        onPress: () => {
-          const newReviews = reviews.filter((review) => review.id !== id);
-          setReviews(newReviews);
-        },
-      },
-    ]);
+  // 문의 사항 버튼 클릭시 modal true 함수
+  const handleAdding = async () => {
+    const isLogin = !!authService.currentUser;
+    if (!isLogin) {
+      navigate("Login");
+      return;
+    }
+    setIsOpenModal(true);
   };
+
+  // // 2. 문의 삭제 (delete)
+  // const deleteReview = (id) => {
+  //   Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+  //     {
+  //       text: "취소",
+  //       style: "cancel",
+  //       onPress: () => console.log("취소 클릭!"),
+  //     },
+  //     {
+  //       text: "삭제",
+  //       style: "destructive",
+  //       onPress: () => {
+  //         const newReviews = reviews.filter((review) => review.id !== id);
+  //         setReviews(newReviews);
+  //       },
+  //     },
+  //   ]);
+  // };
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "reviews"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newReviews = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReviews(newReviews);
+    });
+    return unsubscribe;
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -76,34 +101,17 @@ export default function Detail({
     }, [])
   );
 
-  // 문의 사항 버튼 클릭시 modal true 함수
-  const handleAdding = () => {
-    setIsOpenModal(true);
-  };
-
-  useEffect(() => {
-    const q = query(
-      collection(dbService, "reviews"),
-      orderBy("createdAt", "desc")
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newReviews = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setReviews(newReviews);
-    });
-    return unsubscribe;
-  }, []);
-
-  console.log("reviews", reviews);
+  // // 문의 사항 버튼 클릭시 modal true 함수
+  // const handleAdding = () => {
+  //   setIsOpenModal(true);
+  // };
 
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
       data={reviews}
       renderItem={({ item }) => {
-        <ReviewCard review={item} />;
+        <ReviewCard />;
       }}
       keyExtractor={(item) => item.id}
       ListFooterComponent={
@@ -122,28 +130,35 @@ export default function Detail({
           <FlatList
             style={{ marginBottom: 50 }}
             data={reviews}
-            renderItem={({ item }) => (
-              <ReviewCard
-                isOpenModal={isOpenModal}
-                setIsOpenModal={setIsOpenModal}
-                review={item}
-                deleteReview={deleteReview}
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-                reviews={reviews}
-                setReviews={setReviews}
-              />
-            )}
+            renderItem={({ item }) => {
+              if (params.data.desertionNo === item.cardID) {
+                return (
+                  <ReviewCard
+                    isOpenModal={isOpenModal}
+                    setIsOpenModal={setIsOpenModal}
+                    review={item}
+                    isEdit={isEdit}
+                    setIsEdit={setIsEdit}
+                    reviews={reviews}
+                    setReviews={setReviews}
+                    data={params.data}
+                    idchange={idchange}
+                    setIdchange={setIdchange}
+                  />
+                );
+              }
+            }}
             keyExtractor={(item) => item.id}
           />
 
           {/*등록버튼 */}
           <ReviewModal
             isOpenModal={isOpenModal}
-            isEdit={isEdit}
             setIsOpenModal={setIsOpenModal}
-            setReviews={setReviews}
             reviews={reviews}
+            setReviews={setReviews}
+            isEdit={isEdit}
+            data={params.data}
           />
         </Container>
       }

@@ -1,18 +1,18 @@
-import React from 'react';
-import styled from '@emotion/native';
+import React from "react";
+import styled from "@emotion/native";
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Text,
   Animated,
-} from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import ReviewModal from '../screens/ReviewModal';
-import { Alert } from 'react-native';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { dbService, authService } from './../firebase';
-import { async } from '@firebase/util';
+} from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import ReviewModal from "../screens/ReviewModal";
+import { Alert } from "react-native";
+import { deleteDoc, doc } from "firebase/firestore";
+import { dbService, authService } from "./../firebase";
+import { async } from "@firebase/util";
 
 export default function ReviewCard({
   review,
@@ -34,19 +34,19 @@ export default function ReviewCard({
 
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
-    Alert.alert('문의 사항 삭제', '정말 삭제하시겠습니까?', [
+    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
       {
-        text: '취소',
-        style: 'cancel',
-        onPress: () => console.log('취소 클릭!'),
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
       },
       {
-        text: '삭제',
-        style: 'destructive',
+        text: "삭제",
+        style: "destructive",
         onPress: async () => {
           // setReviews(newReviews);
           // const newReviews = reviews.filter((review) => review.id !== id);
-          await deleteDoc(doc(dbService, 'reviews', id));
+          await deleteDoc(doc(dbService, "reviews", id));
         },
       },
     ]);
@@ -59,7 +59,7 @@ export default function ReviewCard({
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [1, 0],
-      extrapolate: 'clamp',
+      extrapolate: "clamp",
     });
     return (
       <TouchableOpacity
@@ -67,10 +67,10 @@ export default function ReviewCard({
         activeOpacity={0.6}
       >
         <DeletBox
-          style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
+          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
         >
           <Animated.Text
-            style={{ color: 'white', transform: [{ scale: scale }] }}
+            style={{ color: "white", transform: [{ scale: scale }] }}
           >
             Delete
           </Animated.Text>
@@ -80,12 +80,12 @@ export default function ReviewCard({
   };
   return (
     // uid가 같지 않으면 rightSwipe 못하게 막는 부분
-    <Swipeable renderRightActions={uid === review.userId ? rightSwipe : ''}>
+    <Swipeable renderRightActions={uid === review.userId ? rightSwipe : ""}>
       <TouchableOpacity key={review.id} onPress={() => handEditing(review.id)}>
         <ReviewWrapper
           style={{
             borderBottomWidth: 1,
-            borderBottomColor: '#D9D9D9',
+            borderBottomColor: "#D9D9D9",
             padding: 20,
             paddingLeft: 30,
           }}
