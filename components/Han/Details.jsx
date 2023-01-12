@@ -23,7 +23,6 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
-  const [isLike, setIsLike] = useState(data.islike);
   const isDark = useColorScheme() === "dark";
 
   // 상태에 따라서 변수도 바뀐다.
@@ -94,7 +93,8 @@ export default function Details({ data }) {
         item.desertionNo === desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
-    const commentRef = doc(dbService, 'isLike', choiceItem.id);
+
+    const commentRef = doc(dbService, "isLike", choiceItem.id);
     // const idx = items.findIndex(
     //   (item) =>
     //     item.desertionNo === desertionNo &&

@@ -29,8 +29,7 @@ export default function Settings() {
       displayName: textValue,
     })
       .then(() => {
-        // console.log("textValue", "hihi");
-        setTextValue(textValue);
+        setTextValue("");
       })
       .catch((error) => {
         console.log(error);
@@ -107,14 +106,13 @@ export default function Settings() {
           <SettingImage source={profileImg} />
           <ProfileView style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
             <ProfileTextWrap>
-              <ProfileTitle>사용자 이름 수정</ProfileTitle>
+              <ProfileTitle>{displayName}</ProfileTitle>
               <ProfileTextInput
-                placeholder='닉네임을 입력해주세요 ...'
-                placeholderTextColor='#A8A8A8'
+                placeholder="닉네임을 입력해주세요 ..."
+                placeholderTextColor="#A8A8A8"
                 value={textValue}
                 onChangeText={setTextValue}
               />
-              <Text>{displayName}</Text>
             </ProfileTextWrap>
             <ProfileButton onPress={editNickName}>
               <ProfileButtonText style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>수정하기</ProfileButtonText>
