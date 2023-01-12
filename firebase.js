@@ -1,11 +1,11 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
-import "firebase/compat/database";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
+import 'firebase/compat/database';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyChrzRz60FdWLvCKfGUYtm5GX7duVO8AKU",
@@ -17,6 +17,8 @@ import { getAuth } from "firebase/auth";
 //   measurementId: "G-Z21B8YV9BB",
 // };
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBnLHAPwv31MVnATtgqabeJVM9_xR0Lems",
   authDomain: "teamapple2.firebaseapp.com",
@@ -24,8 +26,10 @@ const firebaseConfig = {
   storageBucket: "teamapple2.appspot.com",
   messagingSenderId: "760023601638",
   appId: "1:760023601638:web:52ea0f70face954e038627",
-  measurementId: "G-R5ZR49VQ1T",
+  measurementId: "G-R5ZR49VQ1T"
 };
+
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

@@ -1,40 +1,28 @@
-import { useState } from "react";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
-import { authService, dbService } from "../firebase";
+import { useState } from 'react';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
+import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
+import { authService, dbService } from '../firebase';
 
 export default function ReviewModal({
   isOpenModal,
   setIsOpenModal,
-  setReviews,
   isEdit,
-  reviews,
   setIsEdit,
   data,
-  id,
-  setIdchange,
   idchange,
 }) {
-  const [addContent, setAddcontent] = useState("");
+  const [addContent, setAddcontent] = useState('');
 
+  // 3. 문의 수정 (edit)
   const editReview = async (idchange) => {
-    // const newReviews = [...reviews];
-    // const idx = newReviews.findIndex((review) => review.id === id);
-    // newReviews[idx].contents = addContent;
-    // newReviews[idx].isEdit = false;
-    // setAddcontent("");
-    // setIsEdit(false);
-    // setReviews(newReviews);
-    // setIsOpenModal(false);
-
-    await updateDoc(doc(dbService, "reviews", idchange), {
+    await updateDoc(doc(dbService, 'reviews', idchange), {
       contents: addContent,
+    }).then(() => {
+      setAddcontent('');
+      setIsEdit(false);
+      setIsOpenModal(false);
     });
-    setAddcontent("");
-    setIsEdit(false);
-
-    setIsOpenModal(false);
   };
 
   // 1. 문의 추가 (add)
@@ -47,9 +35,9 @@ export default function ReviewModal({
   };
 
   const addReview = async () => {
-    await addDoc(collection(dbService, "reviews"), newReview);
+    await addDoc(collection(dbService, 'reviews'), newReview);
     // setReviews((prev) => [...prev, newReview]);
-    setAddcontent("");
+    setAddcontent('');
     setIsOpenModal(false);
   };
 
@@ -68,7 +56,7 @@ export default function ReviewModal({
               maxLength={300}
             />
           </InputWrapper>
-          <Row style={{ justifyContent: "space-between" }}>
+          <Row style={{ justifyContent: 'space-between' }}>
             <BtnWrapper>
               <ModalBtn
                 onPress={() => setIsOpenModal(false)}
@@ -79,7 +67,7 @@ export default function ReviewModal({
             <BtnWrapper2>
               <ModalBtn
                 onPress={isEdit ? () => editReview(idchange) : addReview}
-                title={isEdit ? "수정" : "완료"}
+                title={isEdit ? '수정' : '완료'}
                 color='white'
               />
             </BtnWrapper2>
@@ -122,7 +110,6 @@ const InputWrapper = styled.KeyboardAvoidingView``;
 
 const Backdrop = styled.View`
   flex: 1;
-  /* justify-content: flex-start; */
   justify-content: center;
   align-items: center;
 `;

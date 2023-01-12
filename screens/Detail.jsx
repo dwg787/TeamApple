@@ -12,10 +12,21 @@ import { useCallback, useState } from "react";
 import Details from "../components/Han/Details";
 import Review from "./Review";
 import ReviewCard from "../components/ReviewCard";
+import { authService, dbService } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  doc,
+} from "firebase/firestore";
 import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
+import { DARK_COLOR } from "../colors";
+
 
 export default function Detail({
   navigation: { setOptions, goBack },
@@ -23,11 +34,14 @@ export default function Detail({
     params: { params },
   },
 }) {
+
+  const { navigate } = useNavigation();
   const isDark = useColorScheme() === "dark";
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [idchange, setIdchange] = useState("");
 
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
@@ -47,6 +61,7 @@ export default function Detail({
       },
     ]);
   };
+>
 
   useFocusEffect(
     useCallback(() => {
@@ -69,7 +84,25 @@ export default function Detail({
     setIsOpenModal(true);
   };
 
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "reviews"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newReviews = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReviews(newReviews);
+    });
+    return unsubscribe;
+  }, []);
+
+
   console.log("reviews", reviews);
+
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
