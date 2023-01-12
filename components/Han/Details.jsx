@@ -4,8 +4,20 @@ import { Text, TouchableOpacity } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import Item from "./Item";
-import { collection, query, getDocs, doc, updateDoc } from "firebase/firestore";
-import { dbService } from "../../firebase";
+import {
+  onSnapshot,
+  collection,
+  addDoc,
+  setDoc,
+  query,
+  orderBy,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { dbService, authService } from "../../firebase";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function Details({ data }) {
@@ -37,8 +49,8 @@ export default function Details({ data }) {
     getData();
   }, []);
 
-  console.log("items", items);
-  console.log("data", data);
+  // console.log("items", items);
+  // console.log("data", data);
 
   // const q = query(collection(dbService, "isLike"));
   // const getData = () => {
@@ -61,9 +73,17 @@ export default function Details({ data }) {
   // }, []);
 
   const isLikeChangeHandler = async (desertionNo) => {
-    const itemId = items.find((item) => item.desertionNo === desertionNo);
-    const commentRef = doc(dbService, "isLike", itemId.id);
-    const idx = items.findIndex((item) => item.desertionNo === desertionNo);
+    const choiceItem = items.find(
+      (item) =>
+        item.desertionNo === desertionNo &&
+        item.userId === authService?.currentUser?.uid
+    );
+    const commentRef = doc(dbService, "isLike", choiceItem.id);
+    const idx = items.findIndex(
+      (item) =>
+        item.desertionNo === desertionNo &&
+        item.userId === authService?.currentUser?.uid
+    );
 
     console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
