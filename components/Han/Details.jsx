@@ -17,16 +17,23 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService, authService } from "../../firebase";
-import { useFocusEffect } from "@react-navigation/native";
+} from 'firebase/firestore';
+import { dbService, authService } from '../../firebase';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
   const [isLike, setIsLike] = useState(data.islike);
   const isDark = useColorScheme() === "dark";
 
-  const q = query(collection(dbService, "isLike"));
+  // 상태에 따라서 변수도 바뀐다.
+  const checkLike = items?.find(
+    (item) =>
+      item?.desertionNo === data?.desertionNo &&
+      item.userId === authService?.currentUser?.uid
+  )?.isLike;
+
+  const q = query(collection(dbService, 'isLike'));
 
   const getData = async () => {
     const querySnapshot = await getDocs(q);
@@ -47,9 +54,9 @@ export default function Details({ data }) {
     }, [])
   );
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // console.log("items~~~~~~", items);
   // console.log("data~~~~~~~", data);
@@ -87,16 +94,16 @@ export default function Details({ data }) {
         item.desertionNo === desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
-    const commentRef = doc(dbService, "isLike", choiceItem.id);
-    const idx = items.findIndex(
-      (item) =>
-        item.desertionNo === desertionNo &&
-        item.userId === authService?.currentUser?.uid
-    );
+    const commentRef = doc(dbService, 'isLike', choiceItem.id);
+    // const idx = items.findIndex(
+    //   (item) =>
+    //     item.desertionNo === desertionNo &&
+    //     item.userId === authService?.currentUser?.uid
+    // );
 
     // console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
-      isLike: !items[idx].isLike,
+      isLike: !choiceItem.isLike,
     });
     getData();
   };
@@ -113,21 +120,20 @@ export default function Details({ data }) {
           />
           <HeartWrapper
             onPress={() => {
-              setIsLike(!isLike);
               isLikeChangeHandler(data.desertionNo);
             }}
           >
-            {!authService.currentUser ? null : isLike ? (
-              <AntDesign name="heart" size={24} color="red" />
+            {!authService.currentUser ? null : checkLike ? (
+              <AntDesign name='heart' size={24} color='red' />
             ) : (
-              <AntDesign name="hearto" size={24} color="red" />
+              <AntDesign name='hearto' size={24} color='red' />
             )}
           </HeartWrapper>
         </DetailPictureBox>
 
         <DropShadow
           style={{
-            shadowColor: "#000",
+            shadowColor: '#000',
             shadowOffset: {
               width: 0,
               height: 5,
@@ -148,7 +154,7 @@ const ScrollWrap = styled.View`
 `;
 
 const DetailImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3 + "px"};
+  height: ${SCREEN_HEIGHT / 3 + 'px'};
   /* width: ${SCREEN_WIDTH}; */
   width: 100%;
   border-radius: 10%;
@@ -157,7 +163,7 @@ const DetailImage = styled.Image`
 
 const DetailPictureBox = styled.View`
   width: ${SCREEN_WIDTH};
-  height: ${SCREEN_HEIGHT / 3 + "px"};
+  height: ${SCREEN_HEIGHT / 3 + 'px'};
   border-radius: 10%;
   margin-bottom: 5%;
   background-color: #b3b3b3;

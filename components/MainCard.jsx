@@ -75,7 +75,7 @@ export default function MainCard({ item }) {
 
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
-      await setDoc(doc(dbService, "isLike", id), {
+      await setDoc(doc(dbService, 'isLike', data.id), {
         ...item,
         id,
         isLike: false,
@@ -102,14 +102,14 @@ export default function MainCard({ item }) {
     <TouchableOpacity
       onPress={() => {
         addIsLike(item);
-        navigate("Detail", {
+        navigate('Detail', {
           params: { data: item },
         });
       }}
     >
       <DropShadow
         style={{
-          shadowColor: "#000",
+          shadowColor: '#000',
           shadowOffset: {
             width: 0,
             height: 5,
