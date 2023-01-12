@@ -7,7 +7,8 @@ import {
   FlatList,
 } from "react-native";
 import styled from "@emotion/native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback} from "react";
+import { Modal } from "react-native";
 import Details from "../components/Han/Details";
 import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
@@ -20,8 +21,14 @@ import {
   query,
   doc,
 } from "firebase/firestore";
+import { Alert } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
+
 
 export default function Detail({
+  navigation: { setOptions, goBack },
   route: {
     params: { params },
   },
@@ -37,6 +44,23 @@ export default function Detail({
   const [idchange, setIdchange] = useState("");
   // console.log("isOpenModal", isOpenModal);
 
+  useFocusEffect(
+    useCallback(() => {
+      setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => goBack()}>
+            <AntDesign
+              name="left"
+              size={24}
+              color={isDark ? ORANGE_COLOR : BLUE_COLOR}
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }, [])
+  );
+
+  // useFocusEffect
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = async () => {
     const isLogin = !!authService.currentUser;
