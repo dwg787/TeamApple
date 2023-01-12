@@ -27,7 +27,7 @@ export default function Settings() {
       displayName: textValue,
     })
       .then(() => {
-        console.log("textValue", "hihi");
+        // console.log("textValue", "hihi");
         setTextValue(textValue);
       })
       .catch((error) => {
@@ -81,8 +81,8 @@ export default function Settings() {
             <ProfileTextWrap>
               <ProfileTitle>사용자 이름 수정</ProfileTitle>
               <ProfileTextInput
-                placeholder="닉네임을 입력해주세요 ..."
-                placeholderTextColor="#A8A8A8"
+                placeholder='닉네임을 입력해주세요 ...'
+                placeholderTextColor='#A8A8A8'
                 value={textValue}
                 onChangeText={setTextValue}
               />
