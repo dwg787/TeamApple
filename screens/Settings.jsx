@@ -18,7 +18,6 @@ export default function Settings() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
-  const isDark = useColorScheme() === "dark";
 
   const auth = getAuth();
   const user = auth.currentUser;
