@@ -1,22 +1,21 @@
-
-import styled from "@emotion/native";
-import { View, Text } from "react-native";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils";
+import styled from '@emotion/native';
+import { View, Text } from 'react-native';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils';
 
 export default function Settings() {
   return (
     <SettingWrap>
       <SettingImage
         source={{
-          url: "https://ichef.bbci.co.uk/news/640/cpsprodpb/E172/production/_126241775_getty_cats.png",
+          url: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/E172/production/_126241775_getty_cats.png',
         }}
       />
       <ProfileView>
         <ProfileTextWrap>
           <ProfileTitle>사용자 이름 수정</ProfileTitle>
           <ProfileTextInput
-            placeholder="닉네임을 입력해주세요 ..."
-            placeholderTextColor="#A8A8A8"
+            placeholder='닉네임을 입력해주세요 ...'
+            placeholderTextColor='#A8A8A8'
           />
         </ProfileTextWrap>
         <ProfileButton>
@@ -35,7 +34,7 @@ const SettingWrap = styled.View`
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 4 + "px"};
+  height: ${SCREEN_HEIGHT / 4 + 'px'};
   width: ${SCREEN_WIDTH};
   margin-bottom: 10%;
 `;
@@ -43,14 +42,14 @@ const SettingImage = styled.Image`
 const ProfileView = styled.View`
   justify-content: space-around;
   align-items: center;
-  height: ${SCREEN_HEIGHT / 3 + "px"};
+  height: ${SCREEN_HEIGHT / 3 + 'px'};
   background-color: #0c68f2;
   border-radius: 20%;
 `;
 
 const ProfileTextWrap = styled.View`
   align-items: center;
-  width: ${SCREEN_WIDTH / 2 + "px"};
+  width: ${SCREEN_WIDTH / 2 + 'px'};
   border-bottom-width: 1px;
   border-bottom-color: white;
 `;
