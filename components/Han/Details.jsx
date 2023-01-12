@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils';
 import { AntDesign } from '@expo/vector-icons';
@@ -20,10 +20,11 @@ import {
 } from 'firebase/firestore';
 import { dbService, authService } from '../../firebase';
 import { useFocusEffect } from '@react-navigation/native';
+import { useQuery } from 'react-query';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
-  const [isLike, setIsLike] = useState(data.islike);
+  const [isLike, setIsLike] = useState(data.isLike);
 
   const q = query(collection(dbService, 'isLike'));
 
@@ -42,7 +43,7 @@ export default function Details({ data }) {
       getData();
 
       return () => {
-        console.log('hi');
+        // console.log('hi');
         getData();
       };
     }, [])
@@ -51,9 +52,6 @@ export default function Details({ data }) {
   useEffect(() => {
     getData();
   }, []);
-
-  // console.log('items', items);
-  // console.log('data', data);
 
   // const q = query(collection(dbService, "isLike"));
   // const getData = () => {
@@ -74,7 +72,6 @@ export default function Details({ data }) {
   // useEffect(() => {
   //   getData();
   // }, []);
-
   const isLikeChangeHandler = async (desertionNo) => {
     const choiceItem = items.find(
       (item) =>
@@ -95,8 +92,8 @@ export default function Details({ data }) {
     getData();
   };
 
-  // console.log('data??', getDoc());
-  // console.log('현재 접속자: ', authService.currentUser);
+  // const likeresult = await getDoc(doc(dbService, 'isLike',))
+
   return (
     <>
       <ScrollWrap>
@@ -111,6 +108,9 @@ export default function Details({ data }) {
             onPress={() => {
               setIsLike(!isLike);
               isLikeChangeHandler(data.desertionNo);
+              isLike
+                ? Alert.alert('관심목록에서 제거했습니다!')
+                : Alert.alert('관심목록에 추가했습니다!');
             }}
           >
             {isLike ? (

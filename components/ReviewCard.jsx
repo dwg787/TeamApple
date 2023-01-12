@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "@emotion/native";
+import React from 'react';
+import styled from '@emotion/native';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Text,
   Animated,
-} from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
-import Review from "./../screens/Review";
+} from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Review from './../screens/Review';
 
 export default function ReviewCard({
   review,
@@ -25,13 +25,13 @@ export default function ReviewCard({
     setIsOpenModal(true);
   };
 
-  console.log(reviews);
+  // console.log(reviews);
 
   const rigthSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [1, 0],
-      extrapolate: "clamp",
+      extrapolate: 'clamp',
     });
     return (
       <TouchableOpacity
@@ -39,10 +39,10 @@ export default function ReviewCard({
         activeOpacity={0.6}
       >
         <DeletBox
-          style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+          style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
         >
           <Animated.Text
-            style={{ color: "white", transform: [{ scale: scale }] }}
+            style={{ color: 'white', transform: [{ scale: scale }] }}
           >
             Delete
           </Animated.Text>
@@ -56,7 +56,7 @@ export default function ReviewCard({
         <ReviewWrapper
           style={{
             borderBottomWidth: 1,
-            borderBottomColor: "#D9D9D9",
+            borderBottomColor: '#D9D9D9',
             padding: 20,
             paddingLeft: 30,
           }}

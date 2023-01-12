@@ -42,7 +42,7 @@ export default function Favorites() {
       return () => getData();
     }, [])
   );
-  console.log(authService?.currentUser?.uid);
+  // console.log(authService?.currentUser?.uid);
 
   // const item = items.filter(
   //   (item) => item.userId === authService?.currentUser?.uid
