@@ -18,7 +18,9 @@ export default function Item({ data }) {
             <DetailTextTitle>성별</DetailTextTitle>
           </DetailTextTitleBox>
           <DetailTextContentBox>
-            <DetailTextContent>{data.sexCd}</DetailTextContent>
+            <DetailTextContent>
+              {data.sexCd === "M" ? "남" : "W" ? "여" : "잡종"}
+            </DetailTextContent>
           </DetailTextContentBox>
         </DetailTextBox>
         <DetailTextBox>

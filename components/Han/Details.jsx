@@ -23,7 +23,13 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
-  const [isLike, setIsLike] = useState(data.islike);
+
+  // 상태에 따라서 변수도 바뀐다.
+  const checkLike = items?.find(
+    (item) =>
+      item?.desertionNo === data?.desertionNo &&
+      item.userId === authService?.currentUser?.uid
+  )?.isLike;
 
   const q = query(collection(dbService, "isLike"));
 
@@ -46,9 +52,9 @@ export default function Details({ data }) {
     }, [])
   );
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // console.log("items~~~~~~", items);
   // console.log("data~~~~~~~", data);
@@ -87,15 +93,15 @@ export default function Details({ data }) {
         item.userId === authService?.currentUser?.uid
     );
     const commentRef = doc(dbService, "isLike", choiceItem.id);
-    const idx = items.findIndex(
-      (item) =>
-        item.desertionNo === desertionNo &&
-        item.userId === authService?.currentUser?.uid
-    );
+    // const idx = items.findIndex(
+    //   (item) =>
+    //     item.desertionNo === desertionNo &&
+    //     item.userId === authService?.currentUser?.uid
+    // );
 
     // console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
-      isLike: !items[idx].isLike,
+      isLike: !choiceItem.isLike,
     });
     getData();
   };
@@ -112,11 +118,10 @@ export default function Details({ data }) {
           />
           <HeartWrapper
             onPress={() => {
-              setIsLike(!isLike);
               isLikeChangeHandler(data.desertionNo);
             }}
           >
-            {!authService.currentUser ? null : isLike ? (
+            {!authService.currentUser ? null : checkLike ? (
               <AntDesign name="heart" size={24} color="red" />
             ) : (
               <AntDesign name="hearto" size={24} color="red" />

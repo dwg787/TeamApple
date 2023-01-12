@@ -33,25 +33,6 @@ export default function MainCard({ item }) {
 
   const q = query(collection(dbService, "isLike"));
 
-  // const getData = async () => {
-  //   // const querySnapshot = await getDocs(q);
-  //   // const dataArray = [];
-  //   // querySnapshot.forEach((doc) => {
-  //   //   dataArray.push(doc.data());
-  //   // });
-  //   onSnapshot(q, (snapshot) => {
-  //     const newItems = snapshot.docs.map((doc) => {
-  //       const newitem = {
-  //         id: doc.id,
-  //         isLike: false,
-  //         ...doc.data(), // doc.data() : { text, createdAt, ...  }
-  //       };
-  //       return newitem;
-  //     });
-  //     setItems(newItems);
-  //   });
-  // };
-
   // 데이터로 넘겨받은 item 중에서 get으로 받아온 item의 desertionNo가 같고,
   // get으로 받아온 item의 userId가 로그인한 아이디가 같은 것을 변수에 저장해주고
   // 변수의 조건과 맞지 않고 로그인 했을때에만 isLike에 데이터를 추가해준다.
@@ -62,7 +43,6 @@ export default function MainCard({ item }) {
         item.desertionNo === data.desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
-
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
       await setDoc(doc(dbService, "isLike", id), {
@@ -120,7 +100,9 @@ export default function MainCard({ item }) {
             <TextC>등록일</TextC>
           </AnimalCardType>
           <AnimalCardDescription>
-            <AnimalCardGender>{item.sexCd}</AnimalCardGender>
+            <AnimalCardGender>
+              {item.sexCd === "M" ? "남" : "W" ? "여" : "중성"}
+            </AnimalCardGender>
             <AnimalCardKind>{item.kindCd}</AnimalCardKind>
             <AnimalCardAge>{item.age}</AnimalCardAge>
             <AnimalCardLocation>
