@@ -177,11 +177,6 @@ export default function Filter() {
       <FilterBtnWrapper>
         <FilterBtn
           onPress={() => {
-            console.log(
-              "친구들 보러가기 클릭!",
-              selectedLocation,
-              selectedKind
-            );
             if (selectedLocation && selectedKind) {
               dispatch(updateSelection({ selectedLocation, selectedKind }));
               navigate("Tabs", {

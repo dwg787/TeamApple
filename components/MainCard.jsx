@@ -62,6 +62,7 @@ export default function MainCard({ item }) {
         item.desertionNo === data.desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
+
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
       await setDoc(doc(dbService, "isLike", id), {

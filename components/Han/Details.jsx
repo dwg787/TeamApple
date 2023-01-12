@@ -50,8 +50,8 @@ export default function Details({ data }) {
     getData();
   }, []);
 
-  // console.log('items', items);
-  // console.log('data', data);
+  // console.log("items~~~~~~", items);
+  // console.log("data~~~~~~~", data);
 
   // const q = query(collection(dbService, "isLike"));
   // const getData = () => {
@@ -93,7 +93,7 @@ export default function Details({ data }) {
         item.userId === authService?.currentUser?.uid
     );
 
-    console.log("items[idx].isLike", items[idx].isLike);
+    // console.log("items[idx].isLike", items[idx].isLike);
     await updateDoc(commentRef, {
       isLike: !items[idx].isLike,
     });
