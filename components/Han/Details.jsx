@@ -1,7 +1,7 @@
 
 import styled from "@emotion/native";
 import { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
@@ -26,6 +26,7 @@ import { useFocusEffect } from "@react-navigation/native";
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
   const [isLike, setIsLike] = useState(data.islike);
+  const isDark = useColorScheme() === "dark";
 
   const q = query(collection(dbService, "isLike"));
 
@@ -101,7 +102,7 @@ export default function Details({ data }) {
 
   return (
     <>
-      <ScrollWrap>
+      <ScrollWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
         <DetailPictureBox>
           <DetailImage
             source={{

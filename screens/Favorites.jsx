@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, useColorScheme } from "react-native";
 import { SCREEN_HEIGHT } from "../utils";
 import {
   collection,
@@ -18,10 +18,12 @@ import styled from "@emotion/native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import DropShadow from "react-native-drop-shadow";
+import { DARK_COLOR, ORANGE_COLOR, BLUE_COLOR } from "../colors";
 
 export default function Favorites() {
   const { navigate } = useNavigation();
   const [items, setItems] = useState([]);
+  const isDark = useColorScheme() === "dark";
 
   const q = query(collection(dbService, "isLike"));
   const getData = async () => {
@@ -49,7 +51,7 @@ export default function Favorites() {
   return (
     <>
       {!!authService.currentUser ? (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
           {items.map((item) => {
             if (item.isLike && item.userId === authService?.currentUser?.uid) {
               return (
@@ -73,23 +75,23 @@ export default function Favorites() {
                       shadowRadius: 4.65,
                     }}
                   >
-                    <SingleCard>
+                    <SingleCard style={{ backgroundColor: isDark ? "#212123" : "white" }}>
                       <AnimalCardPicture>
                         <AnimalPic source={{ url: `${item.popfile}` }} />
                       </AnimalCardPicture>
                       <AnimalCardType>
-                        <TextC>성별</TextC>
-                        <TextC>품종</TextC>
-                        <TextC>나이</TextC>
-                        <TextC>지역</TextC>
-                        <TextC>등록일</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>성별</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>품종</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>나이</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>지역</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>등록일</TextC>
                       </AnimalCardType>
                       <AnimalCardDescription>
-                        <AnimalCardGender>{item.sexCd}</AnimalCardGender>
-                        <AnimalCardKind>{item.kindCd}</AnimalCardKind>
-                        <AnimalCardAge>{item.age}</AnimalCardAge>
-                        <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
-                        <AnimalCardDate>{item.happenDt}</AnimalCardDate>
+                        <AnimalCardGender style={{ color: isDark ? "white" : "black" }}>{item.sexCd}</AnimalCardGender>
+                        <AnimalCardKind style={{ color: isDark ? "white" : "black" }}>{item.kindCd}</AnimalCardKind>
+                        <AnimalCardAge style={{ color: isDark ? "white" : "black" }}>{item.age}</AnimalCardAge>
+                        <AnimalCardLocation style={{ color: isDark ? "white" : "black" }}>{item.orgNm}</AnimalCardLocation>
+                        <AnimalCardDate style={{ color: isDark ? "white" : "black" }}>{item.happenDt}</AnimalCardDate>
                       </AnimalCardDescription>
                     </SingleCard>
                   </DropShadow>
@@ -117,6 +119,7 @@ const TextC = styled.Text`
   font-size: 15px;
   font-weight: bold;
   margin-top: 8px;
+  
 `;
 
 const SingleCard = styled.View`
