@@ -5,9 +5,9 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import styled from "@emotion/native";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from '@emotion/native';
 import {
   onSnapshot,
   collection,
@@ -20,18 +20,18 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService, authService } from "../firebase";
-import { useCallback, useEffect, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { v4 as uuidv4 } from "uuid";
-import DropShadow from "react-native-drop-shadow";
+} from 'firebase/firestore';
+import { dbService, authService } from '../firebase';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { v4 as uuidv4 } from 'uuid';
+import DropShadow from 'react-native-drop-shadow';
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
   const [items, setItems] = useState([]);
 
-  const q = query(collection(dbService, "isLike"));
+  const q = query(collection(dbService, 'isLike'));
 
   // const getData = async () => {
   //   // const querySnapshot = await getDocs(q);
@@ -65,7 +65,7 @@ export default function MainCard({ item }) {
 
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
-      await setDoc(doc(dbService, "isLike", id), {
+      await setDoc(doc(dbService, 'isLike', data.id), {
         ...item,
         id,
         isLike: false,
@@ -92,14 +92,14 @@ export default function MainCard({ item }) {
     <TouchableOpacity
       onPress={() => {
         addIsLike(item);
-        navigate("Detail", {
+        navigate('Detail', {
           params: { data: item },
         });
       }}
     >
       <DropShadow
         style={{
-          shadowColor: "#000",
+          shadowColor: '#000',
           shadowOffset: {
             width: 0,
             height: 5,
