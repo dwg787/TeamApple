@@ -13,6 +13,7 @@ import Details from "../components/Han/Details";
 import Review from "./Review";
 import ReviewCard from "../components/ReviewCard";
 import { Alert } from "react-native";
+import { DARK_COLOR } from "../colors";
 
 export default function Detail({
   route: {

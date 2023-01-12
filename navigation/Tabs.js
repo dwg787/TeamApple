@@ -9,7 +9,7 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { useColorScheme } from "react-native";
-import { DARK_COLOR, BLUE_COLOR } from "../colors";
+import { DARK_COLOR, BLUE_COLOR, ORANGE_COLOR } from "../colors";
 import { authService } from "../firebase";
 import { signOut } from "firebase/auth";
 

@@ -13,8 +13,10 @@ import { fetchData, fetchFilteredData } from "../api";
 import MainCard from "../components/MainCard";
 import Loader from "../components/Loader";
 import DropShadow from "react-native-drop-shadow";
-import { DARK_COLOR } from "../colors";
+import { DARK_COLOR, ORANGE_COLOR, BLUE_COLOR } from "../colors";
 import { useSelector, useDispatch } from "react-redux";
+
+
 
 export default function Main() {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -108,10 +110,10 @@ export default function Main() {
     // console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
-        <StyleTopHeaderPostingCounter>
-          <TextA>
-            총 <TextB>{totalPosting}</TextB> 마리
+      <SafeAreaView style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
+        <StyleTopHeaderPostingCounter style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
+          <TextA style={{ color: isDark ? "white" : "black" }}>
+            총 <TextB style={{ color: isDark ? ORANGE_COLOR : ORANGE_COLOR }}>{totalPosting}</TextB> 마리
           </TextA>
         </StyleTopHeaderPostingCounter>
         {/* <AnimalCardContainer> */}
@@ -129,9 +131,12 @@ export default function Main() {
           onEndReachedThreshold={0.5}
           onEndReached={loadMoreData}
           data={animalList}
-          renderItem={({ item }) => <MainCard item={item} />}
+          renderItem={({ item }) => 
+          <MainCard
+          item={item} />}
           keyExtractor={(item) => item.desertionNo}
           ItemSeparatorComponent={<View style={{ width: 10 }} />}
+          
         />
         {/* </TouchableOpacity> */}
         {/* </AnimalCardContainer> */}
@@ -143,11 +148,12 @@ export default function Main() {
 const StyleTopHeaderPostingCounter = styled.View`
   flex-direction: row-reverse;
   background-color: #fff;
-  padding: 20px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e5e5e5;
+  width : 100%;
+  height : 40px;
+  margin-top : 15px;
+  margin-right : -20px;
+  align-item : center;
   border-style: solid;
-  margin-right: 10px;
 `;
 
 const TextA = styled.Text`
