@@ -12,8 +12,10 @@ export default function Root() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        
       }}
     >
+    
       <Stack.Screen name='NotTabs' component={NotTabs} />
       <Stack.Screen name='Stacks' component={Stacks} />
       <Stack.Screen name='Tabs' component={Tabs} />
