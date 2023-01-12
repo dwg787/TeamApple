@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
+import { useState } from 'react';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
 
 export default function Review({
   isOpenModal,
@@ -11,9 +11,9 @@ export default function Review({
   setIsEdit,
   id,
 }) {
-  const [addContent, setAddcontent] = useState("");
+  const [addContent, setAddcontent] = useState('');
 
-  console.log(addContent);
+  // console.log(addContent);
 
   const editReview = () => {
     const newReviews = [...reviews];
@@ -36,7 +36,7 @@ export default function Review({
 
   const addReview = () => {
     setReviews((prev) => [...prev, newReview]);
-    setAddcontent("");
+    setAddcontent('');
     setIsOpenModal(false);
   };
 
@@ -55,7 +55,7 @@ export default function Review({
               maxLength={300}
             />
           </InputWrapper>
-          <Row style={{ justifyContent: "space-between" }}>
+          <Row style={{ justifyContent: 'space-between' }}>
             <BtnWrapper>
               <ModalBtn
                 onPress={() => setIsOpenModal(false)}
@@ -66,7 +66,7 @@ export default function Review({
             <BtnWrapper2>
               <ModalBtn
                 onPress={isEdit ? () => editReview() : addReview}
-                title={isEdit ? "수정" : "완료"}
+                title={isEdit ? '수정' : '완료'}
                 color='white'
               />
             </BtnWrapper2>
