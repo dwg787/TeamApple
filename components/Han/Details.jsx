@@ -23,6 +23,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
+  const [isLike, setIsLike] = useState(data.islike);
   const q = query(collection(dbService, 'isLike'));
 
   const getData = async () => {
@@ -101,8 +102,13 @@ export default function Details({ data }) {
             }}
             style={StyleSheet.absoluteFill}
           />
-          <HeartWrapper onPress={() => isLikeChangeHandler(data.desertionNo)}>
-            {data.isLike ? (
+          <HeartWrapper
+            onPress={() => {
+              setIsLike(!isLike);
+              isLikeChangeHandler(data.desertionNo);
+            }}
+          >
+            {isLike ? (
               <AntDesign name='heart' size={24} color='red' />
             ) : (
               <AntDesign name='hearto' size={24} color='red' />
