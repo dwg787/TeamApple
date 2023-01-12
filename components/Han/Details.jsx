@@ -49,8 +49,8 @@ export default function Details({ data }) {
     getData();
   }, []);
 
-  console.log("items~~~~~~", items);
-  console.log("data~~~~~~~", data);
+  // console.log("items~~~~~~", items);
+  // console.log("data~~~~~~~", data);
 
   // const q = query(collection(dbService, "isLike"));
   // const getData = () => {
