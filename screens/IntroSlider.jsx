@@ -6,7 +6,6 @@ import {
   Text,
   Image,
   Button,
-  TouchableOpacity,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { LinearGradient } from "expo-linear-gradient";
@@ -36,6 +35,10 @@ const IntroSlider = () => {
       >
         <Text style={styles.introTitleStyle}>{item.title}</Text>
         <Image style={styles.introImageStyle} source={item.image} />
+        <LinearGradient
+          style={StyleSheet.absoluteFill}
+          colors={["transparent", "black"]}
+        />
         <Text style={styles.introTextStyle}>{item.text}</Text>
       </View>
     );
@@ -58,16 +61,14 @@ const IntroSlider = () => {
               onPress={() => setShowRealApp(false)}
               color='#fff'
             />
-          </View>
-          <View style={styles.apStartTextWrapper}>
-            <TouchableOpacity
-              style={{ alignItems: "center" }}
+            <Button
+              style={{ fontWeight: "bold" }}
+              title='애플펫 시작하기'
               onPress={() =>
                 navigation.navigate("NotTabs", { screen: "Login" })
               }
-            >
-              <Text style={styles.apStartText}>애플펫 시작하기</Text>
-            </TouchableOpacity>
+              color='#F19936'
+            />
           </View>
         </View>
       ) : (
@@ -94,11 +95,9 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     backgroundColor: "#0c68f2",
-    marginTop: -30,
   },
   logo: {
-    marginLeft: 30,
-    marginBottom: 10,
+    marginLeft: 40,
     width: 150,
     height: 100,
   },
@@ -128,16 +127,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     bottom: 300,
-  },
-  apStartTextWrapper: {
-    // marginTop: 200,
-  },
-  apStartText: {
-    position: "absolute",
-    bottom: 210,
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#F19936",
   },
 });
 
