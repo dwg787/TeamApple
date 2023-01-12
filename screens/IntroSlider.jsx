@@ -37,7 +37,7 @@ const IntroSlider = () => {
         <Image style={styles.introImageStyle} source={item.image} />
         <LinearGradient
           style={StyleSheet.absoluteFill}
-          colors={["transparent", "black"]}
+          colors={["transparent", "#101010"]}
         />
         <Text style={styles.introTextStyle}>{item.text}</Text>
       </View>
@@ -154,7 +154,7 @@ const slides = [
     title: "",
     text: "사지말고 입양하세요",
     image: {
-      uri: "https://user-images.githubusercontent.com/78587041/211697050-39e00c76-cab4-41ee-a1e2-426115fa5c28.png",
+      uri: "https://i.pinimg.com/564x/d3/1a/b5/d31ab589965964e74a1b0f44e101c030.jpg",
     },
     backgroundColor: "#22bcb5",
   },
