@@ -14,6 +14,8 @@ import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { authService, dbService } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
+
+
 import {
   collection,
   onSnapshot,
@@ -27,14 +29,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 
 
+
 export default function Detail({
   navigation: { setOptions, goBack },
   route: {
     params: { params },
   },
 }) {
-  console.log("params.data!!!@@@@", params.data);
-
   const { navigate } = useNavigation();
   const isDark = useColorScheme() === "dark";
 
@@ -42,7 +43,6 @@ export default function Detail({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [idchange, setIdchange] = useState("");
-  // console.log("isOpenModal", isOpenModal);
 
   useFocusEffect(
     useCallback(() => {
@@ -85,8 +85,6 @@ export default function Detail({
     });
     return unsubscribe;
   }, []);
-  // const list = reviews.filter((el)=> el.cardID === params.data.desertionNo)
-  // console.log(" list", reviews);
 
   return (
     <FlatList

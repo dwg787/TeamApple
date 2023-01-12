@@ -11,7 +11,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import ReviewModal from '../screens/ReviewModal';
 import { Alert } from 'react-native';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { dbService } from './../firebase';
+import { dbService, authService } from './../firebase';
 import { async } from '@firebase/util';
 
 export default function ReviewCard({
@@ -32,8 +32,6 @@ export default function ReviewCard({
     setIsOpenModal(true);
   };
 
-  // console.log("isOpenModal########", isOpenModal);
-
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
     Alert.alert('문의 사항 삭제', '정말 삭제하시겠습니까?', [
@@ -45,7 +43,7 @@ export default function ReviewCard({
       {
         text: '삭제',
         style: 'destructive',
-        onPress: async (id) => {
+        onPress: async () => {
           // setReviews(newReviews);
           // const newReviews = reviews.filter((review) => review.id !== id);
           await deleteDoc(doc(dbService, 'reviews', id));
@@ -54,7 +52,10 @@ export default function ReviewCard({
     ]);
   };
 
-  const rigthSwipe = (progress, dragX) => {
+  // uid가 같지 않으면 rightSwipe 못하게 막는 부분
+  const uid = authService.currentUser.uid;
+
+  const rightSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [1, 0],
@@ -78,7 +79,8 @@ export default function ReviewCard({
     );
   };
   return (
-    <Swipeable renderRightActions={rigthSwipe}>
+    // uid가 같지 않으면 rightSwipe 못하게 막는 부분
+    <Swipeable renderRightActions={uid === review.userId ? rightSwipe : ''}>
       <TouchableOpacity key={review.id} onPress={() => handEditing(review.id)}>
         <ReviewWrapper
           style={{
@@ -113,8 +115,6 @@ const ReviewWrapper = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
-
-  /* background-color: white; */
 `;
 const ReviewId = styled.Text`
   font-size: 15px;

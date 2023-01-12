@@ -7,34 +7,22 @@ import { authService, dbService } from '../firebase';
 export default function ReviewModal({
   isOpenModal,
   setIsOpenModal,
-  setReviews,
   isEdit,
-  reviews,
   setIsEdit,
   data,
-  id,
-  setIdchange,
   idchange,
 }) {
   const [addContent, setAddcontent] = useState('');
 
+  // 3. 문의 수정 (edit)
   const editReview = async (idchange) => {
-    // const newReviews = [...reviews];
-    // const idx = newReviews.findIndex((review) => review.id === id);
-    // newReviews[idx].contents = addContent;
-    // newReviews[idx].isEdit = false;
-    // setAddcontent("");
-    // setIsEdit(false);
-    // setReviews(newReviews);
-    // setIsOpenModal(false);
-
     await updateDoc(doc(dbService, 'reviews', idchange), {
       contents: addContent,
+    }).then(() => {
+      setAddcontent('');
+      setIsEdit(false);
+      setIsOpenModal(false);
     });
-    setAddcontent('');
-    setIsEdit(false);
-
-    setIsOpenModal(false);
   };
 
   // 1. 문의 추가 (add)
@@ -122,7 +110,6 @@ const InputWrapper = styled.KeyboardAvoidingView``;
 
 const Backdrop = styled.View`
   flex: 1;
-  /* justify-content: flex-start; */
   justify-content: center;
   align-items: center;
 `;
