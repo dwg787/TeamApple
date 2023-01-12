@@ -29,14 +29,7 @@ import DropShadow from 'react-native-drop-shadow';
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
-  // console.log('item???', item);
   const [items, setItems] = useState([]);
-
-  // const id = uuidv4();
-  // item.id = id;
-  // item.isLike = false;
-
-  // console.log(id);
 
   const q = query(collection(dbService, 'isLike'));
 
@@ -59,22 +52,18 @@ export default function MainCard({ item }) {
   //   });
   // };
 
-  // console.log(item);
-
-  // 매개변수로 넘겨받은 data에 userId가 없어서 판별 불가능.
-
-  // console.log(!authService?.currentUser?.uid);
+  // 데이터로 넘겨받은 item 중에서 get으로 받아온 item의 desertionNo가 같고,
+  // get으로 받아온 item의 userId가 로그인한 아이디가 같은 것을 변수에 저장해주고
+  // 변수의 조건과 맞지 않고 로그인 했을때에만 isLike에 데이터를 추가해준다.
+  // 데이터를 추가하고 최신 데이터를 가져오기 위해서 getData 해준다.
   const addIsLike = async (data) => {
-    // console.log(data);
     const selectedItem = items.find(
       (item) =>
         item.desertionNo === data.desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
-    // const selectedItem2 = items.find((item) => item.userId === data.userId);
-    // console.log('hi', selectedItem);
-    // console.log(selectedItem2);
-    if (!selectedItem) {
+
+    if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
       await setDoc(doc(dbService, 'isLike', data.id), {
         ...item,
@@ -98,19 +87,6 @@ export default function MainCard({ item }) {
   useEffect(() => {
     getData();
   }, []);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     getData();
-  //     addIsLike();
-
-  //     return () => {
-  //       getData();
-  //     };
-  //   }, [])
-  // );
-
-  // console.log("mainItems", items);
 
   return (
     <TouchableOpacity
