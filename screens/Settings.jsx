@@ -1,17 +1,17 @@
-import styled from '@emotion/native';
-import { View, Text } from 'react-native';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils';
-import { signOut } from 'firebase/auth';
-import { authService, dbService } from '../firebase';
-import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
-import { getAuth, updateProfile } from 'firebase/auth';
-import profileImg from '../assets/profileImg.png';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import styled from "@emotion/native";
+import { View, Text } from "react-native";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils";
+import { signOut } from "firebase/auth";
+import { authService, dbService } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { getAuth, updateProfile } from "firebase/auth";
+import profileImg from "../assets/profileImg.png";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Settings() {
   // console.log(authService.currentUser.displayName);
-  const [textValue, setTextValue] = useState('');
+  const [textValue, setTextValue] = useState("");
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
@@ -23,14 +23,11 @@ export default function Settings() {
   const displayName = user?.displayName;
 
   const editNickName = async () => {
-    console.log(auth);
-    // console.log(displayName);
-    // console.log(displayName);
     await updateProfile(auth.currentUser, {
       displayName: textValue,
     })
       .then(() => {
-        console.log('textValue', 'hihi');
+        console.log("textValue", "hihi");
         setTextValue(textValue);
       })
       .catch((error) => {
@@ -38,10 +35,6 @@ export default function Settings() {
       });
     refreshUser();
   };
-
-  useEffect(() => {
-    console.log('textValue', textValue);
-  }, [textValue]);
 
   const { navigate } = useNavigation();
 
@@ -73,8 +66,8 @@ export default function Settings() {
   const logout = () => {
     signOut(authService)
       .then(() => {
-        console.log('로그아웃 성공');
-        navigate('NotTabs', { screen: 'Login' });
+        console.log("로그아웃 성공");
+        navigate("NotTabs", { screen: "Login" });
       })
       .catch((err) => alert(err));
   };
@@ -88,8 +81,8 @@ export default function Settings() {
             <ProfileTextWrap>
               <ProfileTitle>사용자 이름 수정</ProfileTitle>
               <ProfileTextInput
-                placeholder='닉네임을 입력해주세요 ...'
-                placeholderTextColor='#A8A8A8'
+                placeholder="닉네임을 입력해주세요 ..."
+                placeholderTextColor="#A8A8A8"
                 value={textValue}
                 onChangeText={setTextValue}
               />
@@ -120,8 +113,8 @@ const SettingWrap = styled.View`
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
-  width: ${SCREEN_WIDTH / 2 + 'px'};
+  height: ${SCREEN_HEIGHT / 3.5 + "px"};
+  width: ${SCREEN_WIDTH / 2 + "px"};
   margin-bottom: 10%;
   margin-left: 15%;
 `;
@@ -129,14 +122,14 @@ const SettingImage = styled.Image`
 const ProfileView = styled.View`
   justify-content: space-around;
   align-items: center;
-  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
+  height: ${SCREEN_HEIGHT / 3.5 + "px"};
   background-color: #0c68f2;
   border-radius: 20%;
 `;
 
 const ProfileTextWrap = styled.View`
   align-items: center;
-  width: ${SCREEN_WIDTH / 2 + 'px'};
+  width: ${SCREEN_WIDTH / 2 + "px"};
   border-bottom-width: 1px;
   border-bottom-color: white;
 `;
@@ -195,7 +188,7 @@ const LogoutButtonText = styled.Text`
 `;
 
 const VisitorView = styled.View`
-  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
+  height: ${SCREEN_HEIGHT / 1.5 + "px"};
   justify-content: center;
   align-items: center;
 `;
