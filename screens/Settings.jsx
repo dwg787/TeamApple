@@ -148,7 +148,7 @@ const SettingWrap = styled.View`
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3.5 + "px"};
+  height: ${SCREEN_HEIGHT / 3.3 + "px"};
   width: ${SCREEN_WIDTH / 2 + "px"};
   margin-bottom: 10%;
   margin-left: 15%;
