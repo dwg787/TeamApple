@@ -5,9 +5,9 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import styled from "@emotion/native";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from '@emotion/native';
 import {
   onSnapshot,
   collection,
@@ -20,11 +20,11 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService } from "../firebase";
-import { useCallback, useEffect, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { v4 as uuidv4 } from "uuid";
+} from 'firebase/firestore';
+import { dbService } from '../firebase';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
@@ -37,7 +37,7 @@ export default function MainCard({ item }) {
 
   // console.log(id);
 
-  const q = query(collection(dbService, "isLike"));
+  const q = query(collection(dbService, 'isLike'));
 
   // const getData = async () => {
   //   // const querySnapshot = await getDocs(q);
@@ -64,7 +64,7 @@ export default function MainCard({ item }) {
     );
     if (!selectedItem) {
       const id = uuidv4();
-      await setDoc(doc(dbService, "isLike", id), {
+      await setDoc(doc(dbService, 'isLike', id), {
         ...item,
         id,
         isLike: false,
@@ -97,14 +97,14 @@ export default function MainCard({ item }) {
   //   }, [])
   // );
 
-  console.log("mainItems", items);
+  // console.log("mainItems", items);
 
   return (
     // <></>
     <TouchableOpacity
       onPress={() => {
         addIsLike(item);
-        navigate("Detail", {
+        navigate('Detail', {
           params: { data: item },
         });
       }}

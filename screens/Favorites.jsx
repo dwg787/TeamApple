@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { useState, useEffect, useCallback } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { SCREEN_HEIGHT } from '../utils';
 import {
   collection,
   addDoc,
@@ -11,17 +12,17 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService } from "../firebase";
-import styled from "@emotion/native";
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/native";
+} from 'firebase/firestore';
+import { dbService, authService } from '../firebase';
+import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Favorites() {
   const { navigate } = useNavigation();
   const [like, setLike] = useState(true);
   const [items, setItems] = useState([]);
-  const q = query(collection(dbService, "isLike"));
+  const q = query(collection(dbService, 'isLike'));
   const getData = async () => {
     const querySnapshot = await getDocs(q);
     const dataArray = [];
@@ -41,43 +42,49 @@ export default function Favorites() {
 
   return (
     <>
-      <View>
-        {items.map((item) => {
-          if (item.isLike) {
-            return (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => {
-                  getData();
-                  navigate("Detail", {
-                    params: { data: item },
-                  });
-                }}
-              >
-                <SingleCard>
-                  <AnimalCardPicture>
-                    <AnimalPic source={{ url: `${item.popfile}` }} />
-                  </AnimalCardPicture>
-                  <AnimalCardType>
-                    <TextC>성별</TextC>
-                    <TextC>품종</TextC>
-                    <TextC>나이</TextC>
-                    <TextC>지역</TextC>
-                    <TextC>등록일</TextC>
-                  </AnimalCardType>
-                  <AnimalCardDescription>
-                    <AnimalCardGender>{item.sexCd}</AnimalCardGender>
-                    <AnimalCardKind>{item.kindCd}</AnimalCardKind>
-                    <AnimalCardAge>{item.age}</AnimalCardAge>
-                    <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
-                    <AnimalCardDate>{item.happenDt}</AnimalCardDate>
-                  </AnimalCardDescription>
-                </SingleCard>
-              </TouchableOpacity>
-            );
-          }
-        })}
-      </View>
+      {!!authService.currentUser ? (
+        <View>
+          {items.map((item) => {
+            if (item.isLike) {
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => {
+                    getData();
+                    navigate('Detail', {
+                      params: { data: item },
+                    });
+                  }}
+                >
+                  <SingleCard>
+                    <AnimalCardPicture>
+                      <AnimalPic source={{ url: `${item.popfile}` }} />
+                    </AnimalCardPicture>
+                    <AnimalCardType>
+                      <TextC>성별</TextC>
+                      <TextC>품종</TextC>
+                      <TextC>나이</TextC>
+                      <TextC>지역</TextC>
+                      <TextC>등록일</TextC>
+                    </AnimalCardType>
+                    <AnimalCardDescription>
+                      <AnimalCardGender>{item.sexCd}</AnimalCardGender>
+                      <AnimalCardKind>{item.kindCd}</AnimalCardKind>
+                      <AnimalCardAge>{item.age}</AnimalCardAge>
+                      <AnimalCardLocation>{item.orgNm}</AnimalCardLocation>
+                      <AnimalCardDate>{item.happenDt}</AnimalCardDate>
+                    </AnimalCardDescription>
+                  </SingleCard>
+                </TouchableOpacity>
+              );
+            }
+          })}
+        </View>
+      ) : (
+        <VisitorView>
+          <Text>로그인 해주세요.</Text>
+        </VisitorView>
+      )}
     </>
   );
 }
@@ -147,4 +154,10 @@ const AnimalCardLocation = styled.Text`
 const AnimalCardDate = styled.Text`
   margin-top: 6px;
   position: relative;
+`;
+
+const VisitorView = styled.View`
+  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
+  justify-content: center;
+  align-items: center;
 `;

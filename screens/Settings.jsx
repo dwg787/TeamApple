@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { getAuth, updateProfile } from 'firebase/auth';
 import profileImg from '../assets/profileImg.png';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function Settings() {
   // console.log(authService.currentUser.displayName);
@@ -79,27 +80,38 @@ export default function Settings() {
   };
 
   return (
-    <SettingWrap>
-      <SettingImage source={profileImg} />
-      <ProfileView>
-        <ProfileTextWrap>
-          <ProfileTitle>사용자 이름 수정</ProfileTitle>
-          <ProfileTextInput
-            placeholder='닉네임을 입력해주세요 ...'
-            placeholderTextColor='#A8A8A8'
-            value={textValue}
-            onChangeText={setTextValue}
-          />
-          <Text>{displayName}</Text>
-        </ProfileTextWrap>
-        <ProfileButton onPress={editNickName}>
-          <ProfileButtonText>수정하기</ProfileButtonText>
-        </ProfileButton>
-      </ProfileView>
-      <LogoutButton onPress={logout}>
-        <LogoutButtonText>로그아웃</LogoutButtonText>
-      </LogoutButton>
-    </SettingWrap>
+    <>
+      {!!user ? (
+        <SettingWrap>
+          <SettingImage source={profileImg} />
+          <ProfileView>
+            <ProfileTextWrap>
+              <ProfileTitle>사용자 이름 수정</ProfileTitle>
+              <ProfileTextInput
+                placeholder='닉네임을 입력해주세요 ...'
+                placeholderTextColor='#A8A8A8'
+                value={textValue}
+                onChangeText={setTextValue}
+              />
+              <Text>{displayName}</Text>
+            </ProfileTextWrap>
+            <ProfileButton onPress={editNickName}>
+              <ProfileButtonText>수정하기</ProfileButtonText>
+            </ProfileButton>
+          </ProfileView>
+          <LogoutButton onPress={logout}>
+            <LogoutButtonText>로그아웃</LogoutButtonText>
+          </LogoutButton>
+        </SettingWrap>
+      ) : (
+        <VisitorView>
+          <Text>로그인 해주세요.</Text>
+          {/* <LogInButton>
+            <Text>로그인</Text>
+          </LogInButton> */}
+        </VisitorView>
+      )}
+    </>
   );
 }
 
@@ -168,6 +180,22 @@ const LogoutButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
+const LogInButton = styled.TouchableOpacity`
+  margin-top: 10%;
+  border-radius: 30%;
+  width: ${SCREEN_WIDTH};
+  height: 50px;
+  background-color: #0c68f2;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LogoutButtonText = styled.Text`
   color: white;
+`;
+
+const VisitorView = styled.View`
+  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
+  justify-content: center;
+  align-items: center;
 `;
