@@ -47,9 +47,9 @@ export default function Detail({ route: { params } }) {
       orderBy("createdAt", "desc")
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newReviews = snapshot.docs.map((dco) => ({
+      const newReviews = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...dco.date(),
+        ...doc.date(),
       }));
       setReviews(newReviews);
     });
