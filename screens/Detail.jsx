@@ -10,7 +10,7 @@ import styled from "@emotion/native";
 import { Modal } from "react-native";
 import { useCallback, useState } from "react";
 import Details from "../components/Han/Details";
-import Review from "./Review";
+import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { authService, dbService } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
@@ -61,7 +61,6 @@ export default function Detail({
       },
     ]);
   };
->
 
   useFocusEffect(
     useCallback(() => {
@@ -143,7 +142,7 @@ export default function Detail({
           />
 
           {/*등록버튼 */}
-          <Review
+          <ReviewModal
             isOpenModal={isOpenModal}
             isEdit={isEdit}
             setIsOpenModal={setIsOpenModal}
