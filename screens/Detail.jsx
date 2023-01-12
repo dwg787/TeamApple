@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   View,
   Text,
@@ -5,28 +6,27 @@ import {
   ScrollView,
   useColorScheme,
   FlatList,
-} from "react-native";
-import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { useCallback, useState } from "react";
-import Details from "../components/Han/Details";
-import ReviewModal from "./ReviewModal";
-import ReviewCard from "../components/ReviewCard";
-import { authService, dbService } from "../firebase";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native';
+import styled from '@emotion/native';
+import { Modal } from 'react-native';
+import { useCallback, useState } from 'react';
+import Details from '../components/Han/Details';
+import ReviewModal from './ReviewModal';
+import ReviewCard from '../components/ReviewCard';
+import { authService, dbService } from '../firebase';
+import { useNavigation } from '@react-navigation/native';
 import {
   collection,
   onSnapshot,
   orderBy,
   query,
   doc,
-} from "firebase/firestore";
-import { Alert } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
-import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
-import { DARK_COLOR } from "../colors";
-
+} from 'firebase/firestore';
+import { Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
+import { BLUE_COLOR, ORANGE_COLOR } from '../colors';
+import { DARK_COLOR } from '../colors';
 
 export default function Detail({
   navigation: { setOptions, goBack },
@@ -34,26 +34,25 @@ export default function Detail({
     params: { params },
   },
 }) {
-
   const { navigate } = useNavigation();
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [idchange, setIdchange] = useState("");
+  const [idchange, setIdchange] = useState('');
 
   // 2. 문의 삭제 (delete)
   const deleteReview = (id) => {
-    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+    Alert.alert('문의 사항 삭제', '정말 삭제하시겠습니까?', [
       {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
+        text: '취소',
+        style: 'cancel',
+        onPress: () => console.log('취소 클릭!'),
       },
       {
-        text: "삭제",
-        style: "destructive",
+        text: '삭제',
+        style: 'destructive',
         onPress: () => {
           const newReviews = reviews.filter((review) => review.id !== id);
           setReviews(newReviews);
@@ -68,7 +67,7 @@ export default function Detail({
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -83,11 +82,10 @@ export default function Detail({
     setIsOpenModal(true);
   };
 
-
   useEffect(() => {
     const q = query(
-      collection(dbService, "reviews"),
-      orderBy("createdAt", "desc")
+      collection(dbService, 'reviews'),
+      orderBy('createdAt', 'desc')
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newReviews = snapshot.docs.map((doc) => ({
@@ -99,8 +97,7 @@ export default function Detail({
     return unsubscribe;
   }, []);
 
-
-  console.log("reviews", reviews);
+  console.log('reviews', reviews);
 
   return (
     <FlatList
@@ -111,10 +108,10 @@ export default function Detail({
       }}
       keyExtractor={(item) => item.id}
       ListFooterComponent={
-        <Container style={{ backgroundColor: isDark ? DARK_COLOR : "white" }}>
+        <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
           <Details data={params.data} />
           <TitleWrapper
-            style={{ borderBottomWidth: 1, borderBottomColor: "#D9D9D9" }}
+            style={{ borderBottomWidth: 1, borderBottomColor: '#D9D9D9' }}
           >
             <SectionTitle>문의</SectionTitle>
           </TitleWrapper>
