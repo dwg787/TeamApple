@@ -5,45 +5,144 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styled from '@emotion/native';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import styled from "@emotion/native";
+import {
+  onSnapshot,
+  collection,
+  addDoc,
+  setDoc,
+  query,
+  orderBy,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { dbService } from "../firebase";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { v4 as uuidv4 } from "uuid";
+import DropShadow from "react-native-drop-shadow";
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
   // console.log('item???', item);
+  const [items, setItems] = useState([]);
+
+  // const id = uuidv4();
+  // item.id = id;
+  // item.isLike = false;
+
+  // console.log(id);
+
+  const q = query(collection(dbService, "isLike"));
+
+  // const getData = async () => {
+  //   // const querySnapshot = await getDocs(q);
+  //   // const dataArray = [];
+  //   // querySnapshot.forEach((doc) => {
+  //   //   dataArray.push(doc.data());
+  //   // });
+  //   onSnapshot(q, (snapshot) => {
+  //     const newItems = snapshot.docs.map((doc) => {
+  //       const newitem = {
+  //         id: doc.id,
+  //         isLike: false,
+  //         ...doc.data(), // doc.data() : { text, createdAt, ...  }
+  //       };
+  //       return newitem;
+  //     });
+  //     setItems(newItems);
+  //   });
+  // };
+
+  const addIsLike = async (data) => {
+    const selectedItem = items.find(
+      (item) => item.desertionNo === data.desertionNo
+    );
+    if (!selectedItem) {
+      const id = uuidv4();
+      await setDoc(doc(dbService, "isLike", id), {
+        ...item,
+        id,
+        isLike: false,
+      });
+      getData();
+    }
+  };
+
+  const getData = async () => {
+    const querySnapshot = await getDocs(q);
+    const itemArray = [];
+    querySnapshot.forEach((doc) => {
+      itemArray.push(doc.data());
+    });
+    setItems(itemArray);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     getData();
+  //     addIsLike();
+
+  //     return () => {
+  //       getData();
+  //     };
+  //   }, [])
+  // );
+
+  // console.log("mainItems", items);
 
   return (
-    // <></>
     <TouchableOpacity
-      onPress={() =>
-        navigate('Detail', {
-          data: item,
-        })
-      }
+      onPress={() => {
+        addIsLike(item);
+        navigate("Detail", {
+          params: { data: item },
+        });
+      }}
     >
-      <SingleCard>
-        <AnimalCardPicture>
-          <AnimalPic source={{ url: `${item.popfile}` }} />
-        </AnimalCardPicture>
-        <AnimalCardType>
-          <TextC>성별</TextC>
-          <TextC>품종</TextC>
-          <TextC>나이</TextC>
-          <TextC>지역</TextC>
-          <TextC>등록일</TextC>
-        </AnimalCardType>
-        <AnimalCardDescription>
-          <AnimalCardGender>{item.sexCd}</AnimalCardGender>
-          <AnimalCardKind>{item.kindCd}</AnimalCardKind>
-          <AnimalCardAge>{item.age}</AnimalCardAge>
-          <AnimalCardLocation>
-            {item.orgNm.slice(0, 2)}
-            {/* {item.orgNm.length > 2 && '...'} */}
-          </AnimalCardLocation>
-          <AnimalCardDate>{item.happenDt}</AnimalCardDate>
-        </AnimalCardDescription>
-      </SingleCard>
+      <DropShadow
+        style={{
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          shadowOpacity: 0.29,
+          shadowRadius: 4.65,
+        }}
+      >
+        <SingleCard>
+          <AnimalCardPicture>
+            <AnimalPic source={{ url: `${item.popfile}` }} />
+          </AnimalCardPicture>
+          <AnimalCardType>
+            <TextC>성별</TextC>
+            <TextC>품종</TextC>
+            <TextC>나이</TextC>
+            <TextC>지역</TextC>
+            <TextC>등록일</TextC>
+          </AnimalCardType>
+          <AnimalCardDescription>
+            <AnimalCardGender>{item.sexCd}</AnimalCardGender>
+            <AnimalCardKind>{item.kindCd}</AnimalCardKind>
+            <AnimalCardAge>{item.age}</AnimalCardAge>
+            <AnimalCardLocation>
+              {item.orgNm.slice(0, 2)}
+              {/* {item.orgNm.length > 2 && '...'} */}
+            </AnimalCardLocation>
+            <AnimalCardDate>{item.happenDt}</AnimalCardDate>
+          </AnimalCardDescription>
+        </SingleCard>
+      </DropShadow>
     </TouchableOpacity>
   );
 }
@@ -61,14 +160,14 @@ const TextC = styled.Text`
 `;
 
 const SingleCard = styled.View`
+  margin-left: 2.5%;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 95%;
   height: 170px;
-  margin-bottom: 15px;
+  margin-top: 15px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 2px 3px 2px;
 `;
 
 const AnimalCardPicture = styled.View`
