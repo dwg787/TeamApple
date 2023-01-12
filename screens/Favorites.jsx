@@ -40,13 +40,18 @@ export default function Favorites() {
       return () => getData();
     }, [])
   );
+  console.log(authService?.currentUser?.uid);
+
+  // const item = items.filter(
+  //   (item) => item.userId === authService?.currentUser?.uid
+  // );
 
   return (
     <>
       {!!authService.currentUser ? (
         <ScrollView>
           {items.map((item) => {
-            if (item.isLike) {
+            if (item.isLike && item.userId === authService?.currentUser?.uid) {
               return (
                 <TouchableOpacity
                   key={item.id}
