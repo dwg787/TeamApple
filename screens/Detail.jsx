@@ -7,49 +7,60 @@ import {
   FlatList,
 } from "react-native";
 import styled from "@emotion/native";
-import { Modal } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Details from "../components/Han/Details";
-import Review from "./Review";
+import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
-import { Alert } from "react-native";
+import { authService, dbService } from "../firebase";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  doc,
+} from "firebase/firestore";
 
 export default function Detail({
   route: {
     params: { params },
   },
 }) {
+  console.log("params.data!!!@@@@", params.data);
+  console.log("data!!!@@@", data);
+
   const isDark = useColorScheme() === "dark";
 
   const [reviews, setReviews] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  // 2. 문의 삭제 (delete)
-  const deleteReview = (id) => {
-    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
-      {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
-      },
-      {
-        text: "삭제",
-        style: "destructive",
-        onPress: () => {
-          const newReviews = reviews.filter((review) => review.id !== id);
-          setReviews(newReviews);
-        },
-      },
-    ]);
-  };
-
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = () => {
+    const isLogin = !!authService.currenUsers;
+    if (!isLogin) {
+      navigate("Login");
+      return;
+    }
     setIsOpenModal(true);
   };
 
-  console.log("reviews", reviews);
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "reviews"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newReviews = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReviews(newReviews);
+    });
+    return unsubscribe;
+  }, []);
+
+  console.log("params.data!!!@@@@", params.data);
+  console.log("data!!!@@@", data);
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
@@ -90,7 +101,7 @@ export default function Detail({
           />
 
           {/*등록버튼 */}
-          <Review
+          <ReviewModal
             isOpenModal={isOpenModal}
             isEdit={isEdit}
             setIsOpenModal={setIsOpenModal}

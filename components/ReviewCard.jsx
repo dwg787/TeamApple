@@ -8,12 +8,12 @@ import {
   Animated,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import Review from "./../screens/Review";
+import Review from "../screens/ReviewModal";
+import { Alert } from "react-native";
 
 export default function ReviewCard({
   review,
   reviews,
-  deleteReview,
   isOpenModal,
   setIsOpenModal,
   isEdit,
@@ -25,7 +25,26 @@ export default function ReviewCard({
     setIsOpenModal(true);
   };
 
-  console.log(reviews);
+  // console.log(reviews);
+
+  // 2. 문의 삭제 (delete)
+  const deleteReview = (id) => {
+    Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+        onPress: () => console.log("취소 클릭!"),
+      },
+      {
+        text: "삭제",
+        style: "destructive",
+        onPress: () => {
+          const newReviews = reviews.filter((review) => review.id !== id);
+          setReviews(newReviews);
+        },
+      },
+    ]);
+  };
 
   const rigthSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -67,7 +86,7 @@ export default function ReviewCard({
       </TouchableOpacity>
 
       {/*수정버튼 */}
-      <Review
+      {/* <Review
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         reviews={reviews}
@@ -75,7 +94,7 @@ export default function ReviewCard({
         id={review.id}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
-      />
+      /> */}
     </Swipeable>
   );
 }

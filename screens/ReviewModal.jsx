@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "@emotion/native";
 import { Modal } from "react-native";
+import { addDoc, collection } from "firebase/firestore";
+import { authService } from "../firebase";
 
-export default function Review({
+export default function ReviewModal({
   isOpenModal,
   setIsOpenModal,
   setReviews,
@@ -12,30 +14,33 @@ export default function Review({
   id,
 }) {
   const [addContent, setAddcontent] = useState("");
+  console.log("data!!:", data);
+  // console.log(addContent);
 
-  console.log(addContent);
-
-  const editReview = () => {
-    const newReviews = [...reviews];
-    const idx = newReviews.findIndex((review) => review.id === id);
-    newReviews[idx].contents = addContent;
-    newReviews[idx].isEdit = false;
-    setAddcontent();
-    setIsEdit(false);
-    setReviews(newReviews);
-    setIsOpenModal(false);
-  };
+  // const editReview = () => {
+  //   const newReviews = [...reviews];
+  //   const idx = newReviews.findIndex((review) => review.id === id);
+  //   newReviews[idx].contents = addContent;
+  //   newReviews[idx].isEdit = false;
+  //   setAddcontent();
+  //   setIsEdit(false);
+  //   setReviews(newReviews);
+  //   setIsOpenModal(false);
+  // };
   // console.log(reviews);
 
   // 1. 문의 추가 (add)
   const newReview = {
-    id: Date.now(),
     contents: addContent,
-    isEdit: false,
+    createdAt: Date.now(),
+    userId: authService.currentUser?.uid,
+    nickname: authService.currentUser?.displayName,
+    cardID: data?.desertionNo,
   };
 
-  const addReview = () => {
-    setReviews((prev) => [...prev, newReview]);
+  const addReview = async () => {
+    await addDoc(collection(dbService, "reviews"), newReview);
+    // setReviews((prev) => [...prev, newReview]);
     setAddcontent("");
     setIsOpenModal(false);
   };
