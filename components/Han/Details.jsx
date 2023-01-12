@@ -18,12 +18,13 @@ import {
   updateDoc,
   deleteDoc,
 } from 'firebase/firestore';
-import { authService, dbService } from '../../firebase';
+import { dbService, authService } from '../../firebase';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
   const [isLike, setIsLike] = useState(data.islike);
+
   const q = query(collection(dbService, 'isLike'));
 
   const getData = async () => {
@@ -75,15 +76,19 @@ export default function Details({ data }) {
   // }, []);
 
   const isLikeChangeHandler = async (desertionNo) => {
-    // console.log('items', items);
-    // console.log('desertionNo', desertionNo);
-    const itemId = items.find((item) => item.desertionNo === desertionNo);
-    // console.log(itemId);
-    const commentRef = doc(dbService, 'isLike', itemId.id);
-    // console.log('commentRef', commentRef);
-    const idx = items.findIndex((item) => item.desertionNo === desertionNo);
-    // console.log('번호', idx);
-    // console.log('items[idx].isLike', items[idx].isLike);
+    const choiceItem = items.find(
+      (item) =>
+        item.desertionNo === desertionNo &&
+        item.userId === authService?.currentUser?.uid
+    );
+    const commentRef = doc(dbService, 'isLike', choiceItem.id);
+    const idx = items.findIndex(
+      (item) =>
+        item.desertionNo === desertionNo &&
+        item.userId === authService?.currentUser?.uid
+    );
+
+    console.log('items[idx].isLike', items[idx].isLike);
     await updateDoc(commentRef, {
       isLike: !items[idx].isLike,
     });
