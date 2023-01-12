@@ -1,24 +1,23 @@
-import styled from "@emotion/native";
-import { View, Text, Alert, useColorScheme } from "react-native";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../utils";
-import { signOut } from "firebase/auth";
-import { authService, dbService } from "../firebase";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
-import { getAuth, updateProfile } from "firebase/auth";
-import profileImg from "../assets/profileImg.png";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { AntDesign } from "@expo/vector-icons";
-import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
+import styled from '@emotion/native';
+import { View, Text, Alert, useColorScheme } from 'react-native';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils';
+import { signOut } from 'firebase/auth';
+import { authService, dbService } from '../firebase';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
+import { getAuth, updateProfile } from 'firebase/auth';
+import profileImg from '../assets/profileImg.png';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
+import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
 
 export default function Settings() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const { navigate, setOptions, goBack } = useNavigation();
-  const [textValue, setTextValue] = useState("");
+  const [textValue, setTextValue] = useState('');
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
-  const isDark = useColorScheme() === "dark";
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -64,18 +63,18 @@ export default function Settings() {
   };
 
   const logout = () => {
-    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+    Alert.alert('로그아웃', '로그아웃 하시겠습니까?', [
       {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
+        text: '취소',
+        style: 'cancel',
+        onPress: () => console.log('취소 클릭!'),
       },
       {
-        text: "로그아웃",
-        style: "destructive",
+        text: '로그아웃',
+        style: 'destructive',
         onPress: () => {
           signOut(authService);
-          navigate("NotTabs", { screen: "Login" });
+          navigate('NotTabs', { screen: 'Login' });
         },
       },
     ]);
@@ -89,7 +88,7 @@ export default function Settings() {
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               style={{ marginLeft: 16 }}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
@@ -103,9 +102,11 @@ export default function Settings() {
   return (
     <>
       {!!user ? (
-        <SettingWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
+        <SettingWrap style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}>
           <SettingImage source={profileImg} />
-          <ProfileView style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
+          <ProfileView
+            style={{ backgroundColor: isDark ? '#3320B3' : BLUE_COLOR }}
+          >
             <ProfileTextWrap>
               <ProfileTitle>사용자 이름 수정</ProfileTitle>
               <ProfileTextInput
@@ -117,11 +118,17 @@ export default function Settings() {
               <Text>{displayName}</Text>
             </ProfileTextWrap>
             <ProfileButton onPress={editNickName}>
-              <ProfileButtonText style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>수정하기</ProfileButtonText>
+              <ProfileButtonText
+                style={{ backgroundColor: isDark ? '#3320B3' : BLUE_COLOR }}
+              >
+                수정하기
+              </ProfileButtonText>
             </ProfileButton>
           </ProfileView>
-          <LogoutButton onPress={logout}
-          style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
+          <LogoutButton
+            onPress={logout}
+            style={{ backgroundColor: isDark ? '#3320B3' : BLUE_COLOR }}
+          >
             <LogoutButtonText>로그아웃</LogoutButtonText>
           </LogoutButton>
         </SettingWrap>
@@ -135,13 +142,13 @@ export default function Settings() {
 }
 
 const SettingWrap = styled.View`
-  flex : 1;
+  flex: 1;
   padding: 10% 15%;
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3.5 + "px"};
-  width: ${SCREEN_WIDTH / 2 + "px"};
+  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
+  width: ${SCREEN_WIDTH / 2 + 'px'};
   margin-bottom: 10%;
   margin-left: 15%;
 `;
@@ -149,14 +156,14 @@ const SettingImage = styled.Image`
 const ProfileView = styled.View`
   justify-content: space-around;
   align-items: center;
-  height: ${SCREEN_HEIGHT / 3.5 + "px"};
+  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
   background-color: #0c68f2;
   border-radius: 20%;
 `;
 
 const ProfileTextWrap = styled.View`
   align-items: center;
-  width: ${SCREEN_WIDTH / 2 + "px"};
+  width: ${SCREEN_WIDTH / 2 + 'px'};
   border-bottom-width: 1px;
   border-bottom-color: white;
 `;
@@ -215,7 +222,7 @@ const LogoutButtonText = styled.Text`
 `;
 
 const VisitorView = styled.View`
-  height: ${SCREEN_HEIGHT / 1.5 + "px"};
+  height: ${SCREEN_HEIGHT / 1.5 + 'px'};
   justify-content: center;
   align-items: center;
 `;

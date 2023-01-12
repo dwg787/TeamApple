@@ -4,25 +4,21 @@ import {
   SafeAreaView,
   useColorScheme,
   TouchableOpacity,
-} from "react-native";
-import { useCallback, useState } from "react";
-import { useQuery, useQueryClient, useInfiniteQuery } from "react-query";
-import styled from "@emotion/native";
-import { fetchData, fetchFilteredData } from "../api";
-import MainCard from "../components/MainCard";
-import Loader from "../components/Loader";
-import DropShadow from "react-native-drop-shadow";
-import { BLUE_COLOR, DARK_COLOR, ORANGE_COLOR } from "../colors";
-import { useSelector, useDispatch } from "react-redux";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
-
-
-
-
+} from 'react-native';
+import { useCallback, useState } from 'react';
+import { useQuery, useQueryClient, useInfiniteQuery } from 'react-query';
+import styled from '@emotion/native';
+import { fetchData, fetchFilteredData } from '../api';
+import MainCard from '../components/MainCard';
+import Loader from '../components/Loader';
+import DropShadow from 'react-native-drop-shadow';
+import { BLUE_COLOR, DARK_COLOR, ORANGE_COLOR } from '../colors';
+import { useSelector, useDispatch } from 'react-redux';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Main() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const { setOptions, reset } = useNavigation();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const queryClient = useQueryClient();
@@ -59,7 +55,7 @@ export default function Main() {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    ["animal_list"],
+    ['animal_list'],
     ({ pageParam = 1 }) =>
       fetchFilteredData(selectedLocation, selectedKind, pageParam),
     {
@@ -81,10 +77,10 @@ export default function Main() {
       setOptions({
         headerLeft: () => (
           <TouchableOpacity
-            onPress={() => reset({ index: 0, routes: [{ name: "Filter" }] })}
+            onPress={() => reset({ index: 0, routes: [{ name: 'Filter' }] })}
           >
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -99,7 +95,7 @@ export default function Main() {
     // await getData();
     //refetch
     // await Promise.all();
-    await queryClient.refetchQueries(["animal_list"]);
+    await queryClient.refetchQueries(['animal_list']);
     setIsRefreshing(false);
   };
 
@@ -132,10 +128,16 @@ export default function Main() {
     // console.log('useInfiniteQuery 적용 api 호출', animalList);
     // const detailData = data.response.body.items.item;
     return (
-      <SafeAreaView style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
-        <StyleTopHeaderPostingCounter style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
-          <TextA style={{ color: isDark ? "white" : "black" }}>
-            총 <TextB style={{ color: isDark ? ORANGE_COLOR : ORANGE_COLOR }}>{totalPosting}</TextB> 마리
+      <SafeAreaView style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}>
+        <StyleTopHeaderPostingCounter
+          style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}
+        >
+          <TextA style={{ color: isDark ? 'white' : 'black' }}>
+            총{' '}
+            <TextB style={{ color: isDark ? ORANGE_COLOR : ORANGE_COLOR }}>
+              {totalPosting}
+            </TextB>{' '}
+            마리
           </TextA>
         </StyleTopHeaderPostingCounter>
         {/* <AnimalCardContainer> */}
@@ -153,12 +155,9 @@ export default function Main() {
           onEndReachedThreshold={0.5}
           onEndReached={loadMoreData}
           data={animalList}
-          renderItem={({ item }) => 
-          <MainCard
-          item={item} />}
+          renderItem={({ item }) => <MainCard item={item} />}
           keyExtractor={(item) => item.desertionNo}
           ItemSeparatorComponent={<View style={{ width: 10 }} />}
-          
         />
         {/* </TouchableOpacity> */}
         {/* </AnimalCardContainer> */}
@@ -170,11 +169,11 @@ export default function Main() {
 const StyleTopHeaderPostingCounter = styled.View`
   flex-direction: row-reverse;
   background-color: #fff;
-  width : 100%;
-  height : 40px;
-  margin-top : 15px;
-  margin-right : -20px;
-  align-item : center;
+  width: 100%;
+  height: 40px;
+  margin-top: 15px;
+  margin-right: -20px;
+  align-items: center;
   border-style: solid;
 `;
 
