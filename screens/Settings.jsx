@@ -7,12 +7,13 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
 import { getAuth, updateProfile } from "firebase/auth";
 import profileImg from "../assets/profileImg.png";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
 
 export default function Settings() {
   const isDark = useColorScheme() === "dark";
+
   const { navigate, setOptions, goBack } = useNavigation();
   const [textValue, setTextValue] = useState("");
   const [init, setInit] = useState(false);
@@ -87,7 +88,7 @@ export default function Settings() {
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               style={{ marginLeft: 16 }}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
@@ -102,23 +103,33 @@ export default function Settings() {
     <>
       {!!user ? (
         <SettingWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
-          <SettingImage source={profileImg} />
-          <ProfileView style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
+          <View style={{ marginTop: -22 }}>
+            <SettingImage source={profileImg} />
+          </View>
+          <ProfileView
+            style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}
+          >
             <ProfileTextWrap>
               <ProfileTitle>{displayName}</ProfileTitle>
               <ProfileTextInput
-                placeholder="닉네임을 입력해주세요 ..."
-                placeholderTextColor="#A8A8A8"
+                placeholder='닉네임을 입력해주세요 ...'
+                placeholderTextColor='#A8A8A8'
                 value={textValue}
                 onChangeText={setTextValue}
               />
             </ProfileTextWrap>
             <ProfileButton onPress={editNickName}>
-              <ProfileButtonText style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>수정하기</ProfileButtonText>
+              <ProfileButtonText
+                style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}
+              >
+                수정하기
+              </ProfileButtonText>
             </ProfileButton>
           </ProfileView>
-          <LogoutButton onPress={logout}
-          style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}>
+          <LogoutButton
+            onPress={logout}
+            style={{ backgroundColor: isDark ? "#3320B3" : BLUE_COLOR }}
+          >
             <LogoutButtonText>로그아웃</LogoutButtonText>
           </LogoutButton>
         </SettingWrap>
@@ -132,7 +143,7 @@ export default function Settings() {
 }
 
 const SettingWrap = styled.View`
-  flex : 1;
+  flex: 1;
   padding: 10% 15%;
 `;
 
