@@ -6,9 +6,9 @@ import {
   SafeAreaView,
   ScrollView,
   useColorScheme,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import styled from "@emotion/native";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from '@emotion/native';
 import {
   onSnapshot,
   collection,
@@ -21,13 +21,13 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService, authService } from "../firebase";
-import { useCallback, useEffect, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import { v4 as uuidv4 } from "uuid";
-import DropShadow from "react-native-drop-shadow";
-import { DARK_COLOR } from "../colors";
+} from 'firebase/firestore';
+import { dbService, authService } from '../firebase';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { v4 as uuidv4 } from 'uuid';
+import DropShadow from 'react-native-drop-shadow';
+import { DARK_COLOR } from '../colors';
 
 export default function MainCard({ item }) {
   const { navigate } = useNavigation();
@@ -39,9 +39,9 @@ export default function MainCard({ item }) {
 
   // console.log(id);
 
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
-  const q = query(collection(dbService, "isLike"));
+  const q = query(collection(dbService, 'isLike'));
 
   // 데이터로 넘겨받은 item 중에서 get으로 받아온 item의 desertionNo가 같고,
   // get으로 받아온 item의 userId가 로그인한 아이디가 같은 것을 변수에 저장해주고
@@ -55,7 +55,7 @@ export default function MainCard({ item }) {
     );
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
-      await setDoc(doc(dbService, 'isLike', data.id), {
+      await setDoc(doc(dbService, 'isLike', id), {
         ...item,
         id,
         isLike: false,
@@ -98,26 +98,36 @@ export default function MainCard({ item }) {
           shadowRadius: 4.65,
         }}
       >
-        <SingleCard style={{ backgroundColor: isDark ? "#212123" : "white" }}>
+        <SingleCard style={{ backgroundColor: isDark ? '#212123' : 'white' }}>
           <AnimalCardPicture>
             <AnimalPic source={{ url: `${item.popfile}` }} />
           </AnimalCardPicture>
           <AnimalCardType>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>성별</TextC>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>품종</TextC>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>나이</TextC>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>지역</TextC>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>등록일</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>성별</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>품종</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>나이</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>지역</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+              등록일
+            </TextC>
           </AnimalCardType>
           <AnimalCardDescription>
-            <AnimalCardGender style={{ color: isDark ? "white" : "black" }}>{item.sexCd === "M" ? "남" : "W" ? "여" : "중성"}</AnimalCardGender>
-            <AnimalCardKind style={{ color: isDark ? "white" : "black" }}>{item.kindCd}</AnimalCardKind>
-            <AnimalCardAge style={{ color: isDark ? "white" : "black" }}>{item.age}</AnimalCardAge>
-            <AnimalCardLocation style={{ color: isDark ? "white" : "black" }}>
+            <AnimalCardGender style={{ color: isDark ? 'white' : 'black' }}>
+              {item.sexCd === 'M' ? '남' : 'W' ? '여' : '중성'}
+            </AnimalCardGender>
+            <AnimalCardKind style={{ color: isDark ? 'white' : 'black' }}>
+              {item.kindCd}
+            </AnimalCardKind>
+            <AnimalCardAge style={{ color: isDark ? 'white' : 'black' }}>
+              {item.age}
+            </AnimalCardAge>
+            <AnimalCardLocation style={{ color: isDark ? 'white' : 'black' }}>
               {item.orgNm.slice(0, 2)}
               {/* {item.orgNm.length > 2 && '...'} */}
             </AnimalCardLocation>
-            <AnimalCardDate style={{ color: isDark ? "white" : "black" }}>{item.happenDt}</AnimalCardDate>
+            <AnimalCardDate style={{ color: isDark ? 'white' : 'black' }}>
+              {item.happenDt}
+            </AnimalCardDate>
           </AnimalCardDescription>
         </SingleCard>
       </DropShadow>
