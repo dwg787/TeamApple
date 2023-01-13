@@ -26,6 +26,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
 import { DARK_COLOR } from "../colors";
+import { useEffect } from "react";
 
 
 export default function Detail({
