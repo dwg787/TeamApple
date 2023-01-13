@@ -28,7 +28,7 @@ export default function Item({ data }) {
           </DetailTextTitleBox>
           <DetailTextContentBox>
             <DetailTextContent style={{ color: isDark ? 'white' : 'black' }}>
-              {data.sexCd === 'M' ? '남' : 'F' ? '여' : '알 수 없음'}
+              {data.sexCd === 'M' ? '남' : 'W' ? '여' : '잡종'}
             </DetailTextContent>
           </DetailTextContentBox>
         </DetailTextBox>

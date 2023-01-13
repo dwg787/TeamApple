@@ -7,7 +7,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 import { getAuth, updateProfile } from 'firebase/auth';
 import profileImg from '../assets/profileImg.png';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
 
@@ -103,7 +103,9 @@ export default function Settings() {
     <>
       {!!user ? (
         <SettingWrap style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}>
-          <SettingImage source={profileImg} />
+          <View style={{ marginTop: -22 }}>
+            <SettingImage source={profileImg} />
+          </View>
           <ProfileView
             style={{ backgroundColor: isDark ? '#3320B3' : BLUE_COLOR }}
           >
@@ -146,7 +148,7 @@ const SettingWrap = styled.View`
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3.3 + 'px'};
+  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
   width: ${SCREEN_WIDTH / 2 + 'px'};
   margin-bottom: 10%;
   margin-left: 15%;
