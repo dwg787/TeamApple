@@ -1,11 +1,11 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { Alert } from "react-native";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { Alert } from 'react-native';
 
 // API를 불러와야 하면 여기에서 해결해주세요.
 
 const API_KEY =
-  "eaZfB15ifCURVIUKNkIRx6c5pCGbRgu%2FpNtJHvOW1aOU4uedjC7b%2BLsDmGYuNgsgf3YZ9kBHXJ0YbRGCRMaF4g%3D%3D";
+  'eaZfB15ifCURVIUKNkIRx6c5pCGbRgu%2FpNtJHvOW1aOU4uedjC7b%2BLsDmGYuNgsgf3YZ9kBHXJ0YbRGCRMaF4g%3D%3D';
 const numOfRows = 10;
 
 // 메인 페이지, 디테일 페이지에서 쓸 json 데이터

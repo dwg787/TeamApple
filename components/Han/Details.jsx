@@ -1,10 +1,17 @@
-import styled from "@emotion/native";
-import { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
-import DropShadow from "react-native-drop-shadow";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
-import { AntDesign } from "@expo/vector-icons";
-import Item from "./Item";
+import styled from '@emotion/native';
+import { useState, useEffect, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  Alert,
+} from 'react-native';
+import DropShadow from 'react-native-drop-shadow';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../utils';
+import { AntDesign } from '@expo/vector-icons';
+import Item from './Item';
 import {
   onSnapshot,
   collection,
@@ -23,7 +30,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
   // 상태에 따라서 변수도 바뀐다.
   const checkLike = items?.find(
@@ -94,7 +101,7 @@ export default function Details({ data }) {
         item.userId === authService?.currentUser?.uid
     );
 
-    const commentRef = doc(dbService, "isLike", choiceItem.id);
+    const commentRef = doc(dbService, 'isLike', choiceItem.id);
     // const idx = items.findIndex(
     //   (item) =>
     //     item.desertionNo === desertionNo &&
@@ -110,7 +117,7 @@ export default function Details({ data }) {
 
   return (
     <>
-      <ScrollWrap style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
+      <ScrollWrap style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}>
         <DetailPictureBox>
           <DetailImage
             source={{
@@ -121,6 +128,9 @@ export default function Details({ data }) {
           <HeartWrapper
             onPress={() => {
               isLikeChangeHandler(data.desertionNo);
+              checkLike
+                ? Alert.alert('관심목록에서 제거되었습니다.')
+                : Alert.alert('관심목록에 추가되었습니다.');
             }}
           >
             {!authService.currentUser ? null : checkLike ? (

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,7 +8,7 @@ import {
 } from 'react-native';
 import styled from '@emotion/native';
 import { Modal } from 'react-native';
-import { useCallback, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import Details from '../components/Han/Details';
 import ReviewModal from './ReviewModal';
 import ReviewCard from '../components/ReviewCard';
@@ -79,6 +78,11 @@ export default function Detail({
 
   // 문의 사항 버튼 클릭시 modal true 함수
   const handleAdding = () => {
+    const isLogin = !!authService.currentUser;
+    if (!isLogin) {
+      navigate('Login');
+      return;
+    }
     setIsOpenModal(true);
   };
 
@@ -102,10 +106,10 @@ export default function Detail({
   return (
     <FlatList
       style={{ paddingBottom: 30 }}
-      data={reviews}
-      renderItem={({ item }) => {
-        <ReviewCard review={item} />;
-      }}
+      // data={reviews}
+      // renderItem={({ item }) => {
+      //   <ReviewCard review={item} />;
+      // }}
       keyExtractor={(item) => item.id}
       ListFooterComponent={
         <Container style={{ backgroundColor: isDark ? DARK_COLOR : 'white' }}>
@@ -145,6 +149,7 @@ export default function Detail({
             setIsOpenModal={setIsOpenModal}
             setReviews={setReviews}
             reviews={reviews}
+            data={params.data}
           />
         </Container>
       }
