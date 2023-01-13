@@ -1,37 +1,37 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, useColorScheme } from "react-native";
-import Login from "../screens/Login";
-import Detail from "../screens/Detail";
-import Main from "../screens/Main";
-import SignUp from "../screens/SignUp";
-import Filter from "../screens/Filter";
-import LoginSuccess from "../screens/LoginSuccess";
-import SignUpSuccess from "../screens/SignUpSuccess";
-import IntroSlider from "../screens/IntroSlider";
-import { AntDesign } from "@expo/vector-icons";
-import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from "../colors";
-import { useNavigation } from "@react-navigation/native";
-import { authService } from "../firebase";
-import { signOut } from "firebase/auth";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, TouchableOpacity, useColorScheme, Alert } from 'react-native';
+import Login from '../screens/Login';
+import Detail from '../screens/Detail';
+import Main from '../screens/Main';
+import SignUp from '../screens/SignUp';
+import Filter from '../screens/Filter';
+import LoginSuccess from '../screens/LoginSuccess';
+import SignUpSuccess from '../screens/SignUpSuccess';
+import IntroSlider from '../screens/IntroSlider';
+import { AntDesign } from '@expo/vector-icons';
+import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
+import { useNavigation } from '@react-navigation/native';
+import { authService } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
 export default function Stacks() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
   const { navigate } = useNavigation();
   const logout = () => {
-    Alert.alert("로그아웃", "로그아웃 하시겠습니까?", [
+    Alert.alert('로그아웃', '로그아웃 하시겠습니까?', [
       {
-        text: "취소",
-        style: "cancel",
-        onPress: () => console.log("취소 클릭!"),
+        text: '취소',
+        style: 'cancel',
+        onPress: () => console.log('취소 클릭!'),
       },
       {
-        text: "로그아웃",
-        style: "destructive",
+        text: '로그아웃',
+        style: 'destructive',
         onPress: () => {
           signOut(authService);
-        navigate("NotTabs", { screen: "Login" });
+          navigate('NotTabs', { screen: 'Login' });
         },
       },
     ]);
@@ -40,13 +40,13 @@ export default function Stacks() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerRight: () => {
           let button = !authService.currentUser ? (
-            <TouchableOpacity onPress={() => navigate("Login")}>
+            <TouchableOpacity onPress={() => navigate('Login')}>
               <AntDesign
-                name="login"
+                name='login'
                 size={24}
                 color={isDark ? ORANGE_COLOR : BLUE_COLOR}
               />
@@ -54,7 +54,7 @@ export default function Stacks() {
           ) : (
             <TouchableOpacity onPress={logout}>
               <AntDesign
-                name="logout"
+                name='logout'
                 size={24}
                 color={isDark ? ORANGE_COLOR : BLUE_COLOR}
               />
@@ -67,17 +67,17 @@ export default function Stacks() {
     >
       <Stack.Screen
         options={{
-          title: "유기동물",
+          title: '유기동물',
         }}
-        name="Main"
+        name='Main'
         component={Main}
-        style={{ backgroundColor: isDark ? "DARK_COLOR" : "white" }}
+        style={{ backgroundColor: isDark ? 'DARK_COLOR' : 'white' }}
       />
       <Stack.Screen
         options={{
-          title: "정보",
+          title: '정보',
         }}
-        name="Detail"
+        name='Detail'
         component={Detail}
       />
     </Stack.Navigator>
@@ -85,17 +85,17 @@ export default function Stacks() {
 }
 
 export function NotTabs() {
-  const isDark = useColorScheme() === "dark";
+  const isDark = useColorScheme() === 'dark';
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerTintColor: isDark ? ORANGE_COLOR : BLUE_COLOR,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
             <AntDesign
-              name="left"
+              name='left'
               size={24}
               color={isDark ? ORANGE_COLOR : BLUE_COLOR}
             />
@@ -104,50 +104,50 @@ export function NotTabs() {
       }}
     >
       <Stack.Screen
-        name="IntroSlider"
+        name='IntroSlider'
         component={IntroSlider}
         options={{
-          title: "IntroSlider",
+          title: 'IntroSlider',
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Login"
+        name='Login'
         component={Login}
         options={{
-          title: "Login",
+          title: 'Login',
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="SignUp"
+        name='SignUp'
         component={SignUp}
         options={{
-          title: "SignUp",
+          title: 'SignUp',
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Filter"
+        name='Filter'
         component={Filter}
         options={{
-          title: "Filter",
+          title: 'Filter',
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="LoginSuccess"
+        name='LoginSuccess'
         component={LoginSuccess}
         options={{
-          title: "LoginSuccess",
+          title: 'LoginSuccess',
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="SignUpSuccess"
+        name='SignUpSuccess'
         component={SignUpSuccess}
         options={{
-          title: "SignUpSuccess",
+          title: 'SignUpSuccess',
           headerShown: false,
         }}
       />
