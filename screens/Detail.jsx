@@ -7,13 +7,14 @@ import {
   FlatList,
 } from "react-native";
 import styled from "@emotion/native";
+import { useState, useEffect, useCallback } from "react";
 import { Modal } from "react-native";
-import { useCallback, useState, useEffect } from "react";
 import Details from "../components/Han/Details";
 import ReviewModal from "./ReviewModal";
 import ReviewCard from "../components/ReviewCard";
 import { authService, dbService } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
+
 import {
   collection,
   onSnapshot,
@@ -25,6 +26,7 @@ import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, ORANGE_COLOR } from "../colors";
+
 import { DARK_COLOR } from "../colors";
 
 export default function Detail({
@@ -40,50 +42,6 @@ export default function Detail({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [idchange, setIdchange] = useState("");
-
-  // 문의 사항 버튼 클릭시 modal true 함수
-  const handleAdding = async () => {
-    const isLogin = !!authService.currentUser;
-    if (!isLogin) {
-      navigate("Login");
-      return;
-    }
-    setIsOpenModal(true);
-  };
-
-  // // 2. 문의 삭제 (delete)
-  // const deleteReview = (id) => {
-  //   Alert.alert("문의 사항 삭제", "정말 삭제하시겠습니까?", [
-  //     {
-  //       text: "취소",
-  //       style: "cancel",
-  //       onPress: () => console.log("취소 클릭!"),
-  //     },
-  //     {
-  //       text: "삭제",
-  //       style: "destructive",
-  //       onPress: () => {
-  //         const newReviews = reviews.filter((review) => review.id !== id);
-  //         setReviews(newReviews);
-  //       },
-  //     },
-  //   ]);
-  // };
-
-  useEffect(() => {
-    const q = query(
-      collection(dbService, "reviews"),
-      orderBy("createdAt", "desc")
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newReviews = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setReviews(newReviews);
-    });
-    return unsubscribe;
-  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -101,10 +59,35 @@ export default function Detail({
     }, [])
   );
 
-  // // 문의 사항 버튼 클릭시 modal true 함수
-  // const handleAdding = () => {
-  //   setIsOpenModal(true);
-  // };
+  // useFocusEffect
+  // 문의 사항 버튼 클릭시 modal true 함수
+  const handleAdding = async () => {
+    const isLogin = !!authService.currentUser;
+    if (!isLogin) {
+      navigate("Login");
+      return;
+    }
+    setIsOpenModal(true);
+  };
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "reviews"),
+      orderBy("createdAt", "desc")
+    );
+    try {
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const newReviews = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setReviews(newReviews);
+      });
+      return unsubscribe;
+    } catch (error) {
+      console.log("unsubscribe error", error);
+    }
+  }, []);
 
   return (
     <FlatList

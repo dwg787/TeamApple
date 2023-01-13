@@ -1,6 +1,12 @@
 import styled from "@emotion/native";
 import { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native";
 import DropShadow from "react-native-drop-shadow";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
@@ -17,9 +23,9 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from 'firebase/firestore';
-import { dbService, authService } from '../../firebase';
-import { useFocusEffect } from '@react-navigation/native';
+} from "firebase/firestore";
+import { dbService, authService } from "../../firebase";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Details({ data }) {
   const [items, setItems] = useState([]);
@@ -31,8 +37,9 @@ export default function Details({ data }) {
       item?.desertionNo === data?.desertionNo &&
       item.userId === authService?.currentUser?.uid
   )?.isLike;
+  console.log(checkLike);
 
-  const q = query(collection(dbService, 'isLike'));
+  const q = query(collection(dbService, "isLike"));
 
   const getData = async () => {
     const querySnapshot = await getDocs(q);
@@ -52,29 +59,6 @@ export default function Details({ data }) {
       };
     }, [])
   );
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // console.log("items~~~~~~", items);
-  // console.log("data~~~~~~~", data);
-
-  // const q = query(collection(dbService, "isLike"));
-  // const getData = () => {
-  //   onSnapshot(q, (snapshot) => {
-  //     const newItems = snapshot.docs.map((doc) => {
-  //       const newitem = {
-  //         id: doc.id,
-  //         isLike: false,
-  //         ...doc.data(),
-  //       };
-  //       return newitem;
-  //     });
-
-  //     setItems(newItems);
-  //   });
-  // };
 
   // useEffect(() => {
   //   getData();
@@ -124,16 +108,16 @@ export default function Details({ data }) {
             }}
           >
             {!authService.currentUser ? null : checkLike ? (
-              <AntDesign name='heart' size={24} color='red' />
+              <AntDesign name="heart" size={24} color="red" />
             ) : (
-              <AntDesign name='hearto' size={24} color='red' />
+              <AntDesign name="hearto" size={24} color="red" />
             )}
           </HeartWrapper>
         </DetailPictureBox>
 
         <DropShadow
           style={{
-            shadowColor: '#000',
+            shadowColor: "#000",
             shadowOffset: {
               width: 0,
               height: 5,
@@ -154,7 +138,7 @@ const ScrollWrap = styled.View`
 `;
 
 const DetailImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3 + 'px'};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
   /* width: ${SCREEN_WIDTH}; */
   width: 100%;
   border-radius: 10%;
@@ -163,7 +147,7 @@ const DetailImage = styled.Image`
 
 const DetailPictureBox = styled.View`
   width: ${SCREEN_WIDTH};
-  height: ${SCREEN_HEIGHT / 3 + 'px'};
+  height: ${SCREEN_HEIGHT / 3 + "px"};
   border-radius: 10%;
   margin-bottom: 5%;
   background-color: #b3b3b3;

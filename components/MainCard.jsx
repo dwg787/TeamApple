@@ -55,23 +55,31 @@ export default function MainCard({ item }) {
     );
     if (!selectedItem && !!authService.currentUser) {
       const id = uuidv4();
-      await setDoc(doc(dbService, 'isLike', data.id), {
+      await setDoc(doc(dbService, "isLike", data.id), {
         ...item,
         id,
         isLike: false,
         userId: authService?.currentUser?.uid,
       });
-      getData();
+      try {
+        getData();
+      } catch (error) {
+        console.log("addIsLike getData error", error);
+      }
     }
   };
 
   const getData = async () => {
-    const querySnapshot = await getDocs(q);
-    const itemArray = [];
-    querySnapshot.forEach((doc) => {
-      itemArray.push(doc.data());
-    });
-    setItems(itemArray);
+    try {
+      const querySnapshot = await getDocs(q);
+      const itemArray = [];
+      querySnapshot.forEach((doc) => {
+        itemArray.push(doc.data());
+      });
+      setItems(itemArray);
+    } catch (error) {
+      console.log("getData error:", error);
+    }
   };
 
   useEffect(() => {
@@ -82,14 +90,14 @@ export default function MainCard({ item }) {
     <TouchableOpacity
       onPress={() => {
         addIsLike(item);
-        navigate('Detail', {
+        navigate("Detail", {
           params: { data: item },
         });
       }}
     >
       <DropShadow
         style={{
-          shadowColor: '#000',
+          shadowColor: "#000",
           shadowOffset: {
             width: 0,
             height: 5,
@@ -107,17 +115,27 @@ export default function MainCard({ item }) {
             <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>품종</TextC>
             <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>나이</TextC>
             <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>지역</TextC>
-            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>등록일</TextC>
+            <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>
+              등록일
+            </TextC>
           </AnimalCardType>
           <AnimalCardDescription>
-            <AnimalCardGender style={{ color: isDark ? "white" : "black" }}>{item.sexCd === "M" ? "남" : "W" ? "여" : "중성"}</AnimalCardGender>
-            <AnimalCardKind style={{ color: isDark ? "white" : "black" }}>{item.kindCd}</AnimalCardKind>
-            <AnimalCardAge style={{ color: isDark ? "white" : "black" }}>{item.age}</AnimalCardAge>
+            <AnimalCardGender style={{ color: isDark ? "white" : "black" }}>
+              {item.sexCd === "M" ? "남" : "W" ? "여" : "중성"}
+            </AnimalCardGender>
+            <AnimalCardKind style={{ color: isDark ? "white" : "black" }}>
+              {item.kindCd}
+            </AnimalCardKind>
+            <AnimalCardAge style={{ color: isDark ? "white" : "black" }}>
+              {item.age}
+            </AnimalCardAge>
             <AnimalCardLocation style={{ color: isDark ? "white" : "black" }}>
               {item.orgNm.slice(0, 2)}
               {/* {item.orgNm.length > 2 && '...'} */}
             </AnimalCardLocation>
-            <AnimalCardDate style={{ color: isDark ? "white" : "black" }}>{item.happenDt}</AnimalCardDate>
+            <AnimalCardDate style={{ color: isDark ? "white" : "black" }}>
+              {item.happenDt}
+            </AnimalCardDate>
           </AnimalCardDescription>
         </SingleCard>
       </DropShadow>
