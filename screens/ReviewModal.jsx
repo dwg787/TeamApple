@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import styled from '@emotion/native';
-import { Modal } from 'react-native';
-import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
-import { authService, dbService } from '../firebase';
+import { useState } from "react";
+import styled from "@emotion/native";
+import { Modal } from "react-native";
+import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { authService, dbService } from "../firebase";
 
 export default function ReviewModal({
   isOpenModal,
@@ -12,14 +12,14 @@ export default function ReviewModal({
   data,
   idchange,
 }) {
-  const [addContent, setAddcontent] = useState('');
+  const [addContent, setAddcontent] = useState("");
 
   // 3. 문의 수정 (edit)
   const editReview = async (idchange) => {
-    await updateDoc(doc(dbService, 'reviews', idchange), {
+    await updateDoc(doc(dbService, "reviews", idchange), {
       contents: addContent,
     }).then(() => {
-      setAddcontent('');
+      setAddcontent("");
       setIsEdit(false);
       setIsOpenModal(false);
     });
@@ -35,9 +35,10 @@ export default function ReviewModal({
   };
 
   const addReview = async () => {
-    await addDoc(collection(dbService, 'reviews'), newReview);
-    // setReviews((prev) => [...prev, newReview]);
-    setAddcontent('');
+    await addDoc(collection(dbService, "reviews"), newReview),
+      // console.log("reviews");
+      // setReviews((prev) => [...prev, newReview]);
+      setAddcontent("");
     setIsOpenModal(false);
   };
 
@@ -56,7 +57,7 @@ export default function ReviewModal({
               maxLength={300}
             />
           </InputWrapper>
-          <Row style={{ justifyContent: 'space-between' }}>
+          <Row style={{ justifyContent: "space-between" }}>
             <BtnWrapper>
               <ModalBtn
                 onPress={() => setIsOpenModal(false)}
@@ -67,7 +68,7 @@ export default function ReviewModal({
             <BtnWrapper2>
               <ModalBtn
                 onPress={isEdit ? () => editReview(idchange) : addReview}
-                title={isEdit ? '수정' : '완료'}
+                title={isEdit ? "수정" : "완료"}
                 color='white'
               />
             </BtnWrapper2>

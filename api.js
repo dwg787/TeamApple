@@ -16,15 +16,23 @@ const numOfRows = 10;
 
 //주로 사용하는 fetcher
 export const fetchData = async (pageParam) => {
-  const res = await axios.get(
-    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&pageNo=${pageParam}&_type=json`
-  );
-  return res.data.response.body;
+  try {
+    const res = await axios.get(
+      `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&pageNo=${pageParam}&_type=json`
+    );
+    return res.data.response.body;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const fetchFilteredData = async (upr_cd, upkind, pageParam) => {
-  const res = await axios.get(
-    `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&upr_cd=${upr_cd}&upkind=${upkind}&pageNo=${pageParam}&_type=json`
-  );
-  return res.data.response.body;
+  try {
+    const res = await axios.get(
+      `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${API_KEY}&upr_cd=${upr_cd}&upkind=${upkind}&pageNo=${pageParam}&_type=json`
+    );
+    return res.data.response.body;
+  } catch (err) {
+    console.log(err);
+  }
 };

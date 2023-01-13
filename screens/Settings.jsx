@@ -13,6 +13,7 @@ import { ORANGE_COLOR, BLUE_COLOR, DARK_COLOR } from '../colors';
 
 export default function Settings() {
   const isDark = useColorScheme() === 'dark';
+
   const { navigate, setOptions, goBack } = useNavigation();
   const [textValue, setTextValue] = useState('');
   const [init, setInit] = useState(false);
@@ -28,7 +29,7 @@ export default function Settings() {
       displayName: textValue,
     })
       .then(() => {
-        setTextValue("");
+        setTextValue('');
       })
       .catch((error) => {
         console.log(error);
@@ -109,8 +110,8 @@ export default function Settings() {
             <ProfileTextWrap>
               <ProfileTitle>{displayName}</ProfileTitle>
               <ProfileTextInput
-                placeholder="닉네임을 입력해주세요 ..."
-                placeholderTextColor="#A8A8A8"
+                placeholder='닉네임을 입력해주세요 ...'
+                placeholderTextColor='#A8A8A8'
                 value={textValue}
                 onChangeText={setTextValue}
               />
@@ -145,7 +146,7 @@ const SettingWrap = styled.View`
 `;
 
 const SettingImage = styled.Image`
-  height: ${SCREEN_HEIGHT / 3.5 + 'px'};
+  height: ${SCREEN_HEIGHT / 3.3 + 'px'};
   width: ${SCREEN_WIDTH / 2 + 'px'};
   margin-bottom: 10%;
   margin-left: 15%;

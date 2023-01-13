@@ -6,7 +6,6 @@ import {
   Text,
   Image,
   Button,
-  TouchableOpacity,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { LinearGradient } from "expo-linear-gradient";
@@ -36,6 +35,10 @@ const IntroSlider = () => {
       >
         <Text style={styles.introTitleStyle}>{item.title}</Text>
         <Image style={styles.introImageStyle} source={item.image} />
+        <LinearGradient
+          style={StyleSheet.absoluteFill}
+          colors={["transparent", "#101010"]}
+        />
         <Text style={styles.introTextStyle}>{item.text}</Text>
       </View>
     );
@@ -58,16 +61,14 @@ const IntroSlider = () => {
               onPress={() => setShowRealApp(false)}
               color='#fff'
             />
-          </View>
-          <View style={styles.apStartTextWrapper}>
-            <TouchableOpacity
-              style={{ alignItems: "center" }}
+            <Button
+              style={{ fontWeight: "bold" }}
+              title='애플펫 시작하기'
               onPress={() =>
                 navigation.navigate("NotTabs", { screen: "Login" })
               }
-            >
-              <Text style={styles.apStartText}>애플펫 시작하기</Text>
-            </TouchableOpacity>
+              color='#F19936'
+            />
           </View>
         </View>
       ) : (
@@ -94,11 +95,9 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     backgroundColor: "#0c68f2",
-    marginTop: -30,
   },
   logo: {
-    marginLeft: 30,
-    marginBottom: 10,
+    marginLeft: 40,
     width: 150,
     height: 100,
   },
@@ -129,16 +128,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 300,
   },
-  apStartTextWrapper: {
-    // marginTop: 200,
-  },
-  apStartText: {
-    position: "absolute",
-    bottom: 210,
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#F19936",
-  },
 });
 
 const slides = [
@@ -165,7 +154,7 @@ const slides = [
     title: "",
     text: "사지말고 입양하세요",
     image: {
-      uri: "https://user-images.githubusercontent.com/78587041/211697050-39e00c76-cab4-41ee-a1e2-426115fa5c28.png",
+      uri: "https://i.pinimg.com/564x/d3/1a/b5/d31ab589965964e74a1b0f44e101c030.jpg",
     },
     backgroundColor: "#22bcb5",
   },
