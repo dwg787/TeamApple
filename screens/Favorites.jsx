@@ -1,6 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
-import { View, Text, TouchableOpacity, ScrollView, useColorScheme } from "react-native";
-import { SCREEN_HEIGHT } from "../utils";
+import { useState, useEffect, useCallback } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  useColorScheme,
+} from 'react-native';
+import { SCREEN_HEIGHT } from '../utils';
 import {
   collection,
   addDoc,
@@ -12,14 +18,14 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";
-import { dbService, authService } from "../firebase";
-import styled from "@emotion/native";
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/native";
-import DropShadow from "react-native-drop-shadow";
-import { AntDesign } from "@expo/vector-icons";
-import { DARK_COLOR, ORANGE_COLOR, BLUE_COLOR } from "../colors";
+} from 'firebase/firestore';
+import { dbService, authService } from '../firebase';
+import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import DropShadow from 'react-native-drop-shadow';
+import { AntDesign } from '@expo/vector-icons';
+import { DARK_COLOR, ORANGE_COLOR, BLUE_COLOR } from '../colors';
 
 export default function Favorites() {
   const isDark = useColorScheme() === 'dark';
@@ -62,7 +68,7 @@ export default function Favorites() {
       {/* 1. 로그인 상태라면 페이지를 띄워주고 아니라면 로그인 하라는 안내 페이지를 띄워준다. */}
       {/* 2. item.isLike가 true이고, item.userId가 로그인한 아이디와 같은 것들만 관심목록 페이지에 띄워준다. */}
       {!!authService.currentUser ? (
-        <ScrollView style={{ backgroundColor: isDark ? "#1B1D21" : "white" }}>
+        <ScrollView style={{ backgroundColor: isDark ? '#1B1D21' : 'white' }}>
           {items.map((item) => {
             if (item.isLike && item.userId === authService?.currentUser?.uid) {
               return (
@@ -86,23 +92,55 @@ export default function Favorites() {
                       shadowRadius: 4.65,
                     }}
                   >
-                    <SingleCard style={{ backgroundColor: isDark ? "#212123" : "white" }}>
+                    <SingleCard
+                      style={{ backgroundColor: isDark ? '#212123' : 'white' }}
+                    >
                       <AnimalCardPicture>
-                        <AnimalPic source={{ url: `${item.popfile}` }} />
+                        <AnimalPic source={{ url: `${item?.popfile}` }} />
                       </AnimalCardPicture>
                       <AnimalCardType>
-                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>성별</TextC>
-                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>품종</TextC>
-                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>나이</TextC>
-                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>지역</TextC>
-                        <TextC style={{ color: isDark ? DARK_COLOR : "black" }}>등록일</TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+                          성별
+                        </TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+                          품종
+                        </TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+                          나이
+                        </TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+                          지역
+                        </TextC>
+                        <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>
+                          등록일
+                        </TextC>
                       </AnimalCardType>
                       <AnimalCardDescription>
-                        <AnimalCardGender style={{ color: isDark ? "white" : "black" }}>{item.sexCd}</AnimalCardGender>
-                        <AnimalCardKind style={{ color: isDark ? "white" : "black" }}>{item.kindCd}</AnimalCardKind>
-                        <AnimalCardAge style={{ color: isDark ? "white" : "black" }}>{item.age}</AnimalCardAge>
-                        <AnimalCardLocation style={{ color: isDark ? "white" : "black" }}>{item.orgNm}</AnimalCardLocation>
-                        <AnimalCardDate style={{ color: isDark ? "white" : "black" }}>{item.happenDt}</AnimalCardDate>
+                        <AnimalCardGender
+                          style={{ color: isDark ? 'white' : 'black' }}
+                        >
+                          {item?.sexCd}
+                        </AnimalCardGender>
+                        <AnimalCardKind
+                          style={{ color: isDark ? 'white' : 'black' }}
+                        >
+                          {item?.kindCd}
+                        </AnimalCardKind>
+                        <AnimalCardAge
+                          style={{ color: isDark ? 'white' : 'black' }}
+                        >
+                          {item?.age}
+                        </AnimalCardAge>
+                        <AnimalCardLocation
+                          style={{ color: isDark ? 'white' : 'black' }}
+                        >
+                          {item?.orgNm}
+                        </AnimalCardLocation>
+                        <AnimalCardDate
+                          style={{ color: isDark ? 'white' : 'black' }}
+                        >
+                          {item?.happenDt}
+                        </AnimalCardDate>
                       </AnimalCardDescription>
                     </SingleCard>
                   </DropShadow>
@@ -130,7 +168,6 @@ const TextC = styled.Text`
   font-size: 15px;
   font-weight: bold;
   margin-top: 8px;
-  
 `;
 
 const SingleCard = styled.View`

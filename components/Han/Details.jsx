@@ -97,7 +97,7 @@ export default function Details({ data }) {
   const isLikeChangeHandler = async (desertionNo) => {
     const choiceItem = items.find(
       (item) =>
-        item.desertionNo === desertionNo &&
+        item?.desertionNo === desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
 

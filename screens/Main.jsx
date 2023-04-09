@@ -101,7 +101,7 @@ export default function Main() {
   }
 
   if (!isLoading) {
-    const animalList = rawData?.pages.map((page) => page.items.item).flat();
+    const animalList = rawData?.pages.map((page) => page?.items?.item).flat();
     const totalPosting = animalList?.length || 0;
     // console.log(
     //   'animalList:',
@@ -138,7 +138,7 @@ export default function Main() {
           onEndReached={loadMoreData}
           data={animalList}
           renderItem={({ item }) => <MainCard item={item} />}
-          keyExtractor={(item) => item.desertionNo}
+          keyExtractor={(item) => item?.desertionNo}
           ItemSeparatorComponent={<View style={{ width: 10 }} />}
         />
         {/* </TouchableOpacity> */}

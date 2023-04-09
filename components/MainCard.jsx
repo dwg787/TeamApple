@@ -50,7 +50,7 @@ export default function MainCard({ item }) {
   const addIsLike = async (data) => {
     const selectedItem = items.find(
       (item) =>
-        item.desertionNo === data.desertionNo &&
+        item?.desertionNo === data.desertionNo &&
         item.userId === authService?.currentUser?.uid
     );
     if (!selectedItem && !!authService.currentUser) {
@@ -100,7 +100,7 @@ export default function MainCard({ item }) {
       >
         <SingleCard style={{ backgroundColor: isDark ? '#212123' : 'white' }}>
           <AnimalCardPicture>
-            <AnimalPic source={{ url: `${item.popfile}` }} />
+            <AnimalPic source={{ url: `${item?.popfile}` }} />
           </AnimalCardPicture>
           <AnimalCardType>
             <TextC style={{ color: isDark ? DARK_COLOR : 'black' }}>성별</TextC>
@@ -113,20 +113,20 @@ export default function MainCard({ item }) {
           </AnimalCardType>
           <AnimalCardDescription>
             <AnimalCardGender style={{ color: isDark ? 'white' : 'black' }}>
-              {item.sexCd === 'M' ? '남' : 'W' ? '여' : '중성'}
+              {item?.sexCd === 'M' ? '남' : 'W' ? '여' : '중성'}
             </AnimalCardGender>
             <AnimalCardKind style={{ color: isDark ? 'white' : 'black' }}>
-              {item.kindCd}
+              {item?.kindCd}
             </AnimalCardKind>
             <AnimalCardAge style={{ color: isDark ? 'white' : 'black' }}>
-              {item.age}
+              {item?.age}
             </AnimalCardAge>
             <AnimalCardLocation style={{ color: isDark ? 'white' : 'black' }}>
-              {item.orgNm.slice(0, 2)}
+              {item?.orgNm.slice(0, 2)}
               {/* {item.orgNm.length > 2 && '...'} */}
             </AnimalCardLocation>
             <AnimalCardDate style={{ color: isDark ? 'white' : 'black' }}>
-              {item.happenDt}
+              {item?.happenDt}
             </AnimalCardDate>
           </AnimalCardDescription>
         </SingleCard>
