@@ -26,25 +26,6 @@ export default function Main() {
     (state) => state.selection.selection
   );
 
-  // console.log(
-  //   'filter 페이지에서 main으로 넘겨준 선택값:',
-  //   selectedLocation,
-  //   selectedKind
-  // );
-  // console.log(
-  //   'filter 페이지에서 넘겨준 축종 코드:',
-  //   params.selectedKind,
-  //   'filter 페이지에서 넘겨준 시도 코드:',
-  //   params.selectedLocation
-  // );
-
-  // const {
-  //   data: rawData,
-  //   isLoading,
-  //   // isError,
-  //   // error,
-  // } = useQuery('animal_list', fetchData);
-
   const {
     data: rawData,
     isLoading,
@@ -67,6 +48,7 @@ export default function Main() {
           ? undefined
           : lastPage?.pageNo + 1;
       },
+      staleTime: 1000 * 60 * 60,
     }
   );
 
